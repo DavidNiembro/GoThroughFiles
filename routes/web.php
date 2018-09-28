@@ -18,11 +18,18 @@ Route::get('/', function () {
 
     $finder = new Finder();
     //print_r(__DIR__);
-    $finder->files()->in("N:\\")->name("(/\.php|/\.md|/\.txt|/\.pdf|/\.docx|/\.vsdx|/\.css|/\.html|/\.doc|/\.rtf|/\.js|/\.xml|/\.json|/\.log|/\.ipt|/\.odt|/\.wks|/\.wpd)$/");
+    $finder->files()->in("P:\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd)$/");
 
+    $fileContainer = array();
     foreach ($finder as $file) {
         // dumps the absolute path
-        echo $file->getFilename() . "\r\n";
+        $arrayFile = array();
+        $arrayFile["path"] = $file->getRealPath();
+        $arrayFile["content"] = $file->getContents();
+
+        array_push($fileContainer, $arrayFile);
+        //echo $file->getRealPath() . "\r\n<br />";
+        //echo "\t\t" . $file->getContents() . "\r\b\r\n<br />------------------------------------------------------------------------\r\n\r\n<br />";
 //        var_dump($file->getRealPath());
 //
 //        // dumps the relative path to the file, omitting the filename
@@ -31,4 +38,6 @@ Route::get('/', function () {
 //        // dumps the relative path to the file
 //        var_dump($file->getRelativePathname());
     }
+    print_r($fileContainer);
+
 });
