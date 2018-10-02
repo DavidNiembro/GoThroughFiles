@@ -13,21 +13,28 @@
 use Symfony\Component\Finder\Finder;
 
 
+
 Route::get('/', function () {
     $myFile = fopen("output_json.txt", "rb");
     $content = fread($myFile, filesize("output_json.txt"));
     $array = json_decode($content, true);
-    //var_dump($array);
-    foreach($array["files"] as $key => $value) {
-        print_r( $value );
-        if(strpos($value["path"], 'Dossier') !== false){
-            echo 'Trouvé !';
+
+    $arrayOfMetaDataToSearch = array("path", "content");
+    $wordToSearch = "Salut";
+    foreach($arrayOfMetaDataToSearch as $metaData){
+        foreach($array["files"] as $key => $value) {
+            if(strpos($value[$metaData], $wordToSearch) !== false){
+                echo "<br />Trouvé " .  $wordToSearch . " dans " . $metaData . " du fichier " . $value["path"] . "\r\n<br />";
+            }
         }
-        //array_keys($array["files"]);
     }
 
-    //print_r($array);
-/*
+});
+
+Route::get('/generateJson', function () {
+    set_time_limit(600);
+    ini_set('memory_limit', '-1');
+
     function utf8ize($d) {
         if (is_array($d)) {
             foreach ($d as $k => $v) {
@@ -39,12 +46,9 @@ Route::get('/', function () {
         return $d;
     }
 
-    //return view('welcome');
-
-
     $finder = new Finder();
     //print_r(__DIR__);
-    $finder->files()->in("P:\\Dossier_test\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd)$/");
+    $finder->files()->in("P:\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd)$/");
 
     $fileContainer["files"] = array();
     foreach ($finder as $file) {
@@ -71,6 +75,5 @@ Route::get('/', function () {
     print_r(error_get_last());
     $myFile = fopen("output_json.txt", "w");
     fwrite($myFile, $encoded);
-    fclose($myFile);*/
-
+    fclose($myFile);
 });
