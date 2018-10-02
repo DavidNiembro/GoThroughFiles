@@ -12,6 +12,5 @@
 */
 
 Route::get('/', function () {
-    return response()
-    ->json(['name' => 'David']);
+    return view('welcome');
 });
