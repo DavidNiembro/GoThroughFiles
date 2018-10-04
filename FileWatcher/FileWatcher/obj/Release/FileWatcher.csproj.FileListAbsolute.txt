@@ -1,0 +1,7 @@
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\bin\Release\FileWatcher.exe.config
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\bin\Release\FileWatcher.exe
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\bin\Release\FileWatcher.pdb
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\obj\Release\FileWatcher.csprojAssemblyReference.cache
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\obj\Release\FileWatcher.csproj.CoreCompileInputs.cache
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\obj\Release\FileWatcher.exe
+C:\Users\Dardan Iljazi\Documents\Dardan\002CPNV\ES\MAW\GoThroughFiles\FileWatcher\FileWatcher\obj\Release\FileWatcher.pdb

@@ -50,7 +50,7 @@ Route::get('/generateJson', function () {
 
     $finder = new Finder();
     //print_r(__DIR__);
-    $finder->files()->in("P:\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd|\.sql)$/");
+    $finder->files()->in("C:\\Users\\Dardan Iljazi\\Documents\\Dardan\\002CPNV\\ES\\MAW\\GoThroughFiles\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd|\.sql)$/");
 
     $fileContainer["files"] = array();
     foreach ($finder as $file) {

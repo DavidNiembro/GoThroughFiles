@@ -44,7 +44,7 @@ app.on("ready", function() {
 
     function mainWindows() {
         //mainWindow.loadURL("http://127.0.0.1:3000/");
-        mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL("http://127.0.0.1:8088/generateJson");
     }
 
     // Uncomment to open the DevTools.
