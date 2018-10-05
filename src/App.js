@@ -1,27 +1,43 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import node_dir from "node-dir";
+
 const axios = require("axios");
 
 class App extends Component {
     constructor() {
         super();
-        axios
+        /*axios
             .get("http://127.0.0.1:8088/")
             .then(function(response) {
-                // handle success
                 console.log(response);
             })
             .catch(function(error) {
-                // handle error
                 console.log(error);
             })
             .then(function() {
-                // always executed
+            });*/
+    
+            /*node_dir.readFilesStream(__dirname,
+        function(err, stream, next) {
+            if (err) throw err;
+            var content = '';
+            stream.on('data',function(buffer) {
+                content += buffer.toString();
             });
+            stream.on('end',function() {
+                console.log('content:', content);
+                next();
+            });
+        },
+        function(err, files){
+            if (err) throw err;
+            console.log('finished reading files:', files);
+        });*/
     }
-
     render() {
+        
         return (
             <div className="App">
                 <header className="App-header">

@@ -27,6 +27,12 @@ app.on("window-all-closed", function() {
     }
 });
 
+const startUrl = process.env.ELECTRON_START_URL || url.format({
+    pathname: path.join(__dirname, '/../build/index.html'),
+    protocol: 'file:',
+    slashes: true
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on("ready", function() {
@@ -43,8 +49,8 @@ app.on("ready", function() {
     setTimeout(mainWindows, 300);
 
     function mainWindows() {
-        //mainWindow.loadURL("http://127.0.0.1:3000/");
-        mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL(startUrl);
+        //mainWindow.loadURL("http://127.0.0.1:8088/search");
     }
 
     // Uncomment to open the DevTools.

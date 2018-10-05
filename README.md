@@ -9,6 +9,8 @@ Installation
 * Clone le repository
 * Executer  `npm install`
 * Aller dans le dossier *backend* puis exectuer `composer install`
+* Copier le fichier .env.exemple en .env avec la commande `cp .env.exemple .env`
+* Executer la commande `php artisan key:generate` la première fois.
 
 Execution
 ---------

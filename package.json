@@ -3,24 +3,40 @@
   "version": "0.1.0",
   "main": "main.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER=none nf start -p 3000",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
-    "dev": "nf start -p 3000"
+    "electron-start": "node src/electron-wait-react",
+    "react-start": "react-scripts start",
+    "pack": "build --dir",
+    "dist": "npm run build && build",
+    "postinstall": "install-app-deps"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "foreman": "^3.0.1",
+    "fs": "^0.0.1-security",
+    "node-dir": "^0.1.17",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5"
   },
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "directories": {
+      "buildResources": "public"
+    }
+  },
   "author": "David Niembro Scaccianoce",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^2.0.11",
+    "electron": "^3.0.2",
+    "electron-builder": "^20.28.4",
     "foreman": "^2.0.0",
     "gulp-connect-php": "^1.0.3",
     "react-scripts": "0.8.5"
