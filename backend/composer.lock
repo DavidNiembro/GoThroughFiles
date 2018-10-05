@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96098e473b028cdb2529580554a1ae3e",
+    "content-hash": "079d9492afb59761221d740dbca61c20",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1291,25 +1291,25 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.16",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "e8db87d755e14271e920e31ba834a4ae99483232"
+                "reference": "4263e35a1e342a0f195c9349c0dee38148f8a14f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/e8db87d755e14271e920e31ba834a4ae99483232",
-                "reference": "e8db87d755e14271e920e31ba834a4ae99483232",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/4263e35a1e342a0f195c9349c0dee38148f8a14f",
+                "reference": "4263e35a1e342a0f195c9349c0dee38148f8a14f",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -1336,7 +1336,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-09-21T12:47:54+00:00"
+            "time": "2016-11-03T08:11:03+00:00"
         },
         {
             "name": "symfony/http-foundation",
