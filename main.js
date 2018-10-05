@@ -2,6 +2,54 @@
 const electron = require("electron");
 const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
+const chokidar = require('chokidar');
+
+var watcher = chokidar.watch('file, dir, glob, or array', {ignored: /(^|[\/\\])\../, persistent: true, usePolling: true}).on('all', (event, path) => {
+
+});
+
+watcher.on('add', (path, stats) => {
+    console.log("add");
+    console.log(path);
+    console.log(stats);
+    console.log("------------------\n\n");
+});
+
+watcher.on('change', (path, stats) => {
+    console.log("change");
+    console.log(path);
+    console.log(stats);
+    console.log("------------------\n\n");
+});
+
+watcher.on('unlink', (path) => {
+    console.log("unlink");
+    console.log(path);
+    console.log("------------------\n\n");
+});
+
+watcher.on('ready', () => {
+    console.log("ready");
+    console.log(path);
+    console.log(stats);
+    console.log("------------------\n\n");
+});
+
+watcher.on('raw', (event, path, details) => {
+    console.log("raw");
+    console.log(event);
+    console.log(path);
+    console.log(details);
+    console.log("------------------\n\n");
+});
+
+watcher.on('error', (error) => {
+    console.log("error");
+    console.log(error);
+    console.log("------------------\n\n");
+});
+
+watcher.add("P:\\");
 
 // php ruleZ
 var path = require("path");
@@ -44,7 +92,7 @@ app.on("ready", function() {
 
     function mainWindows() {
         //mainWindow.loadURL("http://127.0.0.1:3000/");
-        mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL("http://127.0.0.1:8088/");
     }
 
     // Uncomment to open the DevTools.

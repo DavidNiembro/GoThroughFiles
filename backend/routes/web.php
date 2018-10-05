@@ -13,6 +13,10 @@
 use Symfony\Component\Finder\Finder;
 
 
+Route::get('/', function () {
+
+});
+
 Route::get('/search', function () {
     set_time_limit(600);
     ini_set('memory_limit', '-1');
@@ -32,8 +36,9 @@ Route::get('/search', function () {
     }
 });
 
+
 Route::get('/generateJson', function () {
-    echo '/generateJson';
+    echo '/generateJson\r\n<br />';
     set_time_limit(600);
     ini_set('memory_limit', '-1');
 
@@ -53,13 +58,16 @@ Route::get('/generateJson', function () {
     $finder->files()->in("P:\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd|\.sql)$/");
 
     $fileContainer["files"] = array();
+    $i = 0;
     foreach ($finder as $file) {
         // dumps the absolute path
         $arrayFile = array();
         $arrayFile["path"] = $file->getRealPath();
         $arrayFile["content"] = $file->getContents();
-        echo $file->getRealPath() . "<br />\r\n";
+
+        echo '[' . $i . ']: ' . $file->getRealPath() . "<br />\r\n";
         array_push($fileContainer["files"], $arrayFile);
+        $i ++;
         //echo $file->getRealPath() . "\r\n<br />";
         //echo "\t\t" . $file->getContents() . "\r\b\r\n<br />------------------------------------------------------------------------\r\n\r\n<br />";
 //        var_dump($file->getRealPath());

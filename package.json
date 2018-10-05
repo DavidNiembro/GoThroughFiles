@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "chokidar": "^2.0.4",
+    "filewatcher": "^3.0.1",
     "foreman": "^3.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
