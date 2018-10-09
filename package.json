@@ -17,6 +17,7 @@
     "foreman": "^3.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-particle-animation": "^1.0.1",
     "react-scripts": "1.1.5"
   },
   "author": "David Niembro Scaccianoce",

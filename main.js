@@ -4,52 +4,71 @@ const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 const chokidar = require('chokidar');
 
-var watcher = chokidar.watch('file, dir, glob, or array', {ignored: /(^|[\/\\])\../, persistent: true, usePolling: true}).on('all', (event, path) => {
 
+var watcher = chokidar.watch('P:\\', {ignoreInitial: true, followSymlinks: false, ignored: /(^|[\/\\])\../, persistent: true, usePolling: true, interval: 10, binaryInterval:30}).on('all', (event, path) => {
+    console.log("event: " + event);
+    console.log("path: " + path);
+
+    switch(event){
+        case "change": // File changed
+            break;
+        case "add": // File added
+
+            break;
+        case "error":
+            break;
+        case "unlink": // File deleted
+            break;
+        case "unlinkDir":
+        case "addDir":
+            // NORMALLY WE DON'T HAVE TO USE THESE RIGHT NOW (BUT I KEEP THEM IF NEEDED ONE DAY)
+            break;
+    }
 });
+//
+// watcher.on('add', (path, stats) => {
+//     console.log("add");
+//     console.log(path);
+//     console.log(stats);
+//     console.log("------------------\n\n");
+// });
+//
+// watcher.on('change', (path, stats) => {
+//     console.log("change");
+//     console.log(path);
+//     console.log(stats);
+//     console.log("------------------\n\n");
+// });
+//
+// watcher.on('unlink', (path) => {
+//     console.log("unlink");
+//     console.log(path);
+//     console.log("------------------\n\n");
+// });
+//
+// watcher.on('ready', () => {
+//     console.log("ready");
+//     console.log(path);
+//     console.log(stats);
+//     console.log("------------------\n\n");
+// });
+//
+// watcher.on('raw', (event, path, details) => {
+//     console.log(event);
+//     console.log("Le fichier: " + path + " a émis un event: " + event);
+//     console.log(path);
+//     console.log(JSON.stringify(details));
+//
+//     console.log("------------------\n\n");
+// });
+//
+// watcher.on('error', (error) => {
+//     console.log("error");
+//     console.log(error);
+//     console.log("------------------\n\n");
+// });
 
-watcher.on('add', (path, stats) => {
-    console.log("add");
-    console.log(path);
-    console.log(stats);
-    console.log("------------------\n\n");
-});
-
-watcher.on('change', (path, stats) => {
-    console.log("change");
-    console.log(path);
-    console.log(stats);
-    console.log("------------------\n\n");
-});
-
-watcher.on('unlink', (path) => {
-    console.log("unlink");
-    console.log(path);
-    console.log("------------------\n\n");
-});
-
-watcher.on('ready', () => {
-    console.log("ready");
-    console.log(path);
-    console.log(stats);
-    console.log("------------------\n\n");
-});
-
-watcher.on('raw', (event, path, details) => {
-    console.log("raw");
-    console.log(event);
-    console.log(path);
-    console.log(details);
-    console.log("------------------\n\n");
-});
-
-watcher.on('error', (error) => {
-    console.log("error");
-    console.log(error);
-    console.log("------------------\n\n");
-});
-
-watcher.add("P:\\");
+//watcher.add("P:\\");
 
 // php ruleZ
 var path = require("path");
