@@ -4,14 +4,14 @@ const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 const fs = require('fs');
 const chokidar = require('chokidar');
-var request = require('request')
-    , JSONStream = require('JSONStream')
-    , es = require('event-stream')
-
-fs.readdirSync("./backend/public/").forEach(file => {
-    console.log(file);
-});
-var jsonFileIndex = null;
+// var request = require('request')
+//     , JSONStream = require('JSONStream')
+//     , es = require('event-stream')
+//
+// fs.readdirSync("./backend/public/").forEach(file => {
+//     console.log(file);
+// });
+// var jsonFileIndex = null;
 
 //SYNC: const jsonFileIndex = JSON.parse(fs.readFileSync('./backend/public/output_json.txt', 'utf8'));
 
@@ -19,7 +19,7 @@ var jsonFileIndex = null;
 fs.readFile('./backend/public/output_json.txt', 'utf8', function (err, data) {
     if (err) throw err;
     jsonFileIndex = JSON.parse(data);
-    
+
 });
 
 
@@ -130,7 +130,7 @@ app.on("ready", function() {
 
     function mainWindows() {
         //mainWindow.loadURL("http://127.0.0.1:3000/");
-        mainWindow.loadURL("http://127.0.0.1:8088/");
+        mainWindow.loadURL("http://127.0.0.1:8088/search");
     }
 
     // Uncomment to open the DevTools.
