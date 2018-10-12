@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/search', function () {
+
     set_time_limit(600);
     ini_set('memory_limit', '-1');
     echo '/';
@@ -28,7 +29,7 @@ Route::get('/search', function () {
     $arrayOfMetaDataToSearch = array("path", "content");
     $wordToSearch = "Installation.md";
     foreach($arrayOfMetaDataToSearch as $metaData){
-        foreach($array["files"] as $key => $value) {
+        foreach($array as $key => $value) {
             if(strpos($value[$metaData], $wordToSearch) !== false){
                 echo "<br />Trouvé " .  $wordToSearch . " dans " . $metaData . " du fichier " . $value["path"] . "\r\n<br />";
             }
@@ -55,9 +56,9 @@ Route::get('/generateJson', function () {
 
     $finder = new Finder();
     //print_r(__DIR__);
-    $finder->files()->in("P:\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd|\.sql)$/");
+    $finder->files()->in("P:\\MAW1.1\\GED\\GoThroughFiles\\backend\\resources\\")->name("/(\.php|\.md|\.txt|\.pdf|\.docx|\.vsdx|\.css|\.html|\.doc|\.rtf|\.js|\.xml|\.json|\.log|\.ipt|\.odt|\.wks|\.wpd|\.sql)$/");
 
-    $fileContainer["files"] = array();
+    $fileContainer = array();
     $i = 0;
     foreach ($finder as $file) {
         // dumps the absolute path
@@ -66,7 +67,7 @@ Route::get('/generateJson', function () {
         $arrayFile["content"] = $file->getContents();
 
         echo '[' . $i . ']: ' . $file->getRealPath() . "<br />\r\n";
-        array_push($fileContainer["files"], $arrayFile);
+        array_push($fileContainer, $arrayFile);
         $i ++;
         //echo $file->getRealPath() . "\r\n<br />";
         //echo "\t\t" . $file->getContents() . "\r\b\r\n<br />------------------------------------------------------------------------\r\n\r\n<br />";

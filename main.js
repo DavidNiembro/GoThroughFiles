@@ -2,8 +2,30 @@
 const electron = require("electron");
 const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
-const fs = require('fs');
 const chokidar = require('chokidar');
+const fs = require('fs');
+const {chain} = require('stream-chain');
+const {pick} = require('stream-json/filters/Pick');
+const {parser} = require('stream-json/Parser');
+const {streamArray} = require('stream-json/streamers/StreamArray');
+
+
+
+const pipeline = chain([
+    fs.createReadStream('./backend/public/output_json.txt'),
+    parser(),
+    pick({filter: /path/}),
+    streamArray(),
+]);
+
+pipeline.on('data', function({index, value}){
+
+    console.log("index: ");
+    console.log(index);
+    console.log("value : ");
+    console.log(value);
+});
+
 // var request = require('request')
 //     , JSONStream = require('JSONStream')
 //     , es = require('event-stream')
@@ -16,15 +38,14 @@ const chokidar = require('chokidar');
 //SYNC: const jsonFileIndex = JSON.parse(fs.readFileSync('./backend/public/output_json.txt', 'utf8'));
 
 // ASYNC
-fs.readFile('./backend/public/output_json.txt', 'utf8', function (err, data) {
-    if (err) throw err;
-    jsonFileIndex = JSON.parse(data);
+// fs.readFile('./backend/public/output_json.txt', 'utf8', function (err, data) {
+//     if (err) throw err;
+//     jsonFileIndex = JSON.parse(data);
+//
+// });
 
-});
 
-
-
-var watcher = chokidar.watch('P:\\', {ignoreInitial: true, followSymlinks: false, ignored: /(^|[\/\\])\../, persistent: true, usePolling: true, interval: 10, binaryInterval:30}).on('all', (event, path) => {
+var watcher = chokidar.watch('P:\\MAW1.1\\GED\\GoThroughFiles\\backend\\', {ignoreInitial: true, followSymlinks: false, ignored: /(^|[\/\\])\../, persistent: true, usePolling: true, interval: 10, binaryInterval:30}).on('all', (event, path) => {
     console.log("event: " + event);
     console.log("path: " + path);
 
@@ -130,7 +151,7 @@ app.on("ready", function() {
 
     function mainWindows() {
         //mainWindow.loadURL("http://127.0.0.1:3000/");
-        mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL("http://127.0.0.1:8088/");
     }
 
     // Uncomment to open the DevTools.
