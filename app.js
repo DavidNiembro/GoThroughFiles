@@ -43,6 +43,7 @@ let db = new loki(DATABASE_NAME, {
 /* !!END DATABASE/SEARCH!!*/
 
 
+
 /* FUNCTIONS
  *
  */
