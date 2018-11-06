@@ -1,0 +1,88 @@
+console.log("Hello")
+
+var readdirp = require('readdirp');
+var fs = require('fs');
+var readline = require('readline');
+var stream = require('stream');
+
+const loki = require("lokijs");
+const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
+var gothroughFilesData = null // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
+
+var adapter = new lfsa();
+var db = new loki('gothroughfiles.db', {
+    adapter : adapter,
+    autoload: true,
+    autoloadCallback : databaseInitialize,
+    autosave: true,
+    autosaveInterval: 4000
+});
+
+
+
+function databaseInitialize() {
+    gothroughFilesData = db.getCollection("gothroughFilesData");
+
+    if (gothroughFilesData === null) {
+        db.addCollection("gothroughFilesData");
+    }
+
+    main()
+}
+
+function main() {
+    readdirp({root: 'C:\\Users\\Dardan.Iljazi\\Documents\\', directoryFilter: ['!.git', '!*modules']},
+        function (fileInfo) {
+        }, function (err, res) {
+            let objectData = [];
+
+            res.files.forEach(data => {
+                var newFile = true
+                var actualFile = null;
+                var actualFileName = data.fullPath
+                var instream = fs.createReadStream(data.fullPath)
+                var outstream = new stream;
+                var rl = readline.createInterface(instream, outstream)
+
+
+                rl.on('line', function (line) {
+
+                    // console.log("file : " + actualFileName)
+                    // console.log("r1 = " + rl)
+                    // console.log("\r\n")
+                    if (newFile) {
+                        console.log("NEW FILE")
+                        newFile = false;
+                        actualFile = gothroughFilesData.insert({
+                            Path: data.fullPath.toString(),
+                            content: rl,
+                            Name: data.name
+                        })
+                    }
+                    else {
+                        actualFile.content = actualFile.content + rl
+                        gothroughFilesData.update(actualFile)
+                    }
+                });
+
+                rl.on('close', function () {
+                    // do something on finish here
+                    console.log("Terminated the file ! " + actualFileName + "\r\n")
+                });
+
+                //var text = fs.readFileSync(data.fullPath,'utf8')
+
+                // objectData.push({ "Path": data.fullPath.toString(), "content": text,"Name":data.name });
+            });
+            /*objectData = JSON.stringify(objectData);
+             fs.writeFile("./src/base.json", objectData, function(err) {
+                 if(err) {
+                     return console.log(err);
+                 }
+             }); */
+            // var searchRegex = new RegExp("application", 'i');
+            // let dv = gothroughFilesData.find({'content': {'$regex': searchRegex}});
+            // console.log(dv);
+        });
+
+}
