@@ -3,16 +3,6 @@ const electron = require("electron");
 const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 
-// php ruleZ
-var path = require("path");
-var php = require("gulp-connect-php");
-php.server({
-    port: 8088,
-    base: path.resolve(__dirname) + "/backend/public"
-    // this is now pointing to a possible local installation of php, that is best for portability
-    // feel free to change with a system-wide installed php, that is dirty & working, but less portable
-    //bin: path.resolve(__dirname) + "/php/bin/php"
-});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

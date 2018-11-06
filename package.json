@@ -1,7 +1,6 @@
 {
   "name": "electron-symfony",
   "version": "0.1.0",
-  "main": "main.js",
   "scripts": {
     "start": "BROWSER=none nf start -p 3000",
     "build": "react-scripts build",
@@ -18,10 +17,14 @@
     "axios": "^0.18.0",
     "foreman": "^3.0.1",
     "fs": "^0.0.1-security",
+    "lokijs": "^1.5.5",
     "node-dir": "^0.1.17",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "react-stack-grid": "^0.7.1",
+    "readdirp": "^2.2.1",
+    "recursive-readdir": "^2.2.2"
   },
   "build": {
     "appId": "com.electron.electron-with-create-react-app",
@@ -41,5 +44,7 @@
     "gulp-connect-php": "^1.0.3",
     "react-scripts": "0.8.5"
   },
-  "homepage": "./"
+  "homepage": "src/electron-starter.js",
+  "main": "main.js"
+
 }
