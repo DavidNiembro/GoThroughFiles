@@ -1,58 +1,54 @@
 import React, { Component } from "react";
 import "./App.css";
-import StackGrid from "react-stack-grid";
-import Card from "./components/card/index";
-var loki = require('lokijs')
-var db = new loki('./src/base.json"');
-var readdirp = require("./components/readdirp");
+import Main from"./views/Main";
+import Path from"./views/Path";
 
-const electron = window.require("electron");
-const fs = electron.remote.require('fs');
-
-var children = db.addCollection('children')
-
-readdirp({ root: '/users/davidniembro/desktop/', directoryFilter: [ '!.git', '!*modules' ] },
-  function(fileInfo) {
-   }, function (err, res) {
-       res.files.forEach(data => {
-        var text = fs.readFileSync(data.fullPath,'utf8')
-        children.insert({ Path: data.fullPath.toString(), content: text, Name :data.name })
-       });
-
-        var searchRegex = new RegExp("application", 'i');
-        let dv = children.find({'content': {'$regex': searchRegex}});
-        console.log(dv);
-});
+import SplashScreen from "./components/splashScreen/index";
 
 class App extends Component {
+    constructor(){
+        super();
+        this.state = {            
+            view : "splash",
+            //path : "/users/davidniembro/desktop",
+            path : null,
+
+        }
+        this.loading()
+        this.setPath = this.setPath();
+    }
+    loading(){
+        let that = this;
+        setTimeout(()=>{
+            if(that.state.path==null){
+                that.setState({view: "path"})
+            }else{
+                that.setState({view: "main"})
+            }
+        },1000)
+    }
+    setPath($path){
+        this.setState({path:$path});
+    }
+
     render() {
-        return (
-            <StackGrid
-                columnWidth={150}
-                gutterWidth={5}
-                >
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/> 
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/> 
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/> 
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-            </StackGrid>
-        );
+        let view = this.state.view;
+        switch(view){
+            case "splash":
+                return (
+                    <SplashScreen/>
+                );
+            case "main":
+                return (
+                    <Main path={this.state.path}/>
+                );
+            case "path":
+                return (
+                    <Path/>
+                );
+            default:
+                break;
+        }
     }
 }
 
