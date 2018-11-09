@@ -4,17 +4,18 @@ console.log("Hello")
 /* GLOBAL VARIABLES
  *    Variables that needs to be global because used in different functions aso..
  */
-let gothroughFilesData           = null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
-let DATABASE_NAME                = "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX = "C:\\Users\\Dardan.Iljazi\\";
+let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
+let DATABASE_NAME                   =  "gothroughfiles.db";
+let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\Dardan.Iljazi\\Documents\\GUI1\\"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\Dardan\\";
 /* !!END  GLOBAL VARIABLES!!*/
-
 
 /* FILES
  *    Variables needed for files reading
  */
 const readdirp = require('readdirp'); // Can read file recusrively into a folder
-const fs = require('fs');
+//const fs = require('fs'); // Is beeing replaced by greaceful-fs on 09.11.2018
+const fs = require('graceful-fs');
 const readline = require('readline');
 const stream = require('stream');
 /* !!END FILES!!*/
@@ -33,85 +34,123 @@ const loki = require("lokijs");
 const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
 
 let adapter = new lfsa();
-let db = new loki(DATABASE_NAME, {
-    adapter : adapter,
-    autoload: true,
-    autoloadCallback : databaseInitialize,
-    autosave: true,
-    autosaveInterval: 4000
-});
+var db = null;
+
+
+if (fs.existsSync(DATABASE_NAME)) {
+    console.log("Datbase already exists");
+    db = new loki(DATABASE_NAME, {
+        adapter: adapter
+    });
+
+    db.loadDatabase({}, function(result){
+        gothroughFilesData = db.getCollection("gothroughFilesData");
+
+        let dv = gothroughFilesData.find({'content': {'$regex': ['<head>', 'i']}});
+        console.log(dv);
+    });
+}else {
+    console.log("Database doesn't exists");
+    db = new loki(DATABASE_NAME, {
+        adapter: adapter,
+        autoload: true,
+        autoloadCallback: databaseInitialize,
+        autosave: true,
+        autosaveInterval: 4000
+    });
+}
+
 /* !!END DATABASE/SEARCH!!*/
-
-
 
 /* FUNCTIONS
  *
  */
-
 function databaseInitialize() {
+    console.log("databaseInitialize");
     gothroughFilesData = db.getCollection("gothroughFilesData");
 
     if (gothroughFilesData === null) {
         gothroughFilesData = db.addCollection("gothroughFilesData");
-        gothroughFilesData.insert("");
+
         main() // We execute the main when there is no database (Like at the first launch of the software or when database is deleted aso..)
     }else{ // Database already created
         // Here we put code when the database is already created (like look if the database is up to date ? .. This part will be coded at a time..)
 
-
         // Check if the folder we have to watch/index is the same as we have into the database, if not we call again if not all is ok
-
+        if(LAST_FOLDER_WATCHED_AND_INDEXED !== FOLDER_TO_WATCH_AND_TO_INDEX){
+            console.log("Not same folders, we go to main again ! ");
+            main();
+        }else{
+            console.log("Same folders");
+        }
     }
 }
 
+
 function main() {
-    readdirp({root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules']},
-        function (fileInfo) {
-        }, function (err, res) {
-            let objectData = [];
+    console.log("Main");
 
-            res.files.forEach(data => {
-                var newFile = true;
-                var actualFile = null;
-                var actualFileName = data.fullPath;
-                var instream = fs.createReadStream(data.fullPath);
-                var outstream = new stream;
-                var rl = readline.createInterface(instream, outstream);
+    readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
+        .on('data', function (entry) {
+            let newFile = true;
+            let actualFile = null;
+            let actualFilePath = entry.fullPath;
+            let actualFileName = entry.name;
+            let instream = fs.createReadStream(actualFilePath);
+            let outstream = new stream;
+            let rl = readline.createInterface(instream, outstream);
 
-                rl.on('line', function (line) {
-                    if (newFile) {
-                        newFile = false;
-                        actualFile = gothroughFilesData.insert({
-                            Path: data.fullPath.toString(),
-                            content: rl,
-                            Name: data.name
-                        })
-                    }
-                    else {
-                        actualFile.content = actualFile.content + rl
-                        gothroughFilesData.update(actualFile)
-                    }
-                });
-
-                rl.on('close', function () {
-                    // do something on finish here
-                    console.log("Terminated the file ! " + actualFileName + "\r\n")
-                });
-
-                //var text = fs.readFileSync(data.fullPath,'utf8')
-
-                // objectData.push({ "Path": data.fullPath.toString(), "content": text,"Name":data.name });
+            rl.on('line', function (line) {
+                if (newFile) {
+                    newFile = false;
+                    actualFile = gothroughFilesData.insert({
+                        Path: actualFilePath.toString(),
+                        content: line,
+                        Name: actualFileName
+                    })
+                }
+                else {
+                    actualFile.content = actualFile.content + line;
+                    gothroughFilesData.update(actualFile)
+                }
             });
-            /*objectData = JSON.stringify(objectData);
-             fs.writeFile("./src/base.json", objectData, function(err) {
-                 if(err) {
-                     return console.log(err);
-                 }
-             }); */
-            // var searchRegex = new RegExp("application", 'i');
-            // let dv = gothroughFilesData.find({'content': {'$regex': searchRegex}});
-            // console.log(dv);
+
+            rl.on('close', function () {
+                // do something on finish here
+                //console.log("Terminated the file ! " + actualFileName + "\r\n")
+            });
+        })
+        .on('err', function(error){
+            console.log("error: " + error);
+        })
+        .on('end', function(msg){
+            console.log("End ! " + msg);
         });
+    // function (fileInfo) {
+    //     let objectData = [];
+    //     console.log("res.file");
+    //     console.log(fileInfo.data);
+    //     res.files.forEach(data => {
+    //
+    //
+    //         //var text = fs.readFileSync(data.fullPath,'utf8')
+    //
+    //         // objectData.push({ "Path": data.fullPath.toString(), "content": text,"Name":data.name });
+    //     });
+    //
+    // }, function (err, res) {
+    //     console.log("Finished to treat all files");
+    //     console.log(res);
+    //     objectData = JSON.stringify(objectData);
+    //      fs.writeFile("./src/base.json", objectData, function(err) {
+    //          if(err) {
+    //              return console.log(err);
+    //          }
+    //      });
+    //     let searchRegex = new RegExp("application", 'i');
+    //     let dv = gothroughFilesData.find({'content': {'$regex': searchRegex}});
+    //     console.log(dv);
+    // });
 }
 
 
