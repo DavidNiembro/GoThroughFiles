@@ -15,7 +15,7 @@ class App extends Component {
 
         }
         this.loading()
-        this.setPath = this.setPath();
+        this.setPath = this.setPath.bind(this);
     }
     loading(){
         let that = this;
@@ -28,7 +28,9 @@ class App extends Component {
         },1000)
     }
     setPath($path){
+        console.log($path)
         this.setState({path:$path});
+        this.setState({view: "main"})
     }
 
     render() {
@@ -44,7 +46,7 @@ class App extends Component {
                 );
             case "path":
                 return (
-                    <Path/>
+                    <Path setPath={this.setPath}/>
                 );
             default:
                 break;

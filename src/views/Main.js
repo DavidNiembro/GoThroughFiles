@@ -15,7 +15,8 @@ class Main extends Component {
     constructor(props){
         super(props)
         this.state={
-            datas : null
+            datas : null,
+            search: ""
         }
     }
     componentDidMount(){
@@ -27,27 +28,37 @@ class Main extends Component {
               var text = fs.readFileSync(data.fullPath,'utf8')
               children.insert({ Path: data.fullPath.toString(), content: text, Name :data.name })
              });
-      }); 
-      setTimeout(()=>{
-        var searchRegex = new RegExp("application", 'i');
+      });       
+    }
+    searchStringChange(e){
+        this.setState({search:e.value});
+    }
+
+    search(){
+        let that = this;
+        var searchRegex = new RegExp(this.state.search, 'i');
         let dv = children.find({'content': {'$regex': searchRegex}});
         console.log(dv);
         that.setState({datas:dv})
-    },1000)  
-      
     }
 
     render() {
         
         return (
-            <StackGrid
-                columnWidth={150}
-                gutterWidth={5}
-                >
-                {this.state.datas && this.state.datas.map((data,key)=>{
-                    return <Card key={key} data={data}/>
-                })}
-            </StackGrid>
+            <div>
+                <div>
+                    <input value={this.state.search} onChange={(e) => this.searchStringChange(e)}></input>
+                    <button onClick={()=>this.search()}></button>
+                </div>
+                <StackGrid
+                    columnWidth={150}
+                    gutterWidth={5}
+                    >
+                    {this.state.datas && this.state.datas.map((data,key)=>{
+                        return <Card key={key} data={data}/>
+                    })}
+                </StackGrid>
+            </div>
         );
     }
 }

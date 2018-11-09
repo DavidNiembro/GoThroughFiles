@@ -18,18 +18,24 @@ class Path extends Component {
         dialog.showOpenDialog(
             { properties },
             (path)=> {
-                this.setState({path:path});
+                this.setState({path:path[0]});
             }
         );
     }
     changePath(e){
         this.setState({path:e.value})
     }
+
+    persistPath(){
+        this.props.setPath(this.state.path);
+    }
     render() {
         return (
            <div>
-               <input value={this.state.path} onChange={(e) => this.changePath(e)}></input>
+               <input style={{border:"none", borderBottom: "1px solid black", width:"70%",height:50, fontSize:25}} value={this.state.path} onChange={(e) => this.changePath(e)}></input>
                <button onClick={ () => this.openDialog() }>Selectionner un chemin</button>
+               <button onClick={ () => this.persistPath() }>Suivant</button>
+
            </div>
         );
     }
