@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import InputBar from "../components/inputBar"
+import Button from "../components/button"
+
 const electron = window.require('electron');
 const remote = electron.remote;
 const dialog = remote.dialog;
@@ -9,6 +12,9 @@ class Path extends Component {
         this.state={
             path : ""
         }
+        this.openDialog = this.openDialog.bind(this);
+        this.persistPath = this.persistPath.bind(this);
+        this.changePath = this.changePath.bind(this)
     } 
     componentDidMount(){
         
@@ -31,10 +37,12 @@ class Path extends Component {
     }
     render() {
         return (
-           <div>
-               <input style={{border:"none", borderBottom: "1px solid black", width:"70%",height:50, fontSize:25}} value={this.state.path} onChange={(e) => this.changePath(e)}></input>
-               <button onClick={ () => this.openDialog() }>Selectionner un chemin</button>
-               <button onClick={ () => this.persistPath() }>Suivant</button>
+           <div style={{flex:1}}>
+               <div style={{top:"50vh", position:"absolute", width:"100%", justifyContent:"center"}}>
+                    <InputBar stringChange={this.changePath} search={this.state.path}/>
+               </div>
+               <Button search={this.openDialog} text={"Selectionner un chemin"}/>
+               <Button search={this.persistPath} text={"Suivant"}/>
 
            </div>
         );

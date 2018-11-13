@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./style.css";
+import "./style.css";
 
 class InputBar extends Component {
     constructor(props){
@@ -8,7 +8,7 @@ class InputBar extends Component {
     
     render() {
         return (
-            <input styleName={styles.inputBar} value={this.props.search} onChange={this.props.searchStringChange}></input>
+            <input className="inputBar" value={this.props.search} onChange={this.props.stringChange}></input>
         );
     }
 }
