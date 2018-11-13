@@ -1,0 +1,10 @@
+.inputBar {
+    height:50;
+    width:"80%";
+    font-size:30;
+    border:"none";
+    border:"0.5px solid lightgray";
+    border-radius:25;
+    padding-left:15;
+    color:"gray";
+}

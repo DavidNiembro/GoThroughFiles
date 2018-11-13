@@ -27,7 +27,7 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
 // initialization and is ready to create browser windows.
 app.on("ready", function() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 900, height: 600 });
+    mainWindow = new BrowserWindow({ width: 900, height: 600, minHeight: 800, minWidth: 900 });
     /*const startUrl =
         process.env.ELECTRON_START_URL ||
         url.format({

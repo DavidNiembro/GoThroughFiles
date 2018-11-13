@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import StackGrid from "react-stack-grid";
 import Card from "../components/card/index";
+import InputBar from "../components/inputBar/";
 var loki = require('lokijs')
 var db = new loki('../base.json');
 var readdirp = require("../components/readdirp/readdirp");
@@ -18,6 +19,7 @@ class Main extends Component {
             datas : null,
             search: ""
         }
+        this.searchStringChange = this.searchStringChange.bind(this);
     }
     componentDidMount(){
         let that = this;
@@ -31,27 +33,26 @@ class Main extends Component {
       });       
     }
     searchStringChange(e){
-        this.setState({search:e.value});
+        this.setState({search : e.target.value});
     }
 
     search(){
         let that = this;
         var searchRegex = new RegExp(this.state.search, 'i');
         let dv = children.find({'content': {'$regex': searchRegex}});
-        console.log(dv);
         that.setState({datas:dv})
     }
 
     render() {
         
         return (
-            <div>
-                <div>
-                    <input value={this.state.search} onChange={(e) => this.searchStringChange(e)}></input>
-                    <button onClick={()=>this.search()}></button>
+            <div style={{width:"85%",marginLeft:"auto",marginRight:"auto"}}>
+                <div style={{height:70,padding:25}}>
+                    <input style={{outline: "none", height:50, width:"80%",fontSize:30,border:"none", border:"0.5px solid lightgray", borderRadius:25, paddingLeft:25,color:"gray"}} value={this.state.search} onChange={this.searchStringChange}></input>
+                    <button style={{ outline:"none", height:55, position:"absolute", width:"15%", marginLeft:"2%", backgroundColor:"#1c81fd", borderRadius:30, color:"white",fontSize:20}} onClick={()=>this.search()}>Chercher</button>
                 </div>
                 <StackGrid
-                    columnWidth={150}
+                    columnWidth={250}
                     gutterWidth={5}
                     >
                     {this.state.datas && this.state.datas.map((data,key)=>{

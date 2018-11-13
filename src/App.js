@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Main from"./views/Main";
 import Path from"./views/Path";
-
 import SplashScreen from "./components/splashScreen/index";
 
 class App extends Component {
@@ -10,8 +9,8 @@ class App extends Component {
         super();
         this.state = {            
             view : "splash",
-            //path : "/users/davidniembro/desktop",
-            path : null,
+            path : "/users/davidniembro/desktop",
+            //path : null,
 
         }
         this.loading()

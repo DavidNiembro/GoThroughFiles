@@ -15,11 +15,14 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "electron-json-storage": "^4.1.4",
+    "electron-store": "^2.0.0",
     "foreman": "^3.0.1",
     "fs": "^0.0.1-security",
     "lokijs": "^1.5.5",
     "node-dir": "^0.1.17",
     "react": "^16.5.2",
+    "react-box-shadow": "^1.0.1",
     "react-dom": "^16.5.2",
     "react-scripts": "1.1.5",
     "react-stack-grid": "^0.7.1",
@@ -46,5 +49,4 @@
   },
   "homepage": "src/electron-starter.js",
   "main": "main.js"
-
 }
