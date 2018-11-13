@@ -36,9 +36,8 @@ const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
 let adapter = new lfsa();
 var db = null;
 
-
 if (fs.existsSync(DATABASE_NAME)) {
-    console.log("Datbase already exists");
+    console.log("Database already exists");
     db = new loki(DATABASE_NAME, {
         adapter: adapter
     });
@@ -77,7 +76,7 @@ function databaseInitialize() {
         // Here we put code when the database is already created (like look if the database is up to date ? .. This part will be coded at a time..)
 
         // Check if the folder we have to watch/index is the same as we have into the database, if not we call again if not all is ok
-        if(LAST_FOLDER_WATCHED_AND_INDEXED !== FOLDER_TO_WATCH_AND_TO_INDEX){
+        if(LAST_FOLDER_WATCHED_AND_INDEXED.indexOf(FOLDER_TO_WATCH_AND_TO_INDEX) === -1){
             console.log("Not same folders, we go to main again ! ");
             main();
         }else{
@@ -103,15 +102,26 @@ function main() {
             rl.on('line', function (line) {
                 if (newFile) {
                     newFile = false;
-                    actualFile = gothroughFilesData.insert({
-                        Path: actualFilePath.toString(),
-                        content: line,
-                        Name: actualFileName
-                    })
+                    if(fileContentIsIndexableForExtension(actualFileName)) {
+                        // console.log("File : " + actualFileName + " is indexable");
+                        actualFile = gothroughFilesData.insert({
+                            Path: actualFilePath.toString(),
+                            content: line,
+                            Name: actualFileName
+                        })
+                    }else{ // If the extension is not indexable for its content, we put the
+                        // console.log("File : " + actualFileName + " is NOT indexable by content");
+                        actualFile = gothroughFilesData.insert({
+                            Path: actualFilePath.toString(),
+                            Name: actualFileName
+                        })
+                    }
                 }
                 else {
-                    actualFile.content = actualFile.content + line;
-                    gothroughFilesData.update(actualFile)
+                    if(fileContentIsIndexableForExtension(actualFileName)) {
+                        actualFile.content = actualFile.content + line;
+                        gothroughFilesData.update(actualFile)
+                    }
                 }
             });
 
@@ -177,6 +187,37 @@ chokidar.watch(FOLDER_TO_WATCH_AND_TO_INDEX, {ignoreInitial: true, followSymlink
             break;
     }
 });
+
+
+function fileContentIsIndexableForExtension(fileNameWithExtension){
+    if(fileNameWithExtension.length === 0)
+        return false;
+
+    let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+
+    let extension = fileNameWithExtension.match(fileExtensionRegex);
+
+
+    if(extension == null)
+        return false;
+
+    extension = extension[1];
+
+    if(fileNameWithExtensionIsInList(extension))
+        return true;
+
+    return false;
+}
+
+
+function fileNameWithExtensionIsInList(extension){
+    var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+
+    if(acceptedExtensions.indexOf(extension) >= 0)
+        return true;
+
+    return false;
+}
 
 /* !!END FUNCTIONS!!*/
 
