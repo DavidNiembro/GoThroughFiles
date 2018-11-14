@@ -13,20 +13,21 @@
 */
 
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
+    //if (typeof define === 'function' && define.amd) {
         // AMD
-        define([], factory);
-    } else if (typeof exports === 'object') {
+     //   define([], factory);
+    //} else if (typeof exports === 'object') {
         // Node, CommonJS-like
-        module.exports = factory();
-    } else {
+      //  module.exports = factory();
+    //} else {
         // Browser globals (root is window)
         root.LokiFsStructuredAdapter = factory();
-    }
+   // }
 }(this, function () {
   return (function() {
 
-    const fs = require('fs');
+    const electron = window.require("electron");
+    var fs = electron.remote.require('fs');
     const readline = require('readline');
     const stream = require('stream');
 

@@ -3,28 +3,28 @@ import "./App.css";
 import Main from"./views/Main";
 import Path from"./views/Path";
 import SplashScreen from "./components/splashScreen/index";
-const readdirp = require('./components/readdirp'); 
-const readline = require('readline');
-const stream = require('stream');
-const fs = require('./components/graceful-fs');
+//const readdirp = require('./components/readdirp'); 
+//const readline = require('readline');
+//const stream = require('stream');
+//const fs = require('./components/graceful-fs');
 
 /* GLOBAL VARIABLES
  *    Variables that needs to be global because used in different functions aso..
  */
-let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
-let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "/users/davidniembro/desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
-let LAST_FOLDER_WATCHED_AND_INDEXED =  "/users/davidniembro/desktop";
+//let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
+//let DATABASE_NAME                   =  "gothroughfiles.db";
+//let FOLDER_TO_WATCH_AND_TO_INDEX    =  "/users/davidniembro/desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+//let LAST_FOLDER_WATCHED_AND_INDEXED =  "/users/davidniembro/desktop";
 /* !!END  GLOBAL VARIABLES!!*/
 
 /* DATABASE/SEARCH
  *    Variables needed to store/create/update and search into the database with files: path,content aso..
  */
-const loki = require("lokijs");
-const lfsa = require('./components/lokijs/src/loki-fs-structured-adapter');
+//const loki = require("./components/lokijs");
+//const lfsa = require('./components/lokijs/src/loki-fs-structured-adapter');
 
-let adapter = new lfsa();
-var db = null;
+//let adapter = new lfsa();
+//var db = null;
 
 class App extends Component {
     constructor(){
@@ -40,7 +40,7 @@ class App extends Component {
     }
 
 
-    componentDidMount(){
+    /*componentDidMount(){
         if (fs.existsSync(DATABASE_NAME)) {
             console.log("Database already exists");
             db = new loki(DATABASE_NAME, {
@@ -65,8 +65,8 @@ class App extends Component {
         }
         
     }
-
-    databaseInitialize() {
+*/
+    /*databaseInitialize() {
         console.log("databaseInitialize");
         let that = this;
         gothroughFilesData = db.getCollection("gothroughFilesData");
@@ -168,7 +168,7 @@ class App extends Component {
     
         return false;
     }
-    
+    */
     loading(){
         let that = this;
         setTimeout(()=>{
