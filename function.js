@@ -15,8 +15,8 @@ const storage = require('electron-json-storage');
  */
 let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
 let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\David.NIEMBRO\\Desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
-let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\David.NIEMBRO\\Desktop";
+let FOLDER_TO_WATCH_AND_TO_INDEX    =  ""; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+let LAST_FOLDER_WATCHED_AND_INDEXED =  "";
 /* !!END  GLOBAL VARIABLES!!*/
 
 /* DATABASE/SEARCH
@@ -24,6 +24,7 @@ let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\David.NIEMBRO\\Desktop";
  */
 const loki = require("lokijs");
 const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
+const LokiIndexedAdapter = require('./node_modules/lokijs/src/loki-indexed-adapter.js');
 
 let adapter = new lfsa();
 var db = null;
@@ -162,7 +163,7 @@ ipc.on('Search', function(event, string){
     db.loadDatabase({}, function(result){
         gothroughFilesData = db.getCollection("gothroughFilesData");
 
-        let dv = gothroughFilesData.find({'content': {'$regex': [string, 'i']}});
+        let dv = gothroughFilesData.find({'Name': {'$regex': [string, 'i']}});
         event.sender.send('returnSearch', dv)
     });
 
@@ -180,11 +181,9 @@ ipc.on('getPath', function(event, string){
 
 });
 ipc.on('setPath', function(event, string){
-
+    databaseInitialize();
     storage.set('path', string , function(error) {
         if (error) throw error;
         event.sender.send('sendPath', string)
     });
-
-
 });

@@ -1,36 +1,10 @@
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-  }
-  
-  .App-header {
-    background-color: #222;
-    height: 150px;
-    padding: 20px;
-    color: white;
-  }
-  
-  .App-intro {
-    font-size: large;
-  }
-  
-  html, .App-body {
-    margin: 0;
-    padding: 0;
-    color: #fff;
-    height:100%;
-    width: 100%;
-    position:relative;
-  }
-  
+
   /*Loading spinner*/
   .spinner{
-    width: 60px;
-    height: 60px;
+    width: 7vw;
+    height: 7vw;
     position: relative;
-    margin: -180px auto;
-  
-  
+    margin: -15% auto;
   }
   
   .double-bounce1, .double-bounce2 {
@@ -111,7 +85,6 @@
   /*Animation SVG*/
   svg {
     width: 100%;
-  
     top: 0;
     left: 0; // needed for FF, Safari, Edge
     height: 100%;
@@ -133,4 +106,5 @@
   svg > rect {
     -webkit-mask: url(#mask);
     mask: url(#mask);
+    fill: #070b0e;
   }

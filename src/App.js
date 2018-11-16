@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import Main from"./views/Main";
 import Path from"./views/Path";
+import Settings from"./views/Settings";
+
 import SplashScreen from "./components/splashScreen/index";
 const {ipcRenderer} = window.require('electron');
 
@@ -17,6 +19,7 @@ class App extends Component {
         };
         this.loading();
         this.setPath = this.setPath.bind(this);
+        this.goToPage = this.goToPage.bind(this);
     }
 
     loading(){
@@ -33,18 +36,26 @@ class App extends Component {
                 }else{
                     that.setState({view: "main"})
                 }
-            },1000)
+                },1000)
         });
         ipcRenderer.send('getPath');
 
     }
-    setPath($path){
+    setPath(path){
         let that = this;
         ipcRenderer.once('sendPath', function(event, response){
             that.setState({path:response});
             that.setState({view: "main"})
        });
-       ipcRenderer.send('setPath', $path);
+       ipcRenderer.send('setPath', path);
+       ipcRenderer.send('CheckDatabase', path);
+    }
+
+    goToPage(newPage){
+        console.log("here")
+        console.log(newPage)
+
+        this.setState({view:newPage});
     }
 
     render() {
@@ -56,11 +67,15 @@ class App extends Component {
                 );
             case "main":
                 return (
-                    <Main path={this.state.path}/>
+                    <Main path={this.state.path} goToPage={this.goToPage}/>
                 );
             case "path":
                 return (
-                    <Path setPath={this.setPath}/>
+                    <Path setPath={this.setPath} />
+                );
+            case "settings":
+                return(
+                  <Settings setPath={this.setPath} />
                 );
             default:
                 break;

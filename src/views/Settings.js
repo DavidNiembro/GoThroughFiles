@@ -6,18 +6,19 @@ const electron = window.require('electron');
 const remote = electron.remote;
 const dialog = remote.dialog;
 
-class Path extends Component {
+class Settings extends Component {
+
     constructor(props){
-        super(props)
-        this.state={
-            path : ""
+        super(props);
+        this.state= {
+            path: ""
         }
+        this.changePath = this.changePath.bind(this);
         this.openDialog = this.openDialog.bind(this);
         this.persistPath = this.persistPath.bind(this);
-        this.changePath = this.changePath.bind(this)
-    } 
-    componentDidMount(){
-        
+    }
+    changePath(e){
+        this.setState({path:e.value})
     }
     openDialog(){
         const properties = ['openDirectory'];
@@ -28,29 +29,21 @@ class Path extends Component {
             }
         );
     }
-    changePath(e){
-        this.setState({path:e.value})
-    }
-
     persistPath(){
-        //ipcRenderer.once('actionReply', function(event, response){
-        //    console.log(response);
-        //})
-        //ipcRenderer.send('CheckDatabase', 'someData');
         this.props.setPath(this.state.path);
     }
     render() {
         return (
-           <div style={{flex:1}}>
-               <div style={{top:"50vh", position:"absolute", width:"100%", justifyContent:"center"}}>
+            <div >
+                <h1>Réglage</h1>
+                <div style={{top:"50vh", position:"absolute", width:"100%", justifyContent:"center"}}>
                     <InputBar stringChange={this.changePath} search={this.state.path}/>
-               </div>
-               <Button search={this.openDialog} text={"Selectionner un chemin"}/>
-               <Button search={this.persistPath} text={"Suivant"}/>
-
-           </div>
+                </div>
+                <Button search={this.openDialog} text={"Selectionner un chemin"}/>
+                <Button search={this.persistPath} text={"Suivant"}/>
+            </div>
         );
     }
 }
 
-export default Path;
+export default Settings;

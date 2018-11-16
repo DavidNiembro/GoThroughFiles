@@ -16,6 +16,7 @@ class Main extends Component {
         };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     searchStringChange(e){
@@ -33,6 +34,10 @@ class Main extends Component {
 
     }
 
+    changePage(){
+
+    }
+
     render() {
         
         return (
@@ -40,6 +45,7 @@ class Main extends Component {
                 <div style={{height:70,padding:25}}>
                     <InputBar value={this.state.search} stringChange={this.searchStringChange}/>
                     <Button text={"chercher"} search={this.search}/>
+                    <button onClick={()=>this.props.goToPage("settings")}>réglage</button>
                 </div>
                 <StackGrid
                     columnWidth={250}
