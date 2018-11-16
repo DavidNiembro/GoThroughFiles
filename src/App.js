@@ -3,7 +3,7 @@ import "./App.css";
 import Main from"./views/Main";
 import Path from"./views/Path";
 import SplashScreen from "./components/splashScreen/index";
-const {ipcRenderer} = window.require('electron')
+const {ipcRenderer} = window.require('electron');
 
 
 class App extends Component {
@@ -14,31 +14,37 @@ class App extends Component {
             //path : "/users/davidniembro/desktop",
             path : null,
 
-        }
-        this.loading()
+        };
+        this.loading();
         this.setPath = this.setPath.bind(this);
     }
 
     loading(){
         let that = this;
-        
-        ipcRenderer.once('actionReply', function(event, response){
-            console.log(response);
-        })
-        ipcRenderer.send('CheckDatabase', 'someData');
+        ipcRenderer.once('databasePath', function(event, path){
+            that.setState({path:path});
+            ipcRenderer.once('actionReply', function(event, response){
+                console.log(response);
+            });
+            ipcRenderer.send('CheckDatabase', path);
+            setTimeout(()=>{
+                if(that.state.path==null){
+                    that.setState({view: "path"})
+                }else{
+                    that.setState({view: "main"})
+                }
+            },1000)
+        });
+        ipcRenderer.send('getPath');
 
-        setTimeout(()=>{
-            if(that.state.path==null){
-                that.setState({view: "path"})
-            }else{
-                that.setState({view: "main"})
-            }
-        },1000)
     }
     setPath($path){
-        console.log($path)
-        this.setState({path:$path});
-        this.setState({view: "main"})
+        let that = this;
+        ipcRenderer.once('sendPath', function(event, response){
+            that.setState({path:response});
+            that.setState({view: "main"})
+       });
+       ipcRenderer.send('setPath', $path);
     }
 
     render() {

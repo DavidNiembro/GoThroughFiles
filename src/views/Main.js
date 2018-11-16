@@ -1,48 +1,36 @@
 import React, { Component } from "react";
 import StackGrid from "react-stack-grid";
 import Card from "../components/card/index";
-import Button from "../components/button"
-import InputBar from "../components/inputBar"
+import Button from "../components/button";
+import InputBar from "../components/inputBar";
 
-var loki = require('lokijs')
-var db = new loki('../base.json');
-var readdirp = require("../components/readdirp/readdirp");
-
-const electron = window.require("electron");
-const fs = electron.remote.require('fs');
-
-var children = db.addCollection('children')
-
+const {ipcRenderer} = window.require('electron');
 
 class Main extends Component {
+
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             datas : null,
             search: ""
-        }
+        };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
     }
-    componentDidMount(){
-        readdirp({ root: this.props.path, directoryFilter: [ '!.git', '!*modules' ] },
-        function(fileInfo) {
-         }, function (err, res) {
-             res.files.forEach(data => {
-              var text = fs.readFileSync(data.fullPath,'utf8')
-              children.insert({ Path: data.fullPath.toString(), content: text, Name :data.name })
-             });
-      });       
-    }
+
     searchStringChange(e){
         this.setState({search : e.target.value});
     }
 
     search(){
         let that = this;
-        var searchRegex = new RegExp(this.state.search, 'i');
-        let dv = children.find({'content': {'$regex': searchRegex}});
-        that.setState({datas:dv})
+
+        ipcRenderer.send('Search', this.state.search);
+
+        ipcRenderer.once('returnSearch', function(event, response){
+            that.setState({datas:response})
+        });
+
     }
 
     render() {

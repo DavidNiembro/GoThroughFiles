@@ -7,6 +7,7 @@ const fs = require('graceful-fs');
 const readline = require('readline');
 const stream = require('stream');
 var ipc = require('electron').ipcMain;
+const storage = require('electron-json-storage');
 /* !!END FILES!!*/
 
 /* GLOBAL VARIABLES
@@ -14,8 +15,8 @@ var ipc = require('electron').ipcMain;
  */
 let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
 let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "/users/davidniembro/desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
-let LAST_FOLDER_WATCHED_AND_INDEXED =  "/users/davidniembro/desktop";
+let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\David.NIEMBRO\\Desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\David.NIEMBRO\\Desktop";
 /* !!END  GLOBAL VARIABLES!!*/
 
 /* DATABASE/SEARCH
@@ -28,18 +29,13 @@ let adapter = new lfsa();
 var db = null;
 
 ipc.on('CheckDatabase', function(event, data){
+    FOLDER_TO_WATCH_AND_TO_INDEX = data;
   if (fs.existsSync(DATABASE_NAME)) {
     event.sender.send('actionReply', "Database already exists")
     db = new loki(DATABASE_NAME, {
       adapter: adapter
     });
 
-    db.loadDatabase({}, function(result){
-      gothroughFilesData = db.getCollection("gothroughFilesData");
-
-    let dv = gothroughFilesData.find({'content': {'$regex': ['<head>', 'i']}});
-    console.log(dv);
-    });
   }else {
     event.sender.send('actionReply', "Database dont'exists")
     db = new loki(DATABASE_NAME, {
@@ -62,7 +58,8 @@ function databaseInitialize() {
       gothroughFilesData = db.addCollection("gothroughFilesData");
 
       main() // We execute the main when there is no database (Like at the first launch of the software or when database is deleted aso..)
-  }else{ // Database already created
+  }else{
+      // Database already created
       // Here we put code when the database is already created (like look if the database is up to date ? .. This part will be coded at a time..)
 
       // Check if the folder we have to watch/index is the same as we have into the database, if not we call again if not all is ok
@@ -94,7 +91,9 @@ function databaseInitialize() {
                             content: line,
                             Name: actualFileName
                         })
-                    }else{ // If the extension is not indexable for its content, we put the
+                    }else{
+
+                        // If the extension is not indexable for its content, we put the
                         // console.log("File : " + actualFileName + " is NOT indexable by content");
                         actualFile = gothroughFilesData.insert({
                             Path: actualFilePath.toString(),
@@ -123,34 +122,69 @@ function databaseInitialize() {
         });
     
   }
-  function fileContentIsIndexableForExtension(fileNameWithExtension){
-    if(fileNameWithExtension.length === 0)
-        return false;
+    function fileContentIsIndexableForExtension(fileNameWithExtension){
+        if(fileNameWithExtension.length === 0){
+            return false;
+        }
 
-    let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+        let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
 
-    let extension = fileNameWithExtension.match(fileExtensionRegex);
-
-
-    if(extension == null)
-        return false;
-
-    extension = extension[1];
-
-    if(fileNameWithExtensionIsInList(extension))
-        return true;
-
-    return false;
-  }
+        let extension = fileNameWithExtension.match(fileExtensionRegex);
 
 
-function fileNameWithExtensionIsInList(extension){
-    var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+        if(extension == null){
+            return false;
+        }
 
-    if(acceptedExtensions.indexOf(extension) >= 0)
-        return true;
+        extension = extension[1];
 
-    return false;
+        if(fileNameWithExtensionIsInList(extension)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    function fileNameWithExtensionIsInList(extension){
+      var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+
+      if(acceptedExtensions.indexOf(extension) >= 0){
+          return true;
+      }else{
+          return false;
+      }
+
+    }
 }
-}
+
+ipc.on('Search', function(event, string){
+    db.loadDatabase({}, function(result){
+        gothroughFilesData = db.getCollection("gothroughFilesData");
+
+        let dv = gothroughFilesData.find({'content': {'$regex': [string, 'i']}});
+        event.sender.send('returnSearch', dv)
+    });
+
+});
 /* !!END FUNCTIONS!!*/
+
+ipc.on('getPath', function(event, string){
+
+    storage.get('path', function(error, data) {
+        if (error) throw error;
+
+        event.sender.send('databasePath', data)
+    });
+
+
+});
+ipc.on('setPath', function(event, string){
+
+    storage.set('path', string , function(error) {
+        if (error) throw error;
+        event.sender.send('sendPath', string)
+    });
+
+
+});
