@@ -5,6 +5,7 @@ import Button from "../components/button"
 const electron = window.require('electron');
 const remote = electron.remote;
 const dialog = remote.dialog;
+const {ipcRenderer} = window.require('electron')
 
 class Path extends Component {
     constructor(props){
@@ -33,7 +34,11 @@ class Path extends Component {
     }
 
     persistPath(){
-        this.props.setPath(this.state.path);
+        ipcRenderer.once('actionReply', function(event, response){
+            console.log(response);
+        })
+        ipcRenderer.send('CheckDatabase', 'someData');
+        //this.props.setPath(this.state.path);
     }
     render() {
         return (
