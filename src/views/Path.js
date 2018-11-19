@@ -24,7 +24,9 @@ class Path extends Component {
         dialog.showOpenDialog(
             { properties },
             (path)=> {
-                this.setState({path:path[0]});
+                if(path){
+                    this.setState({path:path[0]});
+                }
             }
         );
     }

@@ -1,12 +1,12 @@
 .inputBar {
     outline:none; 
     height:50px;
-    width:80%;
+    width:100%;
     font-size:30px;
     border:none;
     border:0px solid lightgray;
     border-radius:25px;
-    padding-left: 15px;
     color:whitesmoke;
     background-color: #1b2838;
+    line-height: 90px
 }

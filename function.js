@@ -148,7 +148,8 @@ function databaseInitialize() {
 
 
     function fileNameWithExtensionIsInList(extension){
-      var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+      //var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+      var acceptedExtensions = ["docx", "md", "txt", "vsdx", "rtf", "xml", "ipt", "odt","pages"];
 
       if(acceptedExtensions.indexOf(extension) >= 0){
           return true;
@@ -181,9 +182,19 @@ ipc.on('getPath', function(event, string){
 
 });
 ipc.on('setPath', function(event, string){
-    databaseInitialize();
+    fs.unlink(DATABASE_NAME,function(err){
+
+    });
+    fs.unlink(DATABASE_NAME + ".0",function(err){
+        
+    });
     storage.set('path', string , function(error) {
         if (error) throw error;
         event.sender.send('sendPath', string)
     });
+
+    FOLDER_TO_WATCH_AND_TO_INDEX = string;
+
+    //databaseInitialize()
+  
 });

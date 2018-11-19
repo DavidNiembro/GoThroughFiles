@@ -18,14 +18,18 @@ class Settings extends Component {
         this.persistPath = this.persistPath.bind(this);
     }
     changePath(e){
-        this.setState({path:e.value})
+        if(e.value){
+            this.setState({path:e.value})
+        }
     }
     openDialog(){
         const properties = ['openDirectory'];
         dialog.showOpenDialog(
             { properties },
             (path)=> {
-                this.setState({path:path[0]});
+                if(path){
+                    this.setState({path:path[0]});
+                }
             }
         );
     }
@@ -34,13 +38,24 @@ class Settings extends Component {
     }
     render() {
         return (
-            <div >
-                <h1>Réglage</h1>
-                <div style={{top:"50vh", position:"absolute", width:"100%", justifyContent:"center"}}>
-                    <InputBar stringChange={this.changePath} search={this.state.path}/>
+            <div>
+                <div style={{height:80, backgroundColor:"#1b2838", alignContent:"center", justifyContent:"center",flex:1, paddingLeft:40}}>
+                    <span style={{color:"white",fontSize:40,lineHeight:2}}>Réglage</span>
                 </div>
-                <Button search={this.openDialog} text={"Selectionner un chemin"}/>
-                <Button search={this.persistPath} text={"Suivant"}/>
+                <div style={{width:"80%", marginLeft:"auto",marginRight:"auto"}}>
+                    <h1>Changer le chemin</h1>
+                    <h3 style={{color:"gray"}}>Choisissez le dossier ou vous voulez que la recherche s'effectue</h3>
+                    <div style={{width:"100%", justifyContent:"center",marginBottom:20}}>
+                        <InputBar stringChange={this.changePath} search={this.state.path}/>
+                    </div>
+                    <Button search={this.openDialog} text={"Selectionner"}/>
+                </div>
+                
+
+                <div style={{position:"absolute", bottom:20, width:"100%"}}>
+                    <Button search={this.persistPath} text={"Annuler"}/>
+                    <Button search={this.persistPath} text={"Suivant"}/>
+                </div>
             </div>
         );
     }
