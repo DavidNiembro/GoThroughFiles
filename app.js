@@ -6,7 +6,7 @@ console.log("Hello")
  */
 let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
 let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\Dardan.Iljazi\\Documents\\GUI1\\"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\Dardan Iljazi\\Documents\\Dardan\\002CPNV\\ES\\"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
 let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\Dardan\\";
 /* !!END  GLOBAL VARIABLES!!*/
 
@@ -15,7 +15,9 @@ let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\Dardan\\";
  */
 const readdirp = require('readdirp'); // Can read file recusrively into a folder
 //const fs = require('fs'); // Is beeing replaced by greaceful-fs on 09.11.2018
-const fs = require('graceful-fs');
+var fs = require('fs');
+var gracefulFs = require('graceful-fs');
+gracefulFs.gracefulify(fs);
 const readline = require('readline');
 const stream = require('stream');
 /* !!END FILES!!*/
@@ -36,6 +38,7 @@ const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
 let adapter = new lfsa();
 var db = null;
 
+
 if (fs.existsSync(DATABASE_NAME)) {
     console.log("Database already exists");
     db = new loki(DATABASE_NAME, {
@@ -45,9 +48,12 @@ if (fs.existsSync(DATABASE_NAME)) {
     db.loadDatabase({}, function(result){
         gothroughFilesData = db.getCollection("gothroughFilesData");
 
-        let dv = gothroughFilesData.find({'content': {'$regex': ['<head>', 'i']}});
+        let dv = gothroughFilesData.find({'Path': {'$contains': "docx"}});
+
+        console.log("dv: ");
         console.log(dv);
     });
+
 }else {
     console.log("Database doesn't exists");
     db = new loki(DATABASE_NAME, {
@@ -190,33 +196,39 @@ chokidar.watch(FOLDER_TO_WATCH_AND_TO_INDEX, {ignoreInitial: true, followSymlink
 
 
 function fileContentIsIndexableForExtension(fileNameWithExtension){
-    if(fileNameWithExtension.length === 0)
+    if(fileNameWithExtension.length === 0){
         return false;
+    }
 
     let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
 
     let extension = fileNameWithExtension.match(fileExtensionRegex);
 
 
-    if(extension == null)
+    if(extension == null){
         return false;
+    }
 
     extension = extension[1];
 
-    if(fileNameWithExtensionIsInList(extension))
+    if(fileNameWithExtensionIsInList(extension)){
         return true;
-
-    return false;
+    }else{
+        return false;
+    }
 }
 
 
 function fileNameWithExtensionIsInList(extension){
-    var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+    //var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+    var acceptedExtensions = ["docx", "md", "txt", "vsdx", "rtf", "xml", "odt","pages"];
 
-    if(acceptedExtensions.indexOf(extension) >= 0)
+    if(acceptedExtensions.indexOf(extension) >= 0){
         return true;
+    }else{
+        return false;
+    }
 
-    return false;
 }
 
 /* !!END FUNCTIONS!!*/
