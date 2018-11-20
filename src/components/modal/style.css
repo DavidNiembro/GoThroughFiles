@@ -1,0 +1,82 @@
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
+
+.input-group.md-form.form-sm.form-1.pl-0 input{
+    border: 1px solid #bdbdbd;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+.search-input {
+    padding: 10px 10px;
+    height: 52px;
+    position: relative;
+}
+
+.search-input::before {
+    content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAQJJREFUKBWVkr2uQUEUhf3ET6GRaC5aFRoJKrf1BKpb8SwqovYGXkCj00k0QnRKEYkILYobvpUYmeMMyVnJl7P3mjN7Zu9zwiGv2qRFyMMSRrAFp6JPN8XzBj+wgDkUYAg7WINTYdwpDECxrRLJHeq2accdkgm8bzTvNAg2EDOGeUYI1KNO1gkuzTA1g8T7ojbn4ONQWPuHPWgeHmnzCqoe15tkSNPgPEAn68oVcOmA2XMtGK9FoE/VhOTTVNExqLCGZnxCv2pYauEC6lF0oQxX6IOvb7yX9NPEQafan+aPXDdQC18LsO6Tip5BBY6gIQaSbnMCFRCBZRcIvFkbsvCr4AFGOCxQy+JdGQAAAABJRU5ErkJggg==');
+    display: block;
+    position: absolute;
+    width: 15px;
+    z-index: 3;
+    height: 15px;
+    font-size: 20px;
+    top: 11px;
+    left: 16px;
+    line-height: 32px;
+    opacity: 0.6;
+}
+
+.search-input > input {
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    line-height: 22px;
+    padding: 5px 10px 5px 25px;
+    height: 32px;
+    position: relative;
+}
+
+.search-input > input:focus {
+    outline: none;
+}
+
+.button-cog {
+    position: absolute;
+    left: 1000px;
+    width: 50px;
+    border: 3px solid black;
+    padding: 10px;
+    bottom: 240px;
+}
+
+.modal-cover {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 1040;
+    display: none;
+}
+
+.modal-cover.modal-cover-active {
+    display: block;
+}
+
+.modal-container {
+    z-index: 1050;
+    position: fixed;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background: white;
+    width: 600px;
+    min-height: 300px;
+    left: 50%;
+    top: 20%;
+    margin-left: -300px;
+    display: none;
+}
+
+.modal-container.modal-container-active {
+    display: block;
+}
