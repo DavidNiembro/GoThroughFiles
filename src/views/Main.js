@@ -18,26 +18,34 @@ class Main extends Component {
         };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
-        this.modalToggle = this.modalToggle.bind(this)
+
+        this.modalToggle = this.modalToggle.bind(this);
+
+        this.changePage = this.changePage.bind(this);
     }
 
     searchStringChange(e){
         this.setState({search : e.target.value});
+        this.search();
     }
 
     modalToggle() {
-        console.log("modal")
-        this.setState({modalOpened: !this.state.modalOpened})
+        console.log("modal");
+        this.setState({modalOpened: !this.state.modalOpened});
     }
 
     search(){
         let that = this;
+        if(this.state.search===""||this.state.search===null){
+            ipcRenderer.send('Search', this.state.search);
 
-        ipcRenderer.send('Search', this.state.search);
+            ipcRenderer.once('returnSearch', function(event, response){
+                that.setState({datas:response});
+            });
+        }
+    }
 
-        ipcRenderer.once('returnSearch', function(event, response){
-            that.setState({datas:response})
-        });
+    changePage(){
 
     }
 
@@ -49,7 +57,8 @@ class Main extends Component {
             <div style={{width:"85%",marginLeft:"auto",marginRight:"auto"}}>
                 <div style={{height:70,padding:25}}>
                     <InputBar value={this.state.search} stringChange={this.searchStringChange}/>
-                    <Button text={"chercher"} search={this.search}/>
+                    <Button text="&#128269;" search={this.search}/>
+                    <Button text={"réglage"} search={()=>this.props.goToPage("settings")}/>
                 </div>
                 <div className={containerClass}>
                     <div className='modal-header'>
@@ -69,7 +78,7 @@ class Main extends Component {
                         return <Card key={key} data={data} modal={this.modalToggle}/>
                     })}
                 </StackGrid>
-            </div>
+            </div>   
         );
     }
 }

@@ -14,3 +14,5 @@ yarn-error.log
 backend/public/output_json.txt
 .db
 .db.0
+gothroughfiles.db
+gothroughfiles.db.0

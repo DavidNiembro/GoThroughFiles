@@ -5,7 +5,6 @@ import Button from "../components/button"
 const electron = window.require('electron');
 const remote = electron.remote;
 const dialog = remote.dialog;
-const {ipcRenderer} = window.require('electron')
 
 class Path extends Component {
     constructor(props){
@@ -25,7 +24,9 @@ class Path extends Component {
         dialog.showOpenDialog(
             { properties },
             (path)=> {
-                this.setState({path:path[0]});
+                if(path){
+                    this.setState({path:path[0]});
+                }
             }
         );
     }

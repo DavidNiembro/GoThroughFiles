@@ -15,8 +15,6 @@ const storage = require('electron-json-storage');
  */
 let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
 let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\Anel.MUMINOVIC\\PhpstormProjects"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
-let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\Users\Anel.MUMINOVIC\PhpstormProjects";
 /* !!END  GLOBAL VARIABLES!!*/
 
 /* DATABASE/SEARCH
@@ -24,6 +22,7 @@ let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\Users\Anel.MUMINOVIC\PhpstormProjects
  */
 const loki = require("lokijs");
 const lfsa = require('./node_modules/lokijs/src/loki-fs-structured-adapter.js');
+const LokiIndexedAdapter = require('./node_modules/lokijs/src/loki-indexed-adapter.js');
 
 let adapter = new lfsa();
 var db = null;
@@ -147,7 +146,8 @@ function databaseInitialize() {
 
 
     function fileNameWithExtensionIsInList(extension){
-      var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+      //var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
+      var acceptedExtensions = ["docx", "md", "txt", "vsdx", "rtf", "xml", "ipt", "odt","pages"];
 
       if(acceptedExtensions.indexOf(extension) >= 0){
           return true;
@@ -162,7 +162,7 @@ ipc.on('Search', function(event, string){
     db.loadDatabase({}, function(result){
         gothroughFilesData = db.getCollection("gothroughFilesData");
 
-        let dv = gothroughFilesData.find({'content': {'$regex': [string, 'i']}});
+        let dv = gothroughFilesData.find({'Name': {'$regex': [string, 'i']}});
         event.sender.send('returnSearch', dv)
     });
 
@@ -180,11 +180,19 @@ ipc.on('getPath', function(event, string){
 
 });
 ipc.on('setPath', function(event, string){
+    fs.unlink(DATABASE_NAME,function(err){
 
+    });
+    fs.unlink(DATABASE_NAME + ".0",function(err){
+        
+    });
     storage.set('path', string , function(error) {
         if (error) throw error;
         event.sender.send('sendPath', string)
     });
 
+    FOLDER_TO_WATCH_AND_TO_INDEX = string;
 
+    //databaseInitialize()
+  
 });

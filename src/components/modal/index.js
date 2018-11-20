@@ -15,12 +15,12 @@ class Modal extends Component {
         this.state = {
             modalOpened: false
         }
-        this.modalToggle = this.modalToggle.bind(this)
+        this.modalToggle = this.modalToggle.bind(this);
 
     }
 
     modalToggle() {
-        this.setState({modalOpened: !this.state.modalOpened})
+        this.setState({modalOpened: !this.state.modalOpened});
     }
 
 

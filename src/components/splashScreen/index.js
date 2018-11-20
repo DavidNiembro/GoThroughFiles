@@ -4,7 +4,7 @@ import "./style.css";
 class splashscreen extends Component {
     render() {
         return (
-            <body className="App-body">
+            <div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 285 140" preserveAspectRatio="xMidYMid slice">
                     <defs>
                         <mask id="mask" x="0" y="0" width="100%" height="100%" >
@@ -18,7 +18,7 @@ class splashscreen extends Component {
                     <div className="double-bounce1"></div>
                     <div className="double-bounce2"></div>
                 </div>
-            </body>
+            </div>
         );
     }
 }
