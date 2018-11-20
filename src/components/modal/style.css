@@ -1,52 +1,3 @@
-@import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css');
-
-.input-group.md-form.form-sm.form-1.pl-0 input{
-    border: 1px solid #bdbdbd;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-.search-input {
-    padding: 10px 10px;
-    height: 52px;
-    position: relative;
-}
-
-.search-input::before {
-    content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAQJJREFUKBWVkr2uQUEUhf3ET6GRaC5aFRoJKrf1BKpb8SwqovYGXkCj00k0QnRKEYkILYobvpUYmeMMyVnJl7P3mjN7Zu9zwiGv2qRFyMMSRrAFp6JPN8XzBj+wgDkUYAg7WINTYdwpDECxrRLJHeq2accdkgm8bzTvNAg2EDOGeUYI1KNO1gkuzTA1g8T7ojbn4ONQWPuHPWgeHmnzCqoe15tkSNPgPEAn68oVcOmA2XMtGK9FoE/VhOTTVNExqLCGZnxCv2pYauEC6lF0oQxX6IOvb7yX9NPEQafan+aPXDdQC18LsO6Tip5BBY6gIQaSbnMCFRCBZRcIvFkbsvCr4AFGOCxQy+JdGQAAAABJRU5ErkJggg==');
-    display: block;
-    position: absolute;
-    width: 15px;
-    z-index: 3;
-    height: 15px;
-    font-size: 20px;
-    top: 11px;
-    left: 16px;
-    line-height: 32px;
-    opacity: 0.6;
-}
-
-.search-input > input {
-    width: 100%;
-    font-size: 18px;
-    border: none;
-    line-height: 22px;
-    padding: 5px 10px 5px 25px;
-    height: 32px;
-    position: relative;
-}
-
-.search-input > input:focus {
-    outline: none;
-}
-
-.button-cog {
-    position: absolute;
-    left: 1000px;
-    width: 50px;
-    border: 3px solid black;
-    padding: 10px;
-    bottom: 240px;
-}
 
 .modal-cover {
     position: fixed;
@@ -75,8 +26,35 @@
     top: 20%;
     margin-left: -300px;
     display: none;
+    -webkit-box-shadow: 1px 2px 4px #000;
+    box-shadow: 1px 2px 4px #000;
+    animation: scale-up 1 0.6s ease 0s;
 }
 
 .modal-container.modal-container-active {
     display: block;
+}
+
+.modal-header{
+    margin: 0 auto;
+    font-family: sans-serif;
+    font-size: 22px;
+    text-transform: capitalize;
+    font-weight: 100px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    color: black;
+}
+
+@keyframes top-in {
+    0% {transform: translateY(-1000px);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes scale-up {
+    0% {transform: scale(0);}
+    50% {transform: scale(1.08);}
+    100% {transform: scale(1);}
 }

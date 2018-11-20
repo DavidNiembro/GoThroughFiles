@@ -17,7 +17,7 @@ class Card extends Component {
         let extention = name.substr(index+1,total-index) 
         return (
 
-        <div style={{backgroundColor:"white",height:200, borderRadius:10,padding:10, margin:10,boxShadow: "0px 0px 15px rgba(0,0,0,0.15)"}} key="key1" onDoubleClick={()=>this.openfile(file.Path)}>
+        <div style={{backgroundColor:"white",height:200, borderRadius:10,padding:10, margin:10,boxShadow: "0px 0px 15px rgba(0,0,0,0.15)"}} key="key1" onDoubleClick={()=>this.openfile(file.Path)} onClick={()=>this.props.modal()}>
             <h3 style={{color:"black"}}>{nameFinal}</h3>
             <div style={{height:2,width:30, backgroundColor:"red"}}></div>
             

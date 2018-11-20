@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import "./style.css";
 import node_dir from "node-dir";
-import SearchInput, {createFilter} from 'react-search-input';
-import { Glyphicon, ButtonGroup, Button } from 'react-bootstrap';
-
-import data from '../../base.json';
 
 
-const KEYS_TO_FILTERS = ['id', 'title'];
 
-class Searchfiles extends Component {
+
+
+class Modal extends Component {
 
 
     constructor(props) {
@@ -33,18 +30,12 @@ class Searchfiles extends Component {
         const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
             <body>
-
             <div>
-
-
-                <ButtonGroup>
-                    <Button className="button-cog" onClick={this.modalToggle}>
-                        <Glyphicon glyph="cog"/>
-                    </Button>
-                </ButtonGroup>
                 <div className={containerClass}>
                     <div className='modal-header'></div>
-                    <div className='modal-body'></div>
+                    <div className='modal-body'>
+                        <p>sdfkjsdklfjdskfjdsklfjs</p>
+                    </div>
                     <div className='modal-footer'></div>
                 </div>
 
@@ -60,4 +51,4 @@ class Searchfiles extends Component {
 
 
 
-export default Searchfiles;
+export default Modal;

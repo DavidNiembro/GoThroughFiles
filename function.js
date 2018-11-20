@@ -15,8 +15,8 @@ const storage = require('electron-json-storage');
  */
 let gothroughFilesData              =  null; // This will contain the lokijs ("files") collection (it's the variable that interacts with the database data)
 let DATABASE_NAME                   =  "gothroughfiles.db";
-let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\David.NIEMBRO\\Desktop"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
-let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\\Users\\David.NIEMBRO\\Desktop";
+let FOLDER_TO_WATCH_AND_TO_INDEX    =  "C:\\Users\\Anel.MUMINOVIC\\PhpstormProjects"; //"\\\\sc-file-sv06\\Perso\\Eleve\\sc\\INFO\\NC\\";
+let LAST_FOLDER_WATCHED_AND_INDEXED =  "C:\Users\Anel.MUMINOVIC\PhpstormProjects";
 /* !!END  GLOBAL VARIABLES!!*/
 
 /* DATABASE/SEARCH
@@ -29,7 +29,7 @@ let adapter = new lfsa();
 var db = null;
 
 ipc.on('CheckDatabase', function(event, data){
-    FOLDER_TO_WATCH_AND_TO_INDEX = data;
+    // FOLDER_TO_WATCH_AND_TO_INDEX = data;
   if (fs.existsSync(DATABASE_NAME)) {
     event.sender.send('actionReply', "Database already exists")
     db = new loki(DATABASE_NAME, {
