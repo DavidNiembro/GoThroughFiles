@@ -17,6 +17,9 @@ class Settings extends Component {
         this.openDialog = this.openDialog.bind(this);
         this.persistPath = this.persistPath.bind(this);
     }
+    componentDidMount(){
+        this.setState({path:this.props.path})
+    }
     changePath(e){
         if(e.value){
             this.setState({path:e.value})

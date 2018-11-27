@@ -26,10 +26,6 @@ class App extends Component {
         let that = this;
         ipcRenderer.once('databasePath', function(event, path){
             that.setState({path:path});
-            ipcRenderer.once('actionReply', function(event, response){
-                console.log(response);
-            });
-            ipcRenderer.send('CheckDatabase', path);
             setTimeout(()=>{
                 if(that.state.path==null){
                     that.setState({view: "path"})
@@ -52,9 +48,6 @@ class App extends Component {
     }
 
     goToPage(newPage){
-        console.log("here")
-        console.log(newPage)
-
         this.setState({view:newPage});
     }
 
@@ -75,7 +68,7 @@ class App extends Component {
                 );
             case "settings":
                 return(
-                  <Settings setPath={this.setPath} />
+                  <Settings setPath={this.setPath} path={this.state.path}/>
                 );
             default:
                 break;
