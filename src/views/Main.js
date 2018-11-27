@@ -25,8 +25,9 @@ class Main extends Component {
     }
 
     searchStringChange(e){
+        console.log(e);
         this.setState({search : e.target.value});
-        this.search();
+        // this.search();
     }
 
     modalToggle() {
@@ -36,10 +37,12 @@ class Main extends Component {
 
     search(){
         let that = this;
-        if(this.state.search===""||this.state.search===null){
+        console.log(this.state.search);
+        if(this.state.search!==""&&this.state.search!==null){
             ipcRenderer.send('Search', this.state.search);
 
             ipcRenderer.once('returnSearch', function(event, response){
+                console.log(response);
                 that.setState({datas:response});
             });
         }
@@ -52,7 +55,6 @@ class Main extends Component {
     render() {
         const coverClass = this.state.modalOpened ? 'modal-cover modal-cover-active' : 'modal-cover';
         const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
-
         return (
             <div style={{width:"85%",marginLeft:"auto",marginRight:"auto"}}>
                 <div style={{height:70,padding:25}}>
@@ -74,7 +76,9 @@ class Main extends Component {
                     columnWidth={250}
                     gutterWidth={5}
                     >
-                    {this.state.datas && this.state.datas.map((data,key)=>{
+                    {this.state.datas && this.state.datas.items.map((data,key)=>{
+                        console.log(data);
+
                         return <Card key={key} data={data} modal={this.modalToggle}/>
                     })}
                 </StackGrid>

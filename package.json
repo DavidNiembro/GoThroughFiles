@@ -22,6 +22,7 @@
     "graceful-fs": "^4.1.15",
     "lokijs": "^1.5.5",
     "node-dir": "^0.1.17",
+    "node-linq": "0.0.5",
     "react": "^16.5.2",
     "react-box-shadow": "^1.0.1",
     "react-dom": "^16.5.2",
@@ -51,5 +52,11 @@
     "react-scripts": "1.1.15"
   },
   "homepage": "src/electron-starter.js",
-  "main": "main.js"
+  "main": "main.js",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
