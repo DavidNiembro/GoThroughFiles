@@ -8,7 +8,7 @@ var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
 const LINQ = require('node-linq').LINQ;
 var files = [];
-
+let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 /* !!END FILES!!*/
 
 
@@ -140,8 +140,8 @@ ipc.on('getPath', function(event, string){
         event.sender.send('databasePath', data)
     });
 
-
 });
+
 ipc.on('setPath', function(event, string){
     storage.set('path', string , function(error) {
         if (error) throw error;
