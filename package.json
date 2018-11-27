@@ -51,5 +51,11 @@
     "react-scripts": "1.1.15"
   },
   "homepage": "src/electron-starter.js",
-  "main": "main.js"
+  "main": "main.js",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

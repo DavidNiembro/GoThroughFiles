@@ -8,7 +8,7 @@ class InputBar extends Component {
     
     render() {
         return (
-            <input className="inputBar" value={this.props.search} /*onChange={this.props.stringChange} *//*onKeyPress={this.props.stringChange}*/ placeholder={"exemple.docx"}></input>
+            <input className="inputBar" value={this.props.search} /*onChange={this.props.stringChange} */ onKeyPress={this.props.stringChange}  placeholder={"exemple.docx"}></input>
         );
     }
 }
