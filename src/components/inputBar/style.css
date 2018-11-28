@@ -18,8 +18,9 @@
     background: #1c81fd;
     color: white;
     position: absolute;
-    right: 0px;
-    top:2px;  
+    right: 2px;
+    top:2px;
+    transition:"all 1s"
 }
 
 .buttonIncludes:hover{

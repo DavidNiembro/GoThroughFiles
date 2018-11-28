@@ -16,6 +16,7 @@ class Main extends Component {
             search: "",
             modalOpened: false,
             marginHeight:"40vh",
+            widthButton: 145,
             loading:false
         };
         this.searchStringChange = this.searchStringChange.bind(this);
@@ -36,12 +37,12 @@ class Main extends Component {
     search(){
         let that = this;
         if(this.state.search!=="" && this.state.search!==null){
-            this.setState({loading: true});
+            this.setState({loading: true, widthButton: 48});
             ipcRenderer.send('Search', this.state.search);
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
-                    that.setState({datas:response, marginHeight:0, loading:false});
+                    that.setState({datas:response, marginHeight:0, loading:false, widthButton: 145});
                     },1000)
             });
         }
@@ -61,7 +62,7 @@ class Main extends Component {
                 </div>
 
                 <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
-                    <InputBar value={this.state.search} stringChange={this.searchStringChange} search={this.search} loading={this.state.loading}/>
+                    <InputBar value={this.state.search} stringChange={this.searchStringChange} search={this.search} loading={this.state.loading} widthButton={this.state.widthButton}/>
                     {this.state.datas && ((this.state.datas.items).lenght + " trouvé")}
                 </div>
                 <div className={containerClass}>

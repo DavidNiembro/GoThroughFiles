@@ -13,9 +13,9 @@ class InputBar extends Component {
         return (
             <div style={{position:"relative"}}>
                 <input className="inputBar" value={this.props.value} onChange={this.props.stringChange} placeholder={"exemple.docx"}></input>
-                <div className="buttonIncludes" onClick={()=>this.props.search()}>
+                <div className="buttonIncludes" style={{width:this.props.widthButton}} onClick={()=>this.props.search()}>
                 {this.props.loading ?
-                        <div style={{marginLeft:"60px", marginTop:"12px"}}>
+                        <div>
                         <ClipLoader
                             sizeUnit={"px"}
                             size={20}
@@ -24,7 +24,7 @@ class InputBar extends Component {
                         />
                         </div>
                         :
-                        <span style={{marginLeft:"40px",lineHeight:3}}> 
+                        <span style={{lineHeight:3}}>
                             chercher
                         </span>
                     }
