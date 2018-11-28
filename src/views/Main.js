@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import StackGrid from "react-stack-grid";
 import Card from "../components/card/index";
 import Button from "../components/button";
-import InputBar from "../components/inputBar";
+import InputBar from "../components/inputBarSearch";
 import Modal from "../components/modal";
 
 const {ipcRenderer} = window.require('electron');
@@ -14,36 +14,35 @@ class Main extends Component {
         this.state={
             datas : null,
             search: "",
-            modalOpened: false
+            modalOpened: false,
+            marginHeight:"40vh",
+            loading:false
         };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
-
         this.modalToggle = this.modalToggle.bind(this);
-
         this.changePage = this.changePage.bind(this);
+
     }
 
     searchStringChange(e){
-        console.log(e);
         this.setState({search : e.target.value});
-        // this.search();
     }
 
     modalToggle() {
-        console.log("modal");
         this.setState({modalOpened: !this.state.modalOpened});
     }
 
     search(){
         let that = this;
-        console.log(this.state.search);
-        if(this.state.search!==""&&this.state.search!==null){
+        if(this.state.search!=="" && this.state.search!==null){
+            this.setState({loading: true});
             ipcRenderer.send('Search', this.state.search);
 
             ipcRenderer.once('returnSearch', function(event, response){
-                console.log(response);
-                that.setState({datas:response});
+                setTimeout(()=>{
+                    that.setState({datas:response, marginHeight:0, loading:false});
+                    },1000)
             });
         }
     }
@@ -56,11 +55,14 @@ class Main extends Component {
         const coverClass = this.state.modalOpened ? 'modal-cover modal-cover-active' : 'modal-cover';
         const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
-            <div style={{width:"85%",marginLeft:"auto",marginRight:"auto"}}>
-                <div style={{height:70,padding:25}}>
-                    <InputBar value={this.state.search} stringChange={this.searchStringChange}/>
-                    <Button text="&#128269;" search={this.search}/>
+            <div style={{width:"75%",marginLeft:"auto",marginRight:"auto"}}>
+                <div style={{position:"absolute",right:0,top:0}}>
                     <Button text={"réglage"} search={()=>this.props.goToPage("settings")}/>
+                </div>
+
+                <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
+                    <InputBar value={this.state.search} stringChange={this.searchStringChange} search={this.search} loading={this.state.loading}/>
+                    {this.state.datas && ((this.state.datas.items).lenght + " trouvé")}
                 </div>
                 <div className={containerClass}>
                     <div className='modal-header'>
@@ -71,14 +73,12 @@ class Main extends Component {
                     <div className='modal-footer'></div>
                 </div>
                 <div className={coverClass} onClick={this.modalToggle}></div>
-
+               
                 <StackGrid
                     columnWidth={250}
                     gutterWidth={5}
                     >
                     {this.state.datas && this.state.datas.items.map((data,key)=>{
-                        console.log(data);
-
                         return <Card key={key} data={data} modal={this.modalToggle}/>
                     })}
                 </StackGrid>

@@ -81,7 +81,9 @@ function search(file, parametres){
 
             var line = fs.readFileSync(file.Path, "utf8");
 
-            if (line.includes(parametres.userString)) {
+            //if (line.includes(parametres.userString)) {
+            if(line.match(parametres.userString,"g")) {
+
                 return true;
             }else {
                 return false;

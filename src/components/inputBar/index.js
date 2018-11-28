@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import "./style.css";
+import { ClipLoader } from 'react-spinners';
+
+
 
 class InputBar extends Component {
     constructor(props){
@@ -8,7 +11,9 @@ class InputBar extends Component {
     
     render() {
         return (
-            <input className="inputBar" value={this.props.search} /*onChange={this.props.stringChange} */ onKeyPress={this.props.stringChange}  placeholder={"exemple.docx"}></input>
+            <div style={{position:"relative"}}>
+                <input className="inputBar" value={this.props.search} onChange={this.props.stringChange} placeholder={"/Documents/"}></input>
+            </div>
         );
     }
 }
