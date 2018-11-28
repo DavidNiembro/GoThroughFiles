@@ -37,7 +37,6 @@ function main() {
 
 }
 
-
 function fileContentIsIndexableForExtension(fileNameWithExtension){
     if(fileNameWithExtension.length === 0){
         return false;
@@ -60,7 +59,6 @@ function fileContentIsIndexableForExtension(fileNameWithExtension){
         return false;
     }
 }
-
 
 function fileNameWithExtensionIsInList(extension){
     //var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
@@ -100,6 +98,7 @@ function search(file, parametres){
 
     }
 }
+
 
 ipc.on('Search', function(event, string){
 
