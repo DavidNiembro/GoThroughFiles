@@ -11,6 +11,7 @@ var files = [];
 let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 /* !!END FILES!!*/
 
+const remote = require('electron').remote;
 
 ipc.on('CheckDatabase', function(event, data){
 

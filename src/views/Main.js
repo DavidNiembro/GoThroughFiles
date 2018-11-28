@@ -4,6 +4,7 @@ import Card from "../components/card/index";
 import Button from "../components/button";
 import InputBar from "../components/inputBarSearch";
 import Modal from "../components/modal";
+import reglage from "./settings.svg"
 
 const {ipcRenderer} = window.require('electron');
 
@@ -42,7 +43,7 @@ class Main extends Component {
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
-                    that.setState({datas:response, marginHeight:0, loading:false, widthButton: 145});
+                    that.setState({datas:response, marginHeight:20, loading:false, widthButton: 145});
                     },1000)
             });
         }
@@ -57,8 +58,8 @@ class Main extends Component {
         const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
             <div style={{width:"75%",marginLeft:"auto",marginRight:"auto"}}>
-                <div style={{position:"absolute",right:0,top:0}}>
-                    <Button text={"réglage"} search={()=>this.props.goToPage("settings")}/>
+                <div style={{position:"absolute",right:10,top:55}}>
+                    <div style={{width:40,height:40}} onClick={()=>this.props.goToPage("settings")}><img style={{width:30}} src={reglage}></img></div>
                 </div>
 
                 <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
