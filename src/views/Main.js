@@ -34,7 +34,6 @@ class Main extends Component {
     }
 
     modalToggle(data) {
-        console.log(data)
         this.setState({modalOpened: !this.state.modalOpened, current:data});
     }
 

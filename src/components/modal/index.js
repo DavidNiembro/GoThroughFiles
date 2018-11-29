@@ -43,8 +43,8 @@ class Modal extends Component {
 
 
                 </div>
-
-        </div>
+                <div className="buttonModalOpenFile" > ouvrir le fichier</div>
+            </div>
         
         )
     }
