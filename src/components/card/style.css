@@ -1,0 +1,13 @@
+.openFileButton{
+    bottom:25px; 
+    position: absolute;
+    color:white;
+    left:20px;
+    border: 1px solid red;
+    border-radius:15px; 
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:5px;
+    padding-top:5px;
+    cursor: pointer;
+}

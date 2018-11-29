@@ -42,7 +42,7 @@ class Settings extends Component {
     render() {
         return (
             <div>
-                <div style={{height:80, backgroundColor:"#1b2838", alignContent:"center", justifyContent:"center",flex:1, paddingLeft:40}}>
+                <div style={{height:80, backgroundColor:"#1b2838", alignContent:"center", justifyContent:"center",flex:1, paddingLeft:40, marginTop:"40px"}}>
                     <span style={{color:"white",fontSize:40,lineHeight:2}}>Réglage</span>
                 </div>
                 <div style={{width:"80%", marginLeft:"auto",marginRight:"auto"}}>
@@ -55,7 +55,7 @@ class Settings extends Component {
                 </div>
                 
 
-                <div style={{position:"absolute", bottom:20, width:"100%"}}>
+                <div style={{bottom:20, display:"flex", width:"100%", justifyContent:"flex-end", position:"absolute", right:"20px"}}>
                     <Button search={this.persistPath} text={"Annuler"}/>
                     <Button search={this.persistPath} text={"Suivant"}/>
                 </div>
