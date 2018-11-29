@@ -17,14 +17,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 48px;
+    height: 40px;
     width: 145px;
     border-radius:25px;
     background: #1c81fd;
     color: white;
     position: absolute;
     right: 0px;
-    top:2px;
+    top:0px;
     transition: all 1s;
     cursor: pointer;
 }

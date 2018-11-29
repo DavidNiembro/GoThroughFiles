@@ -81,7 +81,7 @@ class Main extends Component {
                 </div>
                 {this.state.marginHeight != "40vh" &&
                     <div style={{padding:20, marginTop:10,marginBottom:10}}>
-                        <span style={{color:"lightgrey", fontSize:60}}>167 résultats</span> 
+                        <span style={{color:"lightgrey", fontSize:60}}>Il y a 4{this.state.datas.items.lenght} résultats</span> 
                     </div>
                 }
                 <StackGrid

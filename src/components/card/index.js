@@ -7,7 +7,8 @@ class Card extends Component {
     constructor(props){
         super(props);  
     }
-    openfile(path){
+    openfile(event,path){
+        event.stopPropagation()
         shell.openItem(path);
     }
     render() {
@@ -20,12 +21,20 @@ class Card extends Component {
         let extention = name.substr(index+1,total-index);
         return (
 
+
         <div className="Card" key="key1" onClick={()=>this.props.modal()}>
+
             <h3 style={{color:"white"}}>{nameFinal}</h3>
 
             <div className="trait"></div>
             
-            <div className="extension">
+
+
+
+            <div onClick={(e)=>this.openfile(e,file.Path)}  className="openFileButton">
+                <span style={{color:"red"}}>{"ouvrir"}</span>
+            </div>
+                <div className="extension">
                 {extention}
             </div>
         </div>
