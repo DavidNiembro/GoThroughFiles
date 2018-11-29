@@ -20,10 +20,10 @@
     background-color:red;
 }
 .extension {
-    bottom: 20px;
+    bottom: 30px;
     position: absolute;
     color: white;
-    right: 20px;
+    right: 30px;
 }
 .openFileButton{
     bottom:25px; 
@@ -38,4 +38,13 @@
     padding-top:5px;
     cursor: pointer;
 
+}
+.openFileButton:hover{
+    background:red;
+}
+.openFileText{
+    color:red
+}
+.openFileText:hover{
+    color: white
 }

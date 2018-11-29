@@ -32,7 +32,7 @@ class Card extends Component {
 
 
             <div onClick={(e)=>this.openfile(e,file.Path)}  className="openFileButton">
-                <span style={{color:"red"}}>{"ouvrir"}</span>
+                <span className="openFileText">{"ouvrir"}</span>
             </div>
                 <div className="extension">
                 {extention}

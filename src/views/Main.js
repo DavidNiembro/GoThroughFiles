@@ -19,7 +19,8 @@ class Main extends Component {
             modalOpened: false,
             marginHeight:"40vh",
             widthButton: 145,
-            loading:false
+            loading:false,
+            current:null
         };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
@@ -32,8 +33,9 @@ class Main extends Component {
         this.setState({search : e.target.value});
     }
 
-    modalToggle() {
-        this.setState({modalOpened: !this.state.modalOpened});
+    modalToggle(data) {
+        console.log(data)
+        this.setState({modalOpened: !this.state.modalOpened, current:data});
     }
 
     search(){
@@ -56,14 +58,6 @@ class Main extends Component {
 
     render() {
         const coverClass = this.state.modalOpened ? 'modal-cover modal-cover-active' : 'modal-cover';
-        const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
-
-        const name = "Flexbox.pdf"
-
-        let index = name.lastIndexOf('.');
-        let total = name.length;
-        let nameFinal = name.substr(0,index);
-        const extention = name.substr(index+1,total-index);
         return (
             <div style={{width:"75%",marginLeft:"auto",marginRight:"auto"}}>
                 <div style={{position:"absolute",right:10,top:55}}>
@@ -77,11 +71,10 @@ class Main extends Component {
                 </div>}
                 <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
                     <InputBar value={this.state.search} stringChange={this.searchStringChange} onChange={event => {this.setState({query: event.target.value})}} onKeyPress={event => {if (event.key === 'Enter') {this.search()} }} search={this.search} loading={this.state.loading} widthButton={this.state.widthButton}/>
-                    {this.state.datas && ((this.state.datas.items).lenght + " trouvé")}
                 </div>
                 {this.state.marginHeight != "40vh" &&
                     <div style={{padding:20, marginTop:10,marginBottom:10}}>
-                        <span style={{color:"lightgrey", fontSize:60}}>Il y a 4{this.state.datas.items.lenght} résultats</span> 
+                        <span style={{color:"lightgrey", fontSize:60}}>Il y a {this.state.datas.items.length} résultats</span> 
                     </div>
                 }
                 <StackGrid
@@ -89,28 +82,10 @@ class Main extends Component {
                     gutterWidth={5}
                     >
                     {this.state.datas && this.state.datas.items.map((data,key)=>{
-                        return <Card key={key} data={data} modal={this.modalToggle}/>
+                        return <Card key={key} data={data} modal={() =>this.modalToggle(data)}/>
                     })}
                 </StackGrid>
-                <div className={containerClass}>
-                    <div className='modal-header'>
-                        <h1> {nameFinal}</h1>
-                    </div>
-                    <div className='modal-body'>
-                        <ul>
-                            <li><strong>Type : </strong>{extention}</li>
-                            <li><strong>Taille : </strong> 20 MB</li>
-                            <li><strong>Auteur : </strong>Anel Muminovic </li>
-                            <li><strong>Date de modification : </strong> 22.11.2018 </li>
-                            <li><strong>Date de création : </strong>10.11.2018</li>
-                        </ul>
-                    </div>
-                    <div className='modal-footer'>
-
-
-                    </div>
-
-                </div>
+                <Modal modalOpened={this.state.modalOpened} data={this.state.current}/>
                 <div className={coverClass} onClick={this.modalToggle}></div>
             </div>   
         );

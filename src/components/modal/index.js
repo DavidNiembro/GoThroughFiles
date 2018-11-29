@@ -13,35 +13,39 @@ class Modal extends Component {
         super(props)
 
         this.state = {
-            modalOpened: false
+            
         }
-        this.modalToggle = this.modalToggle.bind(this);
-
     }
 
     modalToggle() {
-        this.setState({modalOpened: !this.state.modalOpened});
+        this.setState({modalOpened: !this.props.modalOpened});
     }
 
 
     render() {
 
-        const coverClass = this.state.modalOpened ? 'modal-cover modal-cover-active' : 'modal-cover';
-        const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
+        const containerClass = this.props.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
-            <body>
-            <div>
-                <div className={containerClass}>
-                    <div className='modal-header'></div>
-                    <div className='modal-body'>
-                        <p>sdfkjsdklfjdskfjdsklfjs</p>
-                    </div>
-                    <div className='modal-footer'></div>
+            <div className={containerClass}>
+                <div className='modal-header'>
+                    <h1>{this.props.data && this.props.data.Name}</h1>
+                </div>
+                <div className='modal-body'>
+                    <ul>
+                        <li><strong>Type : </strong>{""}</li>
+                        <li><strong>Taille : </strong> 20 MB</li>
+                        <li><strong>Auteur : </strong>Anel Muminovic </li>
+                        <li><strong>Date de modification : </strong> 22.11.2018 </li>
+                        <li><strong>Date de création : </strong>10.11.2018</li>
+                    </ul>
+                </div>
+                <div className='modal-footer'>
+
+
                 </div>
 
-                <div className={coverClass} onClick={this.modalToggle}></div>
-            </div>
-            </body>
+        </div>
+        
         )
     }
 
