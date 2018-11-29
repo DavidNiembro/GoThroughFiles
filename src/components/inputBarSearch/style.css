@@ -10,6 +10,7 @@
     background-color: lightgrey;
     line-height: 90px;
     text-indent: 15px;
+    cursor: text;
 }
 
 .buttonIncludes{
@@ -25,10 +26,12 @@
     right: 0px;
     top:2px;
     transition: all 1s;
+    cursor: pointer;
 }
 
 .buttonIncludes:hover{
     background: #025fd1;
 
 }
+
 

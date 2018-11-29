@@ -88,3 +88,10 @@ body {
 #window-controls #restore-button {
   display: none;
 }
+
+h3
+{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

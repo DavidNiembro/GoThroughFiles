@@ -57,10 +57,17 @@ class Main extends Component {
     render() {
         const coverClass = this.state.modalOpened ? 'modal-cover modal-cover-active' : 'modal-cover';
         const containerClass = this.state.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
+
+        const name = "Flexbox.pdf"
+
+        let index = name.lastIndexOf('.');
+        let total = name.length;
+        let nameFinal = name.substr(0,index);
+        const extention = name.substr(index+1,total-index);
         return (
             <div style={{width:"75%",marginLeft:"auto",marginRight:"auto"}}>
                 <div style={{position:"absolute",right:10,top:55}}>
-                    <div style={{width:40,height:40}} onClick={()=>this.props.goToPage("settings")}><img style={{width:30}} src={reglage}></img></div>
+                    <div style={{width:40,height:40, cursor:"pointer"}} onClick={()=>this.props.goToPage("settings")}><img style={{width:30}} src={reglage}></img></div>
                 </div>
 
                 {this.state.marginHeight == "40vh" &&<div style={{display:"flex", flex:1, alignItems:"center",justifyContent:"center",height:"40vh",position:"absolute",top:20}}>
@@ -69,7 +76,7 @@ class Main extends Component {
                     </Typing>
                 </div>}
                 <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
-                    <InputBar value={this.state.search} stringChange={this.searchStringChange} search={this.search} loading={this.state.loading} widthButton={this.state.widthButton}/>
+                    <InputBar value={this.state.search} stringChange={this.searchStringChange} onChange={event => {this.setState({query: event.target.value})}} onKeyPress={event => {if (event.key === 'Enter') {this.search()} }} search={this.search} loading={this.state.loading} widthButton={this.state.widthButton}/>
                     {this.state.datas && ((this.state.datas.items).lenght + " trouvé")}
                 </div>
                 {this.state.marginHeight != "40vh" &&
@@ -84,14 +91,25 @@ class Main extends Component {
                     {this.state.datas && this.state.datas.items.map((data,key)=>{
                         return <Card key={key} data={data} modal={this.modalToggle}/>
                     })}
-                </StackGrid> 
+                </StackGrid>
                 <div className={containerClass}>
                     <div className='modal-header'>
-                        <h1></h1>
+                        <h1> {nameFinal}</h1>
                     </div>
                     <div className='modal-body'>
+                        <ul>
+                            <li><strong>Type : </strong>{extention}</li>
+                            <li><strong>Taille : </strong> 20 MB</li>
+                            <li><strong>Auteur : </strong>Anel Muminovic </li>
+                            <li><strong>Date de modification : </strong> 22.11.2018 </li>
+                            <li><strong>Date de création : </strong>10.11.2018</li>
+                        </ul>
                     </div>
-                    <div className='modal-footer'></div>
+                    <div className='modal-footer'>
+
+
+                    </div>
+
                 </div>
                 <div className={coverClass} onClick={this.modalToggle}></div>
             </div>   
