@@ -12,6 +12,9 @@ html, body {height: 100%; margin: 0;}
 body {
   border: 1px solid #070b0e;
   overflow-y: hidden;
+  overflow-x: auto;
+  overflow: scroll;
+
 }
 
 #titlebar {

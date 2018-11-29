@@ -5,6 +5,7 @@ import Button from "../components/button";
 import InputBar from "../components/inputBarSearch";
 import Modal from "../components/modal";
 import reglage from "./settings.svg"
+import Typing from 'react-typing-animation';
 
 const {ipcRenderer} = window.require('electron');
 
@@ -62,10 +63,28 @@ class Main extends Component {
                     <div style={{width:40,height:40}} onClick={()=>this.props.goToPage("settings")}><img style={{width:30}} src={reglage}></img></div>
                 </div>
 
+                {this.state.marginHeight == "40vh" &&<div style={{display:"flex", flex:1, alignItems:"center",justifyContent:"center",height:"40vh",position:"absolute",top:20}}>
+                     <Typing>
+                        <span style={{color:"grey", fontSize:50}}>Tapez un mot pour commencer la recherche</span>
+                    </Typing>
+                </div>}
                 <div style={{height:70,padding:25,marginTop:this.state.marginHeight,transition:"all 1s"}}>
                     <InputBar value={this.state.search} stringChange={this.searchStringChange} search={this.search} loading={this.state.loading} widthButton={this.state.widthButton}/>
                     {this.state.datas && ((this.state.datas.items).lenght + " trouvé")}
                 </div>
+                {this.state.marginHeight != "40vh" &&
+                    <div style={{padding:20, marginTop:10,marginBottom:10}}>
+                        <span style={{color:"lightgrey", fontSize:60}}>167 résultats</span> 
+                    </div>
+                }
+                <StackGrid
+                    columnWidth={250}
+                    gutterWidth={5}
+                    >
+                    {this.state.datas && this.state.datas.items.map((data,key)=>{
+                        return <Card key={key} data={data} modal={this.modalToggle}/>
+                    })}
+                </StackGrid> 
                 <div className={containerClass}>
                     <div className='modal-header'>
                         <h1></h1>
@@ -75,15 +94,6 @@ class Main extends Component {
                     <div className='modal-footer'></div>
                 </div>
                 <div className={coverClass} onClick={this.modalToggle}></div>
-               
-                <StackGrid
-                    columnWidth={250}
-                    gutterWidth={5}
-                    >
-                    {this.state.datas && this.state.datas.items.map((data,key)=>{
-                        return <Card key={key} data={data} modal={this.modalToggle}/>
-                    })}
-                </StackGrid>
             </div>   
         );
     }
