@@ -1,49 +1,45 @@
 import React, { Component } from "react";
 import "./style.css";
 import node_dir from "node-dir";
-
-
-
-
+const shell = window.require('electron').shell;
 
 class Modal extends Component {
 
-
     constructor(props) {
         super(props)
-
-        this.state = {
-            
+        this.state = { 
         }
+    }
+
+    openfile(event,path){
+        event.stopPropagation()
+        shell.openItem(path);
     }
 
     modalToggle() {
         this.setState({modalOpened: !this.props.modalOpened});
     }
 
-
     render() {
+        let file = this.props.data
 
         const containerClass = this.props.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
             <div className={containerClass}>
                 <div className='modal-header'>
-                    <h1>{this.props.data && this.props.data.Name}</h1>
+                    <h1 style={{paddingTop:20}}>{this.props.data && this.props.data.Name}</h1>
+                    <span class="close" onClick={()=>this.props.modalToggle()}></span>
                 </div>
                 <div className='modal-body'>
                     <ul>
-                        <li><strong>Type : </strong>{""}</li>
-                        <li><strong>Taille : </strong> 20 MB</li>
-                        <li><strong>Auteur : </strong>Anel Muminovic </li>
-                        <li><strong>Date de modification : </strong> 22.11.2018 </li>
-                        <li><strong>Date de création : </strong>10.11.2018</li>
+                        <li><strong>Taille : </strong> {file && file.meta && file.meta.size}</li>
+                        <li><strong>Emplacement: </strong>{file && file.Path}</li>
+                        <li><strong>Date de modification : </strong>{file && file.meta && file.meta.mtime} </li>
+                        <li><strong>Date de création : </strong>{file && file.meta && file.meta.birthtime}</li>
                     </ul>
                 </div>
-                <div className='modal-footer'>
-
-
-                </div>
-                <div className="buttonModalOpenFile" > ouvrir le fichier</div>
+             
+                <div className="buttonModalOpenFile" onClick={(e)=>this.openfile(e,file.Path)}   > ouvrir le fichier</div>
             </div>
         
         )

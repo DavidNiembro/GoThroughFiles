@@ -13,7 +13,6 @@ class App extends Component {
         super();
         this.state = {            
             view : "splash",
-            //path : "/users/davidniembro/desktop",
             path : null,
 
         };

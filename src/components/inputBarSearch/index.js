@@ -13,6 +13,7 @@ class InputBar extends Component {
         return (
             <div style={{position:"relative"}}>
                 <input className="inputBar" value={this.props.value} onChange={this.props.stringChange} placeholder={"exemple.docx"}></input>
+                <div className="buttonFiltre" onClick={()=>this.props.openFiltre()}><span>{this.props.filtre ? "moins de filtres": "plus de filtres"}</span></div>
                 <div className="buttonIncludes" style={{width:this.props.widthButton}} onClick={()=>this.props.search()}>
                 {this.props.loading ?
                         <div>

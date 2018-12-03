@@ -7,6 +7,8 @@ const fs = require('graceful-fs');
 var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
 const LINQ = require('node-linq').LINQ;
+const pdf = require('pdf-parse');
+
 var files = [];
 let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 /* !!END FILES!!*/
@@ -22,12 +24,15 @@ function main() {
         .on('data', function (entry) {
             let actualFilePath = entry.fullPath;
             let actualFileName = entry.name;
-
-            files.push({
-                Name : actualFileName,
-                Path: actualFilePath.toString(),
+            fs.stat(actualFilePath.toString(), function (err, stats) {
+                if (err) throw err;
+                files.push({
+                    Name : actualFileName,
+                    Path: actualFilePath.toString(),
+                    meta: stats
+                });
             });
-
+           
         })
         .on('err', function(error){
             console.log("error: " + error);
@@ -79,15 +84,29 @@ function search(file, parametres){
         if(file.Name.includes(parametres.userString)) {
             return true;
         }else{
+            let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+            let extension = file.Name.match(fileExtensionRegex);
+            switch(extension){
+                case "pdf":
+                    let dataBuffer = fs.readFileSync(file.Path);
+                    let text
+                    pdf(dataBuffer).then(function(data) {
+                        text = data.text
+                    });
+                    if(text.match(parametres.userString,"g")) {
+                        return true;
+                    }else {
+                        return false;
+                    }
+                break;
+                default:
+                    var line = fs.readFileSync(file.Path, "utf8");
 
-            var line = fs.readFileSync(file.Path, "utf8");
-
-            //if (line.includes(parametres.userString)) {
-            if(line.match(parametres.userString,"g")) {
-
-                return true;
-            }else {
-                return false;
+                    if(line.match(parametres.userString,"g")) {
+                        return true;
+                    }else {
+                        return false;
+                    }
             }
         }
     }
@@ -112,9 +131,13 @@ ipc.on('Search', function(event, string){
             let actualFilePath = entry.fullPath;
             let actualFileName = entry.name;
 
-            files.push({
-                Name : actualFileName,
-                Path: actualFilePath.toString(),
+            fs.stat(actualFilePath.toString(), function (err, stats) {
+                if (err) throw err;
+                files.push({
+                    Name : actualFileName,
+                    Path: actualFilePath.toString(),
+                    meta: stats
+                });
             });
 
         })
