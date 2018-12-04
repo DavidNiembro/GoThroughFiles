@@ -19,29 +19,7 @@ ipc.on('CheckDatabase', function(event, data){
 
 });
 
-function main() {
-    readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
-        .on('data', function (entry) {
-            let actualFilePath = entry.fullPath;
-            let actualFileName = entry.name;
-            fs.stat(actualFilePath.toString(), function (err, stats) {
-                if (err) throw err;
-                files.push({
-                    Name : actualFileName,
-                    Path: actualFilePath.toString(),
-                    meta: stats
-                });
-            });
-           
-        })
-        .on('err', function(error){
-            console.log("error: " + error);
-        })
-        .on('end', function(msg){
-            console.log("End ! " + msg);
-        });
 
-}
 
 function fileContentIsIndexableForExtension(fileNameWithExtension){
     if(fileNameWithExtension.length === 0){

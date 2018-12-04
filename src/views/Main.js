@@ -23,30 +23,46 @@ class Main extends Component {
             current:null,
             heightFiltre:50,
             height:70,
-            filtre:0
+            filtre:0,
+            switched: false
         };
         this.searchStringChange = this.searchStringChange.bind(this);
         this.search = this.search.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
         this.openFiltre = this.openFiltre.bind(this);
-
+        this.toggleSwitch = this.toggleSwitch.bind(this);
     }
 
     searchStringChange(e){
-        if (e.key === 'Enter'){
-            this.search();
-        }else{
-            this.setState({search : e.target.value});
-        }
+        this.setState({search : e.target.value});
+        
     }
 
     modalToggle(data) {
         this.setState({modalOpened: !this.state.modalOpened, current:data});
     }
+    toggleSwitch() {
+        this.setState(prevState => {
+          return {
+            switched: !prevState.switched
+          };
+        });
+      };
 
     search(){
         let that = this;
         if(this.state.search!=="" && this.state.search!==null){
+
+            var res = this.state.search.split(" ");
+
+            let query = {
+                "word": res,
+                "searchInFile":that.state.switched
+            }
+
+            console.log(query);
+
+
             this.setState({loading: true, widthButton: 48});
             ipcRenderer.send('Search', this.state.search);
 
@@ -92,7 +108,7 @@ class Main extends Component {
                         openFiltre={this.openFiltre}
                         filtre={this.state.filtre}
                         />
-                    <Filtres heightFiltre={this.state.heightFiltre} filtre={this.state.filtre}/>
+                    <Filtres heightFiltre={this.state.heightFiltre} filtre={this.state.filtre} toggleSwitch={this.toggleSwitch} switched={this.state.switched}/>
                 </div>
                 
                 {this.state.marginHeight != "40vh" &&
