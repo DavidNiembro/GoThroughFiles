@@ -35,10 +35,6 @@ class Path extends Component {
     }
 
     persistPath(){
-        //ipcRenderer.once('actionReply', function(event, response){
-        //    console.log(response);
-        //})
-        //ipcRenderer.send('CheckDatabase', 'someData');
         this.props.setPath(this.state.path);
     }
     render() {

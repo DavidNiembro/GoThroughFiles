@@ -16,12 +16,11 @@ class App extends Component {
             path : null,
 
         };
-        this.loading();
         this.setPath = this.setPath.bind(this);
         this.goToPage = this.goToPage.bind(this);
     }
 
-    loading(){
+    componentDidMount(){
         let that = this;
         ipcRenderer.once('databasePath', function(event, path){
             console.log(path)
@@ -32,7 +31,7 @@ class App extends Component {
                 }else{
                     that.setState({view: "main"})
                 }
-                },1000)
+            },1000)
         });
         ipcRenderer.send('getPath');
 
@@ -44,7 +43,6 @@ class App extends Component {
             that.setState({view: "main"})
        });
        ipcRenderer.send('setPath', path);
-       ipcRenderer.send('CheckDatabase', path);
     }
 
     goToPage(newPage){
