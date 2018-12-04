@@ -63,7 +63,7 @@ class Main extends Component {
 
 
             this.setState({loading: true, widthButton: 48});
-            ipcRenderer.send('Search', this.state.search);
+            ipcRenderer.send('Search', query);
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{

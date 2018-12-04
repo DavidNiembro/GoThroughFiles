@@ -57,15 +57,17 @@ function fileNameWithExtensionIsInList(extension){
 }
 
 function search(file, parametres){
+    
+    let nameRegex = new RegExp(/^(?=.*David)(?=.*2018)(?=.*docx).+/,"i");
 
     if(fileContentIsIndexableForExtension(file.Name)) {
-        if(file.Name.includes(parametres.userString)) {
+        
+        if(file.Name.match(nameRegex)) {
             return true;
         }else{
-            let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+            /*let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
             let extension = file.Name.match(fileExtensionRegex);
             switch(extension){
-                case "pdf":
                     let dataBuffer = fs.readFileSync(file.Path);
                     let text
                     pdf(dataBuffer).then(function(data) {
@@ -85,12 +87,11 @@ function search(file, parametres){
                     }else {
                         return false;
                     }
-            }
+            }*/
         }
     }
-
     else{
-        if(file.Name.includes(parametres.userString)) {
+        if(file.Name.match(nameRegex)) {
             return true;
         }else{
             return false;
@@ -100,7 +101,7 @@ function search(file, parametres){
 }
 
 
-ipc.on('Search', function(event, string){
+ipc.on('Search', function(event, data){
 
     files = [];
 
@@ -124,7 +125,7 @@ ipc.on('Search', function(event, string){
         })
         .on('end', function(msg){
             let dv = new LINQ(files)
-                .Where(function(file) { return search(file,{"userString":string});
+                .Where(function(file) { return search(file,{"userString":data, "regex":data});
                 });
 
             // .OrderBy(function(file) { return file;})
