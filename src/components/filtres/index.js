@@ -10,7 +10,7 @@ class Filtres extends Component {
     render() {
 
         return (
-            <div style={{height:this.props.heightFiltre, width:"100%", borderRadius:"25px", backgroundColor:"lightgrey", marginTop:-50,borderRadius:"25px", transition:"all 1s",overflow: "hidden"}}>
+            <div style={{height:this.props.heightFiltre, width:"100%", backgroundColor:"lightgrey", marginTop:-50,borderRadius:"25px", transition:"all 1s",overflow: "hidden"}}>
                 <div style={{paddingLeft:15}}>
                     <div style={{height:1,width:"80%", backgroundColor:"grey",marginTop:50}}></div>
                     <h2 style={{color: "gray", paddingTop:10}}>Filtres / recherche avancée</h2>

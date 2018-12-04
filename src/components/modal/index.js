@@ -28,7 +28,7 @@ class Modal extends Component {
             <div className={containerClass}>
                 <div className='modal-header'>
                     <h1 style={{paddingTop:20}}>{this.props.data && this.props.data.Name}</h1>
-                    <span class="close" onClick={()=>this.props.modalToggle()}></span>
+                    <span className="close" onClick={()=>this.props.modalToggle()}></span>
                 </div>
                 <div className='modal-body'>
                     <ul>

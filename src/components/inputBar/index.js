@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./style.css";
-import { ClipLoader } from 'react-spinners';
-
 
 
 class InputBar extends Component {

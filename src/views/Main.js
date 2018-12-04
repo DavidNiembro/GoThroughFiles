@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import StackGrid from "react-stack-grid";
 import Card from "../components/card/index";
-import Button from "../components/button";
 import InputBar from "../components/inputBarSearch";
 import Modal from "../components/modal";
 import reglage from "./settings.svg"
@@ -75,7 +74,7 @@ class Main extends Component {
     }
 
     openFiltre(){
-        if(this.state.heightFiltre==200){
+        if(this.state.heightFiltre === 200){
             this.setState({heightFiltre:50,height:70,filtre:0});
         }else{
             this.setState({heightFiltre:200,height:270,filtre:1});
