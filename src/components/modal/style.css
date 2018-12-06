@@ -1,5 +1,5 @@
 
-.modal-cover {
+.modalCover {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,11 +10,11 @@
     display: none;
 }
 
-.modal-cover.modal-cover-active {
+.modalCover.modalCoverActive {
     display: block;
 }
 
-.modal-container {
+.modalContainer {
     z-index: 1050;
     position: fixed;
     border-radius: 16px;
@@ -31,12 +31,11 @@
     background:#1b2838;
 }
 
-.modal-container.modal-container-active {
+.modalContainer.modalContainerActive {
     display: block;
 }
 
-.modal-header{
-    display: flex;
+.modalHeader{
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -45,27 +44,25 @@
     font-weight: 100;
     letter-spacing: 1px;
     padding-bottom: 10px;
+    padding-right: 30px;
     color: white;
-    padding-left: 30px
-    
+    padding-left: 30px;
+    overflow-wrap: break-word;
 }
-.modal-body {
-    padding: 15px 40px 30px;
+.modalBody {
+    padding: 15px 50px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
-    color: white
+    color: white;
+    overflow-wrap: break-word;
 }
-.modal-body > ul {
-    padding: 0 0 30px 20px;
+.modalBody > ul {
+    padding: 0 0 50px 20px;
     list-style-type: none;
 }
-.modal-body > ul li {
-    padding: 5px 0;
-}
-
-.modal-footer {
-
+.modalBody > ul li {
+    padding: 10px;
 }
 
 .buttonModalOpenFile{
@@ -94,25 +91,24 @@
     height: 32px;
     opacity: 0.3;
     cursor: pointer;
-  }
-  .close:hover {
+}
+.close:hover {
     opacity: 1;
-  }
-  .close:before, .close:after {
+}
+.close:before, .close:after {
     position: absolute;
     left: 15px;
     content: ' ';
     height: 33px;
     width: 2px;
     background-color: white;
-  }
-  .close:before {
+}
+.close:before {
     transform: rotate(45deg);
-  }
-  .close:after {
+}
+.close:after {
     transform: rotate(-45deg);
-  }
-  
+}
   
 @keyframes top-in {
     0% {transform: translateY(-1000px);}

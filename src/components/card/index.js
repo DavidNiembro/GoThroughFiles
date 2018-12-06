@@ -4,9 +4,7 @@ const shell = window.require('electron').shell;
 
 
 class Card extends Component {
-    constructor(props){
-        super(props);  
-    }
+
     openfile(event,path){
         event.stopPropagation()
         shell.openItem(path);

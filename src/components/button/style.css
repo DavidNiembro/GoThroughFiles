@@ -8,5 +8,10 @@
     border-radius: 30px; 
     color:white;
     font-size:20px;
-    border: none
+    border: none;
+    cursor: pointer;
+    transition: all 1s;
+}
+.buttonBleu:hover{
+    background: #025fd1;
 }

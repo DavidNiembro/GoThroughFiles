@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
-import Main from"./views/Main";
-import Path from"./views/Path";
-import Settings from"./views/Settings";
+import Main from"./Search";
+import Path from"./Path";
+import Settings from"./Settings";
+import SplashScreen from "../components/splashScreen/index";
 
-import SplashScreen from "./components/splashScreen/index";
 const {ipcRenderer} = window.require('electron');
-
 
 class App extends Component {
     constructor(){
@@ -14,16 +12,17 @@ class App extends Component {
         this.state = {            
             view : "splash",
             path : null,
-
         };
         this.setPath = this.setPath.bind(this);
         this.goToPage = this.goToPage.bind(this);
     }
 
+    /**
+     * 
+     */
     componentDidMount(){
         let that = this;
         ipcRenderer.once('databasePath', function(event, path){
-            console.log(path)
             that.setState({path:path});
             setTimeout(()=>{
                 if(that.state.path==null){
@@ -34,8 +33,12 @@ class App extends Component {
             },1000)
         });
         ipcRenderer.send('getPath');
-
     }
+    
+    /**
+     * 
+     * @param {*} path 
+     */
     setPath(path){
         let that = this;
         ipcRenderer.once('sendPath', function(event, response){
@@ -45,6 +48,10 @@ class App extends Component {
        ipcRenderer.send('setPath', path);
     }
 
+    /**
+     * 
+     * @param {*} newPage 
+     */
     goToPage(newPage){
         this.setState({view:newPage});
     }

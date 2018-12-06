@@ -17,28 +17,43 @@ class Settings extends Component {
         this.openDialog = this.openDialog.bind(this);
         this.persistPath = this.persistPath.bind(this);
     }
+
+    /**
+     * 
+     */
     componentDidMount(){
         this.setState({path:this.props.path})
     }
+
+    /**
+     * 
+     * @param {*} e 
+     */
     changePath(e){
         if(e.value){
             this.setState({path:e.value})
         }
     }
+
+    /**
+     * 
+     */
     openDialog(){
         const properties = ['openDirectory'];
-        dialog.showOpenDialog(
-            { properties },
-            (path)=> {
-                if(path){
-                    this.setState({path:path[0]});
-                }
+        dialog.showOpenDialog({ properties },(path)=> {
+            if(path){
+                this.setState({path:path[0]});
             }
-        );
+        });
     }
+
+    /**
+     * 
+     */
     persistPath(){
         this.props.setPath(this.state.path);
     }
+
     render() {
         return (
             <div>
@@ -53,7 +68,6 @@ class Settings extends Component {
                     </div>
                     <Button search={this.openDialog} text={"Selectionner"}/>
                 </div>
-                
 
                 <div style={{bottom:20, display:"flex", width:"100%", justifyContent:"flex-end", position:"absolute", right:"20px"}}>
                     <Button search={this.persistPath} text={"Annuler"}/>
