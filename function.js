@@ -7,6 +7,7 @@ const fs = require('graceful-fs');
 var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
 const LINQ = require('node-linq').LINQ;
+const pdf = require('pdf-parse');
 
 var files = [];
 let FOLDER_TO_WATCH_AND_TO_INDEX = null;
@@ -44,7 +45,7 @@ function isMatchedInTitle(file, regex){
     }
 }
 
-function isMatchedInContent(file, regex){
+ function isMatchedInContent(file, regex){
 
     let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
     let extension = file.Name.match(fileExtensionRegex)[1];
@@ -55,15 +56,16 @@ function isMatchedInContent(file, regex){
 
     switch(extension){
         case 'pdf':
-            // pdf(dataBuffer).then(function(data) {
-            //     text = data.text
-            // });
-            // if(text.match(parametres.userString,"g")) {
-            //     return true;
-            // }else {
-            //     return false;
-            // }
-            // fileContent = ...;
+            fs.appendFileSync("./out.txt", "Entered into PDF in the switch\r\n" );
+            let dataBuffer = fs.readFileSync(file.Path);
+            pdf(dataBuffer).then(function(data) {
+ 
+                console.log(data.text); 
+                fileContent = data.text
+                fs.appendFileSync("./out.txt", fileContent);
+            });
+            
+
             break;
         default: // Default are all files that contain raw text in them like .txt/.doc aso
             fs.appendFileSync("./out.txt", "Entered into DEFAULT in the switch\r\n" );
@@ -182,7 +184,7 @@ function fileContentIsIndexableForExtension(fileNameWithExtension){
 
 function fileNameWithExtensionIsInList(extension){
     //var acceptedExtensions = ["php", "md", "txt", "vsdx", "css", "html", "rtf", "js", "xml", "json", "log", "ipt", "odt", "wks", "wpd", "sql"];
-    var acceptedExtensions = ["docx", "doc", "md", "txt", "vsdx", "rtf", "xml", "ipt", "odt","pages"];
+    var acceptedExtensions = ["docx", "doc", "md", "txt", "vsdx", "rtf", "xml", "ipt", "odt","pages","pdf"];
 
     if(acceptedExtensions.indexOf(extension) >= 0){
         return true;
