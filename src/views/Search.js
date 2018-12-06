@@ -80,7 +80,6 @@ class Main extends Component {
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
-                    console.log(response)
                     that.setState({datas:response, marginHeight:20, loading:false, widthButton: 145});
                 },1000)
             });
@@ -127,7 +126,7 @@ class Main extends Component {
                 
                 {this.state.marginHeight !== "40vh" &&
                     <div style={{padding:20, marginTop:10,marginBottom:10}}>
-                        <span style={{color:"lightgrey", fontSize:60}}>Il y a {this.state.datas.items.length} résultats</span> 
+                        <span style={{color:"lightgrey", fontSize:60}}>Il y a {this.state.datas.items.length} {this.state.datas.items.length<1 ? "résultat":"résultats"}</span> 
                     </div>
                 }
                 <StackGrid
