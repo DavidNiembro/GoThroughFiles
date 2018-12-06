@@ -22,6 +22,7 @@
     cursor: pointer;
     display: inline-block;
     background: gray;
+    margin-top: 10px;
 }
 
 .switch-toggle {

@@ -11,6 +11,7 @@ class Filtres extends Component {
                     <div className="splitLineFiltre"></div>
                     <h2 style={{color: "gray", paddingTop:10}}>Filtres / recherche avancée</h2>
                     <Switch onClick={this.props.toggleSwitch} on={this.props.switched}/>
+                    <span style={{color: "gray", paddingLeft:20}}>Recherche dans le contenu</span>
                 </div>
             </div>
         );

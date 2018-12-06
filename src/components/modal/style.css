@@ -36,7 +36,6 @@
 }
 
 .modalHeader{
-    display: flex;
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -45,23 +44,25 @@
     font-weight: 100;
     letter-spacing: 1px;
     padding-bottom: 10px;
+    padding-right: 30px;
     color: white;
-    padding-left: 30px
-    
+    padding-left: 30px;
+    overflow-wrap: break-word;
 }
 .modalBody {
-    padding: 15px 40px 30px;
+    padding: 15px 50px;
     margin: 0;
     font-weight: 300;
     font-size: 1.15em;
-    color: white
+    color: white;
+    overflow-wrap: break-word;
 }
 .modalBody > ul {
-    padding: 0 0 30px 20px;
+    padding: 0 0 50px 20px;
     list-style-type: none;
 }
 .modalBody > ul li {
-    padding: 5px 0;
+    padding: 10px;
 }
 
 .buttonModalOpenFile{
