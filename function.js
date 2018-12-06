@@ -23,7 +23,8 @@ function search(file, parametres){
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
             return isMatchedInTitle(file, nameRegex);
         } else{
-            return isMatchedInContent(file, parametres.regex);
+            // Here were are searching for the content file but we take in consideration the file title too
+            return isMatchedInContent(file, parametres.regex) || isMatchedInTitle(file, parametres.regex);
         }
     }
     else{ // We can't read the actual content of the file
