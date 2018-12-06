@@ -1,8 +1,7 @@
-/* FILES
- *    Variables needed for files reading
+/** FILES
+ *      Variables needed for files reading
  */
 const readdirp = require('readdirp'); // Can read file recusrively into a folder
-//const fs = require('fs'); // Is beeing replaced by greaceful-fs on 09.11.2018
 const fs = require('graceful-fs');
 var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
@@ -14,23 +13,32 @@ let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 /* !!END FILES!!*/
 
 
-function search(file, parametres){
+/** REGEX
+ *      Defined regex we will assign later. This is only done because we want those variables to be assigned 1 time for each new search.
+ */
+let regexAllWordsMustBePresentText;
+let regexAtLeastOneWordMustBePresentText;
+/* !!END REGEX!!*/
 
-    let nameRegex = new RegExp(parametres.regex,"i");
+function search(file, parametres){
+    fs.appendFileSync("./out.txt", "\r\nparametres:::: " + JSON.stringify(parametres) + "\r\n");
 
     if(fileContentIsIndexableForExtension(file.Name)) { // We can read the content of the actual file
         fs.appendFileSync("./out.txt", "\r\nfileContentIsIndexableForExtension(file.Name) " + file.Path + "\r\n" );
 
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
-            return isMatchedInTitle(file, nameRegex);
+            return isMatchedInTitle(file, new RegExp(regexAllWordsMustBePresentText, "i"));
         } else{
-            return isMatchedInContent(file, parametres.regex);
+            // Here make a non-restrictive search. We search for the content OR for the title
+            // ALL WORDS in the content must match but AT LEAST ONE must match in the title.
+            return  isMatchedInContent(file,    new RegExp(regexAllWordsMustBePresentText, "i")) ||
+                isMatchedInTitle(file,      new RegExp(regexAtLeastOneWordMustBePresentText, "i"));
         }
     }
-    else{ // We can't read the actual content of the file
+    else{ // We can't read the actual content of the file so we search in the title only
         fs.appendFileSync("./out.txt", "\r\nthe actualFile : " + file.Path + " HAS NOT AN EXTENSION we can read into the content \r\n" );
 
-        return isMatchedInTitle(file, nameRegex);
+        return isMatchedInTitle(file, new RegExp(regexAllWordsMustBePresentText, "i"));
     }
 }
 
@@ -90,19 +98,13 @@ function isMatchedInTitle(file, regex){
  * When the 1. process is finisehd it then goes into this array and read file by file to search if conditions are met
  */
 ipc.on('Search', function(event, data){
+    let files = [];
 
-    files = [];
-    reg = "";
-
-    data.word.forEach(word => {
-        reg += "(?=.*"+word+")";
-    });
-
-    searchInFile = data.searchInFile;
+    regexAllWordsMustBePresentText          = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_ALL_WORDS_MUST_BE_PRESENT",          data.word);
+    regexAtLeastOneWordMustBePresentText    = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT",  data.word);
 
     fs.appendFileSync("./out.txt", JSON.stringify(data) + "\r\n\r\n" );
-    fs.appendFileSync("./out.txt", "reg : " + reg + "\r\n" );
-    fs.appendFileSync("./out.txt", "searchInFile : " + searchInFile + "\r\n" );
+
 
     readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
         .on('data', function (entry) {
@@ -127,7 +129,7 @@ ipc.on('Search', function(event, data){
             });
 
             let dv = new LINQ(files)
-                .Where(function(file) { return search(file,{"userString":data, "regex":reg, "searchInFile" : searchInFile});
+                .Where(function(file) { return search(file,{"listOfWordsToSearch": data.word, "searchInFile" : data.searchInFile});
                 });
 
             // .OrderBy(function(file) { return file;})
@@ -192,4 +194,39 @@ function fileNameWithExtensionIsInList(extension){
         return false;
     }
 
+}
+
+function createRegexForCase(regexCase, listOfWords){
+    fs.appendFileSync("./out.txt", "regexCase = " + regexCase + " listOfWords " + listOfWords + "\r\n=====\r\n");
+
+    let regex = "";
+
+    switch(regexCase){
+        case "RGX_MATCH_ORDER_NOT_IMPORTANT_ALL_WORDS_MUST_BE_PRESENT":
+            listOfWords.forEach(word => {
+                regex += "(?=[\\s\\S]*"+word+")";
+            });
+
+            regex +=  ".+";
+
+            fs.appendFileSync("./out.txt", "regex ::: = " + regex + "\r\n======\r\n");
+
+            break;
+        case "RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT":
+
+            fs.appendFileSync("./out.txt", "RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT\r\n");
+
+            listOfWords.forEach(function (value, i) {
+                regex += "("+value+")";
+                if(i < listOfWords.length-1){
+                    regex += "|";
+                }
+            });
+
+            break;
+    }
+
+    fs.appendFileSync("./out.txt", "regex result : " + regex + "\r\n");
+
+    return regex;
 }
