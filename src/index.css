@@ -19,6 +19,7 @@ html, body {
   height: 32px;
   width: calc(100% - 10px); /*Compensate for body 1px border*/
   background: #070b0e;
+  z-index: 1000;
 }
 
 #main {

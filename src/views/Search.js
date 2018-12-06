@@ -80,7 +80,6 @@ class Main extends Component {
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
-                    console.log(response)
                     that.setState({datas:response, marginHeight:20, loading:false, widthButton: 145});
                 },1000)
             });
