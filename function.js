@@ -23,7 +23,8 @@ function search(file, parametres){
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
             return isMatchedInTitle(file, nameRegex);
         } else{
-            // Here were are searching for the content file but we take in consideration the file title too
+            // Here make a non-restrictive search. We search for the content OR for the title
+            // Non-restrictive search
             return isMatchedInContent(file, parametres.regex) || isMatchedInTitle(file, parametres.regex);
         }
     }
@@ -96,6 +97,8 @@ ipc.on('Search', function(event, data){
     data.word.forEach(word => {
         reg += "(?=.*"+word+")";
     });
+
+    reg += ".+";
 
     searchInFile = data.searchInFile;
 
