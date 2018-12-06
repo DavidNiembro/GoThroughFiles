@@ -64,6 +64,9 @@ ipc.on('Search', function(event, data){
     data.word.forEach(word => {
         reg += "(?=.*"+word+")";
     });
+
+    searchInFile = data.searchInFile;
+
     //fs.appendFileSync("./out.txt", reg );
 
     readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
