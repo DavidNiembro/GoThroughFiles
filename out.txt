@@ -1,30 +1,25 @@
-{"searchInFile":false,"word":["test"]}
+{"searchInFile":true,"word":["test"]}
 
 reg : (?=.*test)
-searchInFile : false
-
-fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd.txt
-file.Name DOEST NOT MATCH WITH /(?=.*test)/i
-
-fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\test.md
-file.Name match with /(?=.*test)/i
+searchInFile : true
 
 fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd2.txt
-file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+the actualFile : asd2.txt has an extension of "txt"
 
-the actualFile : C:\Users\Dardan.Iljazi\Documents\Test\test\test.pdf HAS NOT AN EXTENSION we can read into the content 
-{"searchInFile":false,"word":["test"]}
+Entered into DEFAULT in the switch
+The file C:\Users\Dardan.Iljazi\Documents\Test\test\asd2.txt match with the regex(?=.*test)
 
-reg : (?=.*test)
-searchInFile : false
 
 fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd.txt
-file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+the actualFile : asd.txt has an extension of "txt"
 
-fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd2.txt
-file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+Entered into DEFAULT in the switch
 
 fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\test.md
-file.Name match with /(?=.*test)/i
+the actualFile : test.md has an extension of "md"
+
+Entered into DEFAULT in the switch
 
 the actualFile : C:\Users\Dardan.Iljazi\Documents\Test\test\test.pdf HAS NOT AN EXTENSION we can read into the content 
+the actualFile : test.pdf has an extension of "pdf"
+

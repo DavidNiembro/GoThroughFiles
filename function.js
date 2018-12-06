@@ -21,53 +21,15 @@ function search(file, parametres){
         fs.appendFileSync("./out.txt", "\r\nfileContentIsIndexableForExtension(file.Name) " + file.Path + "\r\n" );
 
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
-
             return isMatchedInTitle(file, nameRegex);
-
-        } else{ // The user wants to search into the file content
-
-            let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
-            let extension = file.Name.match(fileExtensionRegex)[1];
-
-            fs.appendFileSync("./out.txt", "the actualFile : " + file.Name + " has an extension of " + JSON.stringify(extension) + "\r\n\r\n" );
-
-            let fileContent = "";
-
-            switch(extension){
-                case 'pdf':
-                    // pdf(dataBuffer).then(function(data) {
-                    //     text = data.text
-                    // });
-                    // if(text.match(parametres.userString,"g")) {
-                    //     return true;
-                    // }else {
-                    //     return false;
-                    // }
-                    // fileContent = ...;
-                    break;
-                default: // Default are all files that contain raw text in them like .txt/.doc aso
-                    fs.appendFileSync("./out.txt", "Entered into DEFAULT in the switch\r\n" );
-                    fileContent = fs.readFileSync(file.Path, "utf8");
-                    break;
-            }
-
-
-            if(fileContent.match(parametres.regex)){
-                fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + parametres.regex  + "\r\n\r\n");
-
-                return true;
-            }else {
-                return false;
-            }
+        } else{
+            return isMatchedInContent(file, parametres.regex);
         }
     }
     else{ // We can't read the actual content of the file
         fs.appendFileSync("./out.txt", "\r\nthe actualFile : " + file.Path + " HAS NOT AN EXTENSION we can read into the content \r\n" );
 
-        if(file.Name.match(nameRegex))
-            return true;
-        else
-            return false;
+        return isMatchedInTitle(file, nameRegex);
     }
 }
 
@@ -82,7 +44,42 @@ function isMatchedInTitle(file, regex){
     }
 }
 
-funct
+function isMatchedInContent(file, regex){
+
+    let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+    let extension = file.Name.match(fileExtensionRegex)[1];
+
+    fs.appendFileSync("./out.txt", "the actualFile : " + file.Name + " has an extension of " + JSON.stringify(extension) + "\r\n\r\n" );
+
+    let fileContent = "";
+
+    switch(extension){
+        case 'pdf':
+            // pdf(dataBuffer).then(function(data) {
+            //     text = data.text
+            // });
+            // if(text.match(parametres.userString,"g")) {
+            //     return true;
+            // }else {
+            //     return false;
+            // }
+            // fileContent = ...;
+            break;
+        default: // Default are all files that contain raw text in them like .txt/.doc aso
+            fs.appendFileSync("./out.txt", "Entered into DEFAULT in the switch\r\n" );
+            fileContent = fs.readFileSync(file.Path, "utf8");
+            break;
+    }
+
+
+    if(fileContent.match(regex)){
+        fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
+
+        return true;
+    }else {
+        return false;
+    }
+}
 
 
 /**
