@@ -14,7 +14,7 @@ let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 
 function search(file, parametres){
     
-    let nameRegex = new RegExp(/David/,"i");
+    let nameRegex = new RegExp(parametres.regex,"i");
 
     if(fileContentIsIndexableForExtension(file.Name)) {
         
@@ -60,11 +60,11 @@ function search(file, parametres){
 ipc.on('Search', function(event, data){
 
     files = [];
-    reg = null;
+    reg = "";
     data.word.forEach(word => {
         reg += "(?=.*"+word+")";
     });
-   // fs.appendFileSync("./out.txt",reg );
+    fs.appendFileSync("./out.txt", reg );
 
     readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
         .on('data', function (entry) {
