@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
+import {getDate} from "../../function/functions";
 const shell = window.require('electron').shell;
 
 class Modal extends Component {
@@ -23,8 +24,11 @@ class Modal extends Component {
 
     render() {
         let file = this.props.data
-        const containerClass = this.props.modalOpened ? 'modalContainer modalContainerActive' : 'modalContainer';
-        return (
+        /* Fonction format date */
+       const time = getDate()
+
+       const containerClass = this.props.modalOpened ? 'modalContainer modalContainerActive' : 'modalContainer';
+       return (
             <div className={containerClass}>
                 <div className='modalHeader'>
                     <h1 style={{paddingTop:20}}>{this.props.data && this.props.data.Name}</h1>
@@ -34,7 +38,7 @@ class Modal extends Component {
                     <ul>
                         <li><strong>Taille : </strong> {file && file.meta && file.meta.size}</li>
                         <li><strong>Emplacement: </strong>{file && file.Path}</li>
-                        <li><strong>Date de modification : </strong>{file && file.meta && file.meta.mtime} </li>
+                        <li><strong>Date de modification : </strong>{file && file.meta && file.meta.mtime}</li>
                         <li><strong>Date de création : </strong>{file && file.meta && file.meta.birthtime}</li>
                     </ul>
                 </div>
