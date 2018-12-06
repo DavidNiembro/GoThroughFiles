@@ -22,13 +22,7 @@ function search(file, parametres){
 
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
 
-            if(file.Name.match(nameRegex)) {
-                fs.appendFileSync("./out.txt", "file.Name match with " + nameRegex + "\r\n" );
-                return true;
-            }else {
-                fs.appendFileSync("./out.txt", "file.Name DOEST NOT MATCH WITH " + nameRegex + "\r\n" );
-                return false;
-            }
+            return isMatchedInTitle(file, nameRegex);
 
         } else{ // The user wants to search into the file content
 
@@ -76,6 +70,19 @@ function search(file, parametres){
             return false;
     }
 }
+
+function isMatchedInTitle(file, regex){
+
+    if(file.Name.match(regex)) {
+        fs.appendFileSync("./out.txt", "file.Name match with " + regex + "\r\n" );
+        return true;
+    }else {
+        fs.appendFileSync("./out.txt", "file.Name DOEST NOT MATCH WITH " + regex + "\r\n" );
+        return false;
+    }
+}
+
+funct
 
 
 /**

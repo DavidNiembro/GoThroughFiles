@@ -1,0 +1,30 @@
+{"searchInFile":false,"word":["test"]}
+
+reg : (?=.*test)
+searchInFile : false
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd.txt
+file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\test.md
+file.Name match with /(?=.*test)/i
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd2.txt
+file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+
+the actualFile : C:\Users\Dardan.Iljazi\Documents\Test\test\test.pdf HAS NOT AN EXTENSION we can read into the content 
+{"searchInFile":false,"word":["test"]}
+
+reg : (?=.*test)
+searchInFile : false
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd.txt
+file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\asd2.txt
+file.Name DOEST NOT MATCH WITH /(?=.*test)/i
+
+fileContentIsIndexableForExtension(file.Name) C:\Users\Dardan.Iljazi\Documents\Test\test\test.md
+file.Name match with /(?=.*test)/i
+
+the actualFile : C:\Users\Dardan.Iljazi\Documents\Test\test\test.pdf HAS NOT AN EXTENSION we can read into the content 
