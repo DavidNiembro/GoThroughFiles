@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 import node_dir from "node-dir";
-import {getDate} from "../../views/functions";
+import {getDate, fileSizeSI} from "../../views/functions";
 const shell = window.require('electron').shell;
 
 
@@ -25,6 +25,7 @@ class Modal extends Component {
         let file = this.props.data
         /* Fonction format date */
        const time = getDate()
+        let taille = fileSizeSI(1355785)
 
         const containerClass = this.props.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
         return (
@@ -35,7 +36,7 @@ class Modal extends Component {
                 </div>
                 <div className='modal-body'>
                     <ul>
-                        <li><strong>Taille : </strong> {file && file.meta && file.meta.size}</li>
+                        <li><strong>Taille : </strong> {taille}</li>
                         <li><strong>Emplacement: </strong>{file && file.Path}</li>
                         <li><strong>Date de modification : </strong>{} </li>
                         <li><strong>Date de création : </strong>{}</li>
