@@ -59,14 +59,12 @@ class Main extends Component {
                 "searchInFile":that.state.switched
             }
 
-            console.log(query);
-
-
             this.setState({loading: true, widthButton: 48});
             ipcRenderer.send('Search', query);
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
+                    console.log(response)
                     that.setState({datas:response, marginHeight:20, loading:false, widthButton: 145});
                 },1000)
             });

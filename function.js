@@ -14,7 +14,7 @@ let FOLDER_TO_WATCH_AND_TO_INDEX = null;
 
 function search(file, parametres){
     
-    let nameRegex = new RegExp(/^(?=.*David)(?=.*2018)(?=.*docx).+/,"i");
+    let nameRegex = new RegExp(/David/,"i");
 
     if(fileContentIsIndexableForExtension(file.Name)) {
         
@@ -60,31 +60,36 @@ function search(file, parametres){
 ipc.on('Search', function(event, data){
 
     files = [];
+    reg = null;
+    data.word.forEach(word => {
+        reg += "(?=.*"+word+")";
+    });
+   // fs.appendFileSync("./out.txt",reg );
 
-    
- 
     readdirp( {root: FOLDER_TO_WATCH_AND_TO_INDEX, directoryFilter: ['!.git', '!*modules' ] })
         .on('data', function (entry) {
             
             let actualFilePath = entry.fullPath;
             let actualFileName = entry.name;
-            let statsFile = null;
-
-            statsFile =  fs.stat(actualFilePath.toString());
-
+        
             files.push({
                 Name : actualFileName,
                 Path: actualFilePath.toString(),
-                meta: statsFile
             });
+           
         })
         .on('err', function(error){
             console.log("error: " + error);
         })
         .on('end', function(msg){
-            fs.appendFileSync("./out.txt",files );
+
+            files.forEach(file => {
+                let statsFile = fs.statSync(file.Path);
+                file.meta = statsFile;
+            });
+            
             let dv = new LINQ(files)
-                .Where(function(file) { return search(file,{"userString":data, "regex":data});
+                .Where(function(file) { return search(file,{"userString":data, "regex":reg});
                 });
 
             // .OrderBy(function(file) { return file;})
