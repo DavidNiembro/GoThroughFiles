@@ -11,6 +11,7 @@
     line-height: 90px;
     text-indent: 15px;
 }
+
 .buttonIncludes{
     height: 48px;
     width: 145px;
@@ -25,6 +26,5 @@
 
 .buttonIncludes:hover{
     background: #025fd1;
-
 }
 

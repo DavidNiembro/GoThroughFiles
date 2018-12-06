@@ -1,36 +1,36 @@
 import React, { Component } from "react";
 import "./style.css";
-import node_dir from "node-dir";
 const shell = window.require('electron').shell;
 
 class Modal extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = { 
-        }
-    }
-
+    
+    /**
+     * 
+     * @param {*} event 
+     * @param {*} path 
+     */
     openfile(event,path){
         event.stopPropagation()
         shell.openItem(path);
     }
 
+    /**
+     * 
+     */
     modalToggle() {
         this.setState({modalOpened: !this.props.modalOpened});
     }
 
     render() {
         let file = this.props.data
-
-        const containerClass = this.props.modalOpened ? 'modal-container modal-container-active' : 'modal-container';
+        const containerClass = this.props.modalOpened ? 'modalContainer modalContainerActive' : 'modalContainer';
         return (
             <div className={containerClass}>
-                <div className='modal-header'>
+                <div className='modalHeader'>
                     <h1 style={{paddingTop:20}}>{this.props.data && this.props.data.Name}</h1>
                     <span className="close" onClick={()=>this.props.modalToggle()}></span>
                 </div>
-                <div className='modal-body'>
+                <div className='modalBody'>
                     <ul>
                         <li><strong>Taille : </strong> {file && file.meta && file.meta.size}</li>
                         <li><strong>Emplacement: </strong>{file && file.Path}</li>
@@ -38,15 +38,10 @@ class Modal extends Component {
                         <li><strong>Date de création : </strong>{file && file.meta && file.meta.birthtime}</li>
                     </ul>
                 </div>
-             
                 <div className="buttonModalOpenFile" onClick={(e)=>this.openfile(e,file.Path)}   > ouvrir le fichier</div>
             </div>
-        
-        )
+        );
     }
-
-
-
 }
 
 
