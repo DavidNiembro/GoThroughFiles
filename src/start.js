@@ -19,7 +19,7 @@ function createWindow() {
       })
   )
 
-  mainWindow.on('closed', () => {
+mainWindow.on('closed', () => {
     mainWindow = null
   })
 }

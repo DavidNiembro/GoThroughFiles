@@ -16,27 +16,34 @@ class Path extends Component {
         this.persistPath = this.persistPath.bind(this);
         this.changePath = this.changePath.bind(this)
     } 
-    componentDidMount(){
-        
-    }
+ 
+    /**
+     * 
+     */
     openDialog(){
         const properties = ['openDirectory'];
-        dialog.showOpenDialog(
-            { properties },
-            (path)=> {
-                if(path){
-                    this.setState({path:path[0]});
-                }
+        dialog.showOpenDialog({ properties },(path)=> {
+            if(path){
+                this.setState({path:path[0]});
             }
-        );
+        });
     }
+
+    /**
+     * 
+     * @param {*} e 
+     */
     changePath(e){
         this.setState({path:e.value})
     }
 
+    /**
+     * 
+     */
     persistPath(){
         this.props.setPath(this.state.path);
     }
+
     render() {
         return (
            <div style={{flex:1}}>

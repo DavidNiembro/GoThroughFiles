@@ -7,6 +7,12 @@
     overflow: hidden;
 }
 
+.splitLineFiltre{
+    height:1px;
+    width:80%; 
+    background-color:grey;
+    margin-top:50px
+}
 
 .switch {
     border: 1px solid #999;
