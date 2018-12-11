@@ -61,7 +61,7 @@ class Settings extends Component {
                     <span style={{color:"white",fontSize:40,lineHeight:2}}>Réglage</span>
                 </div>
                 <div style={{width:"80%", marginLeft:"auto",marginRight:"auto"}}>
-                    <h1>Changer le chemin</h1>
+                    <h1 style={{color: "white"}}>Changer le chemin</h1>
                     <h3 style={{color:"gray"}}>Choisissez le dossier ou vous voulez que la recherche s'effectue</h3>
                     <div style={{width:"100%", justifyContent:"center",marginBottom:20}}>
                         <InputBar stringChange={this.changePath} search={this.state.path}/>

@@ -2,7 +2,7 @@
     outline:none; 
     height:55px; 
     position:relative;
-    width:15%;
+    min-width: 15%;
     margin-left:2%;
     background-color:#1c81fd;
     border-radius: 30px; 
