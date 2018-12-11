@@ -7,12 +7,9 @@ Installation
 ------------
 
 * Clone le repository
-* Executer  `npm install`
-* Aller dans le dossier *backend* puis exectuer `composer install`
-* Copier le fichier .env.exemple en .env avec la commande `cp .env.exemple .env`
-* Executer la commande `php artisan key:generate` la première fois.
+* Executer  `yarn install`
 
 Execution
 ---------
 
-A la racine du projet executer la commande  `npm run electron`
+A la racine du projet executer la commande  `yarn start`
