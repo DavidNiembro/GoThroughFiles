@@ -7,6 +7,9 @@ var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
 const LINQ = require('node-linq').LINQ;
 const pdf = require('pdf-parse');
+PDFParser = require("pdf2json");
+var textract = require('textract');
+var WordExtractor = require("word-extractor");
 
 var files = [];
 let FOLDER_TO_WATCH_AND_TO_INDEX = null;
@@ -20,23 +23,30 @@ let regexAllWordsMustBePresentText;
 let regexAtLeastOneWordMustBePresentText;
 /* !!END REGEX!!*/
 
-function search(file, parametres){
-    fs.appendFileSync("./out.txt", "\r\nparametres:::: " + JSON.stringify(parametres) + "\r\n");
+async function search(file, parametres){
+    //fs.appendFileSync("./out.txt", "\r\nparametres:::: " + JSON.stringify(parametres) + "\r\n");
 
     if(fileContentIsIndexableForExtension(file.Name)) { // We can read the content of the actual file
-        fs.appendFileSync("./out.txt", "\r\nfileContentIsIndexableForExtension(file.Name) " + file.Path + "\r\n" );
+        //fs.appendFileSync("./out.txt", "\r\nfileContentIsIndexableForExtension(file.Name) " + file.Path + "\r\n" );
 
         if(parametres.searchInFile === false) { // If the user don't want to search into the file but only in the title (DEFAULT)
+          //  fs.appendFileSync("./out.txt", "false" );
+
             return isMatchedInTitle(file, new RegExp(regexAllWordsMustBePresentText, "i"));
         } else{
             // Here make a non-restrictive search. We search for the content OR for the title
             // ALL WORDS in the content must match but AT LEAST ONE must match in the title.
-            return  isMatchedInContent(file,    new RegExp(regexAllWordsMustBePresentText, "i")) ||
-                isMatchedInTitle(file,      new RegExp(regexAtLeastOneWordMustBePresentText, "i"));
+            //fs.appendFileSync("./out.txt", "true" );
+            let test = await isMatchedInContent(file,    new RegExp(regexAllWordsMustBePresentText, "i"));
+            fs.appendFileSync("./out.txt", test );
+
+            return test
+            //||
+              //  isMatchedInTitle(file,      new RegExp(regexAtLeastOneWordMustBePresentText, "i"));
         }
     }
     else{ // We can't read the actual content of the file so we search in the title only
-        fs.appendFileSync("./out.txt", "\r\nthe actualFile : " + file.Path + " HAS NOT AN EXTENSION we can read into the content \r\n" );
+        //fs.appendFileSync("./out.txt", "\r\nthe actualFile : " + file.Path + " HAS NOT AN EXTENSION we can read into the content \r\n" );
 
         return isMatchedInTitle(file, new RegExp(regexAllWordsMustBePresentText, "i"));
     }
@@ -45,50 +55,74 @@ function search(file, parametres){
 function isMatchedInTitle(file, regex){
 
     if(file.Name.match(regex)) {
-        fs.appendFileSync("./out.txt", "file.Name match with " + regex + "\r\n" );
+        //fs.appendFileSync("./out.txt", "file.Name match with " + regex + "\r\n" );
         return true;
     }else {
-        fs.appendFileSync("./out.txt", "file.Name DOEST NOT MATCH WITH " + regex + "\r\n" );
+        //fs.appendFileSync("./out.txt", "file.Name DOEST NOT MATCH WITH " + regex + "\r\n" );
         return false;
     }
 }
 
- function isMatchedInContent(file, regex){
+ async function isMatchedInContent(file, regex){
 
     let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+    
     let extension = file.Name.match(fileExtensionRegex)[1];
-
-    fs.appendFileSync("./out.txt", "the actualFile : " + file.Name + " has an extension of " + JSON.stringify(extension) + "\r\n\r\n" );
-
     let fileContent = "";
-
+    let that=this
     switch(extension){
         case 'pdf':
             fs.appendFileSync("./out.txt", "Entered into PDF in the switch\r\n" );
-            let dataBuffer = fs.readFileSync(file.Path);
-            pdf(dataBuffer).then(function(data) {
- 
-                console.log(data.text); 
-                fileContent = data.text
-                fs.appendFileSync("./out.txt", fileContent);
+            textract.fromFileWithPath(file.Path, function( error, text ) {
+               // fs.appendFileSync("./out.txt", "content" + text);
+            })
+            /*let pdfParser = new PDFParser(this,1);
+            pdfParser.loadPDF(file.Path);
+            let content = pdfParser.on("pdfParser_dataReady", function(data) {
+
+                fileContents = pdfParser.getRawTextContent();
+                fs.appendFileSync("./out.txt", fileContents);
+                if(fileContents.match(regex)){
+                   // fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
+                    return true;
+                }else {
+                    return false;
+                }
             });
+            content.then((data)=>{*/
+               // fs.appendFileSync("./out.txt", "content"+ data);
+           // })
             
 
             break;
-        default: // Default are all files that contain raw text in them like .txt/.doc aso
-            fs.appendFileSync("./out.txt", "Entered into DEFAULT in the switch\r\n" );
-            fileContent = fs.readFileSync(file.Path, "utf8");
-            break;
-    }
-
-
-    if(fileContent.match(regex)){
+        case "docx","doc":
+             if(file.content.match(regex)){
         fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
-
         return true;
     }else {
         return false;
+    }   
+
+        break;
+        default: // Default are all files that contain raw text in them like .txt/.doc aso
+            fs.appendFileSync("./out.txt", "Entered into DEFAULT in the switch\r\n" );
+            fileContent = fs.readFileSync(file.Path, "utf8");
+            if(fileContent.match(regex)){
+                //fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
+                return true;
+            }else {
+                return false;
+            }
+            break;
     }
+    fs.appendFileSync("./out.txt", "END ===========================================================");
+
+   /* if(file.fileContent.match(regex)){
+        fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
+        return true;
+    }else {
+        return false;
+    }*/
 }
 
 
@@ -121,34 +155,53 @@ ipc.on('Search', function(event, data){
         .on('err', function(error){
             console.log("error: " + error);
         })
-        .on('end', function(msg){
+        .on('end', async function(msg){
 
-            files.forEach(file => {
+           let prom = new Promise(files.map( async file => {
+                let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
+                let extension = file.Name.match(fileExtensionRegex)[1];
+                if(extension=="doc"){
+                    var extractor = new WordExtractor();
+                    var extracted = extractor.extract(file.Path);
+                    let test = await extracted.then(function(doc) {
+                        return doc.getBody()
+                    })
+                    resolve(file.content = test);
+                    
+                }
+
                 let statsFile = fs.statSync(file.Path);
                 file.meta = statsFile;
-            });
+            }))
+
+            prom.then(function(dvs){
+
+                fs.appendFileSync("./out.txt",  dvs );
+
 
             let dv = new LINQ(files)
-                .Where(function(file) { return search(file,{"listOfWordsToSearch": data.word, "searchInFile" : data.searchInFile});
+                    .Where( function(file) { return  search(file,{"listOfWordsToSearch": data.word, "searchInFile" : data.searchInFile});
                 });
+                fs.appendFileSync("./out.txt", dv );
+               
+                    event.sender.send('returnSearch', arr);
 
-            // .OrderBy(function(file) { return file;})
-            // .ToArray();
-            event.sender.send('returnSearch', dv);
+            
+                 })
+                    // .OrderBy(function(file) { return file;})
+                    // .ToArray();
+          
         });
 
 });
 /* !!END FUNCTIONS!!*/
 
 ipc.on('getPath', function(event, string){
-
     storage.get('path', function(error, data) {
         if (error) throw error;
         FOLDER_TO_WATCH_AND_TO_INDEX = data;
         event.sender.send('databasePath', data)
     });
-
-
 });
 
 ipc.on('setPath', function(event, string){
@@ -197,7 +250,7 @@ function fileNameWithExtensionIsInList(extension){
 }
 
 function createRegexForCase(regexCase, listOfWords){
-    fs.appendFileSync("./out.txt", "regexCase = " + regexCase + " listOfWords " + listOfWords + "\r\n=====\r\n");
+   // fs.appendFileSync("./out.txt", "regexCase = " + regexCase + " listOfWords " + listOfWords + "\r\n=====\r\n");
 
     let regex = "";
 
@@ -209,12 +262,12 @@ function createRegexForCase(regexCase, listOfWords){
 
             regex +=  ".+";
 
-            fs.appendFileSync("./out.txt", "regex ::: = " + regex + "\r\n======\r\n");
+           //fs.appendFileSync("./out.txt", "regex ::: = " + regex + "\r\n======\r\n");
 
             break;
         case "RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT":
 
-            fs.appendFileSync("./out.txt", "RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT\r\n");
+            //fs.appendFileSync("./out.txt", "RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT\r\n");
 
             listOfWords.forEach(function (value, i) {
                 regex += "("+value+")";
@@ -226,7 +279,7 @@ function createRegexForCase(regexCase, listOfWords){
             break;
     }
 
-    fs.appendFileSync("./out.txt", "regex result : " + regex + "\r\n");
+    //fs.appendFileSync("./out.txt", "regex result : " + regex + "\r\n");
 
     return regex;
 }

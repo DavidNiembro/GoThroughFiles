@@ -33,7 +33,7 @@ app.on("ready", function() {
         //mainWindow.loadURL("http://127.0.0.1:8088/search");
     }
 
-    mainWindow.webContents.openDevTools();
+   // mainWindow.webContents.openDevTools();
 
     mainWindow.on("closed", function() {
         mainWindow = null;
