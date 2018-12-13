@@ -84,7 +84,7 @@ ipc.on('Search', function(event, parametres){
     regexAllWordsMustBePresentText          = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_ALL_WORDS_MUST_BE_PRESENT",          parametres.word);
     regexAtLeastOneWordMustBePresentText    = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT",  parametres.word);
 
-    let stream = fg.async([FOLDER_TO_WATCH_AND_TO_INDEX+'/*']);
+    let stream = fg.async([FOLDER_TO_WATCH_AND_TO_INDEX+'/**']);
     stream.then(async (data)=>{
         let promData = new Promise(function (resolve, reject) {
             data.forEach( async pathFile => {
@@ -119,14 +119,13 @@ ipc.on('Search', function(event, parametres){
                             }) 
                         });
                         
-                       // content = await prom.then(data => {return data});
+                        //content = await prom.then(data => {return data});
                         //fs.appendFileSync("./out.txt", content + "\r\n\r\n");
                         break;
                     }
                     default:{
                         break;
                     }
-                   
                 }
                 entries.push({"Name":path.basename(pathFile),"Path":pathFile,"stat":stat,"content":content})  
 
