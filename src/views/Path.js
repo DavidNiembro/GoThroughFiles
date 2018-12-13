@@ -34,7 +34,9 @@ class Path extends Component {
      * @param {*} e 
      */
     changePath(e){
-        this.setState({path:e.value})
+        if(e.value){
+            this.setState({path:e.value})
+        }
     }
 
     /**

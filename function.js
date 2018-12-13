@@ -8,7 +8,7 @@ const storage = require('electron-json-storage');
 const LINQ = require('node-linq').LINQ;
 const pdf = require('pdf-parse');
 PDFParser = require("pdf2json");
-var mammoth = require("mammoth");
+//var mammoth = require("mammoth");
 const fg = require('fast-glob');
 const fsPromises = require('fs').promises
 const path = require('path');
@@ -62,19 +62,10 @@ function isMatchedInTitle(file, regex){
         return false;
     }
 }
-async function isMatchedInContent(file, regex){
+function isMatchedInContent(file, regex){
 
-    let fileExtensionRegex = new RegExp('.*\\.(\\w+)', 'i');
-    let extension = file.Name.match(fileExtensionRegex)[1];
-
-    //fs.appendFileSync("./out.txt", "the actualFile : " + file.Name + " has an extension of " + JSON.stringify(extension) + "\r\n\r\n" );
-
-    let fileContent = "";
-
-    
     if(file.content!== null && file.content.match(regex)){
         fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
-
         return true;
     }else {
         return false;
@@ -89,6 +80,12 @@ async function isMatchedInContent(file, regex){
  */
 ipc.on('Search', function(event, parametres){
     let entries = [];
+    reg = "";
+
+    parametres.word.forEach(word => {
+        reg += "(?=.*"+word+")";
+    });
+    searchInFile = parametres.searchInFile;
 
     regexAllWordsMustBePresentText          = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_ALL_WORDS_MUST_BE_PRESENT",          parametres.word);
     regexAtLeastOneWordMustBePresentText    = createRegexForCase("RGX_MATCH_ORDER_NOT_IMPORTANT_AT_LEAST_ONE_WORD_MUST_BE_PRESENT",  parametres.word);
@@ -106,45 +103,49 @@ ipc.on('Search', function(event, parametres){
                 let extension = name.match(fileExtensionRegex)[1];
                 switch(extension){
                     case "pdf":{
-
                         let pdfParser = new PDFParser(this,1);
                         pdfParser.loadPDF(pathFile);
-                        let fileTest = new Promise(function (resolve, reject) {
+                        let fileTest = new Promise(function (resolves, reject) {
                                             pdfParser.on("pdfParser_dataReady", function(fileContent) {
-                                                resolve(pdfParser.getRawTextContent())
+                                                resolves(pdfParser.getRawTextContent())
                                             })
                                         })
                         content = await fileTest.then(data => {return data})
                         break;
                     }
-                    case "txt":
+                    case "txt":{
                         content = fs.readFileSync(pathFile, "utf8");
-                    break;
-                    case "docx":{
-                        let prom = new Promise(function (resolve, reject) {
-                        mammoth.extractRawText({path:pathFile})
-                            .then(function(result){
-                                resolve (result.value);
-                            })
-                            .done();
-                            })
-                            content = await prom.then(data => {return data})
-                            break;
+                        break;
                     }
-                    default:
-                    break;
+                    case "docx":{
+                        let prom = new Promise(function (resolves, reject) {
+                            mammoth.extractRawText({path:pathFile})
+                            .then(function(result){
+                                resolves(result.value);
+                            }) 
+                        });
+                        
+                       // content = await prom.then(data => {return data});
+                        //fs.appendFileSync("./out.txt", content + "\r\n\r\n");
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                   
                 }
                 entries.push({"Name":path.basename(pathFile),"Path":pathFile,"stat":stat,"content":content})  
+
                 if(data.length == entries.length){
                     resolve()
                 }
             })
         })
+     
         dvs = await promData.then(datas => {
         
-            
             let test = Promise.resolve(entries)
-            .then(filter((word) => word.content.match(regexAllWordsMustBePresentText)))
+            .then(filter((word) => search(word,{"userString":parametres, "regex":reg, "searchInFile" : searchInFile})))
 
             test.then((dv)=>{
                 event.sender.send('returnSearch', dv);
@@ -156,13 +157,20 @@ ipc.on('Search', function(event, parametres){
 
 ipc.on('getPath', function(event, string){
 
-    storage.get('path', function(error, data) {
+    storage.has('path', function(error, hasKey) {
         if (error) throw error;
-        FOLDER_TO_WATCH_AND_TO_INDEX = data;
-        event.sender.send('databasePath', data)
-    });
-
-
+       
+        if (hasKey) {
+            storage.get('path', function(error, data) {
+                if (error) throw error;
+                FOLDER_TO_WATCH_AND_TO_INDEX = data;
+                event.sender.send('databasePath', data)
+            });
+        }else{
+            event.sender.send('databasePath', null)
+        }
+      });
+ 
 });
 
 ipc.on('setPath', function(event, string){

@@ -23,6 +23,7 @@ class App extends Component {
     componentDidMount(){
         let that = this;
         ipcRenderer.once('databasePath', function(event, path){
+            console.log(path)
             that.setState({path:path});
             setTimeout(()=>{
                 if(that.state.path==null){
