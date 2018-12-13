@@ -24,7 +24,6 @@ class Modal extends Component {
 
     render() {
         let file = this.props.data
-
         const containerClass = this.props.modalOpened ? 'modalContainer modalContainerActive' : 'modalContainer';
         return (
             <div className={containerClass}>
@@ -34,10 +33,10 @@ class Modal extends Component {
                 </div>
                 <div className='modalBody'>
                     <ul>
-                        <li><strong>Taille : </strong> {fileSizeSI(file && file.meta && file.meta.size)}</li>
+                        <li><strong>Taille : </strong> {fileSizeSI(file && file.stat && file.stat.size)}</li>
                         <li><strong>Emplacement: </strong>{file && file.Path}</li>
-                        <li><strong>Date de modification : </strong>{getDate(file && file.meta && file.meta.mtime)}</li>
-                        <li><strong>Date de création : </strong>{getDate(file && file.meta && file.meta.birthtime)}</li>
+                        <li><strong>Date de modification : </strong>{getDate(file && file.stat && file.stat.mtime)}</li>
+                        <li><strong>Date de création : </strong>{getDate(file && file.stat && file.stat.birthtime)}</li>
                     </ul>
                 </div>
                 <div className="buttonModalOpenFile" onClick={(e)=>this.openfile(e,file.Path)}   > Ouvrir le fichier</div>
