@@ -2,7 +2,7 @@
 const electron = require("electron");
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-
+var path = require("path");
 
 let mainWindow;
 
@@ -32,19 +32,20 @@ app.on("ready", function() {
     mainWindow = new BrowserWindow({ width: 900, height: 600, minHeight: 800, minWidth: 900,frame: false, title:"GoThroughFiles", icon: path.join(__dirname, "src/assets/logo/gothroughfiles64x64.png"), backgroundColor: "#070b0e", type: "textured" });
     }
 
+    //set a waiting time before electon is launched
     setTimeout(mainWindows, 300);
 
+    //load our main files for electron to launch properly
     function mainWindows() {
-        mainWindow.loadURL(startUrl);
-        //mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL(startUrl);;
     }
 
-    //mainWindow.webContents.openDevTools();
-
+    //function that minimise the windows to the task bar
     mainWindow.on("closed", function() {
         mainWindow = null;
     });
 
+    //Launch the Electron app
     app.on("activate", function() {
         if (mainWindow === null) {
             createWindow();
