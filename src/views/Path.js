@@ -43,19 +43,28 @@ class Path extends Component {
      * 
      */
     persistPath(){
-        this.props.setPath(this.state.path);
+        if(this.state.path.length>0){
+            this.props.setPath(this.state.path);
+        }
+        
     }
 
     render() {
         return (
-           <div style={{flex:1}}>
-               <div style={{top:"50vh", position:"absolute", width:"100%", justifyContent:"center"}}>
+            <div>
+            <div style={{width:"80%", marginLeft:"auto",marginRight:"auto", marginTop:"20vh"}}>
+                <h1 style={{color: "white"}}>Choisissez le chemin</h1>
+                <h3 style={{color:"gray"}}>Choisissez le dossier ou vous voulez que la recherche s'effectue</h3>
+                <div style={{width:"100%", justifyContent:"center",marginBottom:20}}>
                     <InputBar stringChange={this.changePath} search={this.state.path}/>
-               </div>
-               <Button search={this.openDialog} text={"Selectionner un chemin"}/>
-               <Button search={this.persistPath} text={"Suivant"}/>
+                </div>
+                <Button search={this.openDialog} text={"Selectionner"}/>
+            </div>
 
-           </div>
+            <div style={{bottom:20, display:"flex", width:"100%", justifyContent:"flex-end", position:"absolute", right:"20px"}}>
+                <Button search={this.persistPath} text={"Suivant"}/>
+            </div>
+        </div>
         );
     }
 }
