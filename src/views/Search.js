@@ -80,6 +80,7 @@ class Main extends Component {
 
             ipcRenderer.once('returnSearch', function(event, response){
                 setTimeout(()=>{
+                    console.log(response)
                     that.setState({datas:response, marginHeight:20, loading:false, widthButton: 145});
                 },1000)
             });
@@ -126,14 +127,14 @@ class Main extends Component {
                 
                 {this.state.marginHeight !== "40vh" &&
                     <div style={{padding:20, marginBottom:20, display:"flex", justifyContent:"center"}}>
-                        <span style={{color:"lightgrey", fontSize:60}}>Il y a {this.state.datas.items.length} {this.state.datas.items.length<2 ? "résultat":"résultats"}</span> 
+                        <span style={{color:"lightgrey", fontSize:60}}>Il y a {this.state.datas.length} {this.state.datas.length<2 ? "résultat":"résultats"}</span> 
                     </div>
                 }
                 <StackGrid
                     columnWidth={250}
                     gutterWidth={5}
                     >
-                    {this.state.datas && this.state.datas.items.map((data,key)=>{
+                    {this.state.datas && this.state.datas.map((data,key)=>{
                         return <Card key={key} data={data} modal={() =>this.modalToggle(data)}/>
                     })}
                 </StackGrid>
