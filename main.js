@@ -40,6 +40,13 @@ app.on("ready", function() {
         mainWindow.loadURL(startUrl);;
     }
 
+    // Kill the processes on Windows
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit()
+        }
+    });
+
     //function that minimise the windows to the task bar
     mainWindow.on("closed", function() {
         mainWindow = null;
