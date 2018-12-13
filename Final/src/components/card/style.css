@@ -1,0 +1,55 @@
+.Card {
+    background:#1b2838;
+    height:200px;
+    border-radius:10px;
+    padding:10px;
+    margin:10px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: height 0.3s, opacity 0.3s;
+}
+
+.Card:hover{
+    background:#3f5a7b;
+    box-shadow: 1px 8px 20px #1b2838;
+    -webkit-transition:  box-shadow;
+}
+
+.trait {
+    height:2px;
+    width:30px;
+    background-color:red;
+}
+
+.extension {
+    bottom: 30px;
+    position: absolute;
+    color: white;
+    right: 30px;
+}
+
+.openFileButton{
+    bottom:25px; 
+    position: absolute;
+    color:white;
+    left:20px;
+    border: 1px solid red;
+    border-radius:15px; 
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:5px;
+    padding-top:5px;
+    cursor: pointer;
+}
+
+.openFileButton:hover{
+    background:red;
+}
+
+.openFileText{
+    color:red
+}
+
+.openFileText:hover{
+    color: white
+}

@@ -1,0 +1,10 @@
+{
+  "dest": "release-gothroughfiles-linux/",
+  "icon": "src/assets/logo/gothroughfiles.png",
+  "categories": [
+    "Utility"
+  ],
+  "lintianOverrides": [
+    "changelog-file-missing-in-native-package"
+  ]
+}

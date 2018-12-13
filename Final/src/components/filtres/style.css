@@ -1,0 +1,50 @@
+.filtreFrame {
+    width:100%;
+    background-color:lightgrey;
+    margin-top:-50px;
+    border-radius: 25px;
+    transition: all 1s;
+    overflow: hidden;
+}
+
+.splitLineFiltre{
+    height:1px;
+    width:80%; 
+    background-color:grey;
+    margin-top:50px
+}
+
+.switch {
+    border: 1px solid #999;
+    width: 50px;
+    height: 28px;
+    border-radius: 13px;
+    cursor: pointer;
+    display: inline-block;
+    background: gray;
+    margin-top: 10px;
+}
+
+.switch-toggle {
+    border: 1px solid #999;
+    width: 25px;
+    height: 24px;
+    left: 0;
+    border-radius: 12px;
+    background: lightgray;
+    position: relative;
+    transition: left .2s ease-in-out;
+    top: 1px;
+}
+
+.switch.on {
+    background: #0f8a0f;
+}
+
+.switch.on .switch-toggle {
+    left: 23px;
+}
+
+.switch.disabled {
+    cursor: not-allowed;
+}
