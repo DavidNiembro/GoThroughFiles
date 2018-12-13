@@ -1,20 +1,14 @@
 /** FILES
  *      Variables needed for files reading
  */
-const readdirp = require('readdirp'); // Can read file recusrively into a folder
 const fs = require('graceful-fs');
 var ipc = require('electron').ipcMain;
 const storage = require('electron-json-storage');
-const LINQ = require('node-linq').LINQ;
-const pdf = require('pdf-parse');
 PDFParser = require("pdf2json");
 //var mammoth = require("mammoth");
 const fg = require('fast-glob');
 const fsPromises = require('fs').promises
 const path = require('path');
-//var WordExtractor = require("word-extractor");
-//const PDFExtract = require('pdf.js-extract').PDFExtract;
-//var Tesseract = require('tesseract.js')
 var mammoth = require("mammoth");
 const filter = require('promise-filter')
 
