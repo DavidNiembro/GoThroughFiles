@@ -6,7 +6,7 @@
     position: relative;
     margin: -15% auto;
   }
-  
+
   .double-bounce1, .double-bounce2 {
     width: 100%;
     height: 100%;
@@ -16,26 +16,26 @@
     position: absolute;
     top: 0;
     left: 0;
-  
+
     -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
     animation: sk-bounce 2.0s infinite ease-in-out;
-  
+
     background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
     background-size: 400% 400%;
     -moz-animation: Gradient 15s ease infinite;
   }
-  
+
   .double-bounce2 {
     -webkit-animation-delay: -1.0s;
     animation-delay: -1.0s;
   }
-  
+
   /*Bouncing animation*/
   @-webkit-keyframes sk-bounce {
     0%, 100% { -webkit-transform: scale(0.0) }
     50% { -webkit-transform: scale(1.0) }
   }
-  
+
   @keyframes sk-bounce {
     0%, 100% {
       transform: scale(0.0);
@@ -45,7 +45,7 @@
         -webkit-transform: scale(1.0);
       }
   }
-  
+
   /* Transform color in gradient*/
   @-webkit-keyframes Gradient {
     0% {
@@ -58,7 +58,7 @@
       background-position: 0% 50%
     }
   }
-  
+
   @-moz-keyframes Gradient {
     0% {
       background-position: 0% 50%
@@ -70,7 +70,7 @@
       background-position: 0% 50%
     }
   }
-  
+
   @keyframes Gradient {
     0% {
       background-position: 0% 50%
@@ -99,7 +99,7 @@
     font-weight: 700;
     font-size: 30px;
   }
-  
+
   svg rect {
     fill: white;
   }
