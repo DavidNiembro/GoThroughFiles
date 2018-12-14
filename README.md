@@ -18,19 +18,16 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 
 ## Tables des matières
 
-{% page-ref page="untitled.md" %}
-
-{% page-ref page="developpement.md" %}
-
-{% page-ref page="mode-demploi-utilisateur.md" %}
-
-{% page-ref page="installation-developpement.md" %}
-
-{% page-ref page="problemes-rencontres.md" %}
-
-{% page-ref page="conclusion.md" %}
-
-{% page-ref page="references.md" %}
+* [GoThroughFiles](README.md)
+* [Page de garde](page-de-garde.md)
+* [Introduction](untitled.md)
+* [Explications détaillées](developpement.md)
+* [Réalisation des cas d'utilisation](cas-dutilisation.md)
+* [Mode d'emploi utilisateur](mode-demploi-utilisateur.md)
+* [Installation développement](installation-developpement.md)
+* [Problèmes rencontrés](problemes-rencontres.md)
+* [Conclusion](conclusion.md)
+* [Références](references.md)
 
 ### Aperçu
 
