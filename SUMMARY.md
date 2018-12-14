@@ -1,6 +1,7 @@
 # Table of contents
 
-* [Page de garde](README.md)
+* [GoThroughFiles](README.md)
+* [Page de garde](page-de-garde.md)
 * [Introduction](untitled.md)
 * [Explications détaillées](developpement.md)
 * [Réalisation des cas d'utilisation](cas-dutilisation.md)

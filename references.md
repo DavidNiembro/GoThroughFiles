@@ -1,5 +1,7 @@
 # Références
 
+Tous les outils/librairies/framework/documentations cités ci-dessous ont été utilisé au moins une fois au cours du projet.
+
 Tous les outils/librairies/framework/documentations cités ci-dessous ont été utilisé au moins une fois au cours du projet. 
 
 L'application est passée par 3 phases distinctes de changement/ajout de technologie.
@@ -47,5 +49,5 @@ L'application est passée par 3 phases distinctes de changement/ajout de technol
 | PdfToText | https://github.com/spatie/pdf-to-text  |
 | Pdfparse | [https://gitlab.com/autokent/pdf-parse](https://gitlab.com/autokent/pdf-parse) |
 
-
+​
 
