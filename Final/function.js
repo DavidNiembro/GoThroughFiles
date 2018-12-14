@@ -58,7 +58,7 @@ function isMatchedInTitle(file, regex){
 function isMatchedInContent(file, regex){
 
     if(file.content!== null && file.content.match(regex)){
-        fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
+        //fs.appendFileSync("./out.txt", "The file " + file.Path + " match with the regex" + regex  + "\r\n\r\n");
         return true;
     }else {
         return false;
@@ -72,6 +72,13 @@ function isMatchedInContent(file, regex){
  * When the 1. process is finisehd it then goes into this array and read file by file to search if conditions are met
  */
 ipc.on('Search', function(event, parametres){
+
+    fs.exists(FOLDER_TO_WATCH_AND_TO_INDEX, (exists) => {
+        if(exists){
+
+ 
+ 
+
     let entries = [];
     reg = "";
 
@@ -111,14 +118,17 @@ ipc.on('Search', function(event, parametres){
                         break;
                     }
                     case "docx":{
-                        let prom = new Promise(function (resolves, reject) {
-                            mammoth.extractRawText({path:pathFile})
-                            .then(function(result){
-                                resolves(result.value);
-                            }) 
-                        });
+                        if(process.platform=="darwin"){
+                            let prom = new Promise(function (resolves, reject) {
+                                mammoth.extractRawText({path:pathFile})
+                                .then(function(result){
+                                    resolves(result.value);
+                                }).done();
+                            });
+                            
+                            content = await prom.then(data => {return data});
+                        }
                         
-                        //content = await prom.then(data => {return data});
                         //fs.appendFileSync("./out.txt", content + "\r\n\r\n");
                         break;
                     }
@@ -144,6 +154,13 @@ ipc.on('Search', function(event, parametres){
             })       
         })
     })
+}else{
+    storage.remove('path', function(error) {
+        if (error) throw error;
+      });
+      event.sender.send('returnSearch', []);
+}
+});
 });
 /* !!END FUNCTIONS!!*/
 

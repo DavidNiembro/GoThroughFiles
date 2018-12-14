@@ -24,7 +24,7 @@
   <body>
       <header id="titlebar">
           <div id="drag-region">
-              <div style="padding:10px"><span style="color:gray">GoThroughFiles</span></div>
+              <div style="padding:10px" id="title"><span style="color:gray">GoThroughFiles</span></div>
             <div id="window-controls">
               <div class="button" id="min-button">
                 <span>&#xE921;</span>
@@ -56,6 +56,11 @@
     };
 
     function init() {
+        if(remote.process.platform=="darwin"){
+            document.getElementById('window-controls').style.display="none";
+            document.getElementById('title').style.display="none";
+
+        }else{
         let window = remote.getCurrentWindow();
         const minButton = document.getElementById('min-button'),
             maxButton = document.getElementById('max-button'),
@@ -101,6 +106,7 @@
                 maxButton.style.display = "flex";
             }
         }
+    }
     }
 })();
     </script>

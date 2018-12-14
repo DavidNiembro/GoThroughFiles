@@ -10,7 +10,7 @@
     "create-installer-win": "node installers/windows/createinstaller.js",
     "create-installer-mac": "electron-installer-dmg ./release-gothroughfiles-mac/GoThroughFiles - File Searcher Project-darwin-x64\\ GoThroughFiles\\ app-darwin-x64/Electron\\ GoThroughFiles\\ GoThroughFiles - File Searcher Project.app contents --out=GoThroughFiles-mac",
     "create-debian-installer": "electron-installer-debian --src release-gothroughfiles-linux --arch amd64 --config debian.json"
-  }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "codepage": "^1.14.0",
