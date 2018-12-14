@@ -1,4 +1,0 @@
-The file C:/Users/Anel.MUMINOVIC/Documents/SQL1/Supports 2° CFC/MemoSQL.pdf match with the regex/(?=[\s\S]*test).+/i
-
-The file C:/Users/Anel.MUMINOVIC/Documents/SQL1/Supports 2° CFC/MemoSQL.pdf match with the regex/(?=[\s\S]*test).+/i
-

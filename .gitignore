@@ -12,5 +12,4 @@ yarn-error.log
 .env
 .DS_Store
 backend/public/output_json.txt
-/Final/node_modules
-/Final/build
+/build

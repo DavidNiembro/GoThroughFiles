@@ -1,74 +1,83 @@
 "use strict";
+//handle setupevents as quickly as possible
+const setupEvents = require('./installers/setupEvents')
+if (setupEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+}
 const electron = require("electron");
-const app = electron.app; // Module to control application life.
-const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
-
-// php ruleZ
 var path = require("path");
-var php = require("gulp-connect-php");
-php.server({
-    port: 8088,
-    base: path.resolve(__dirname) + "/backend/public"
-    // this is now pointing to a possible local installation of php, that is best for portability
-    // feel free to change with a system-wide installed php, that is dirty & working, but less portable
-    //bin: path.resolve(__dirname) + "/php/bin/php"
-});
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+
 let mainWindow;
 
-// Quit when all windows are closed.
-app.on("window-all-closed", function() {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform != "darwin") {
-        app.quit();
-    }
-});
+require("./function.js")
 
-const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
-    protocol: 'file:',
-    slashes: true
-});
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
+
 app.on("ready", function() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 900, height: 600 });
-    /*const startUrl =
-        process.env.ELECTRON_START_URL ||
-        url.format({
-            pathname: path.join(__dirname, "/../build/index.html"),
-            protocol: "file:",
-            slashes: true
-        });*/
-    // and load the app's front controller. Feel free to change with app_dev.php
+
+    //Config of the application windows for each platform
+    switch(process.platform){
+        case "darwin":{
+            mainWindow = new BrowserWindow({ width: 900, height: 600, minHeight: 800, minWidth: 900,titleBarStyle: "hidden", title:"GoThroughFiles", icon: path.join(__dirname, "src/assets/logo/gothroughfiles.icns"), backgroundColor: "#070b0e", type: "textured" });
+            break;
+        }
+        case "linux":{
+            mainWindow = new BrowserWindow({ width: 900, height: 600, minHeight: 800, minWidth: 900,titleBarStyle: "hidden", title:"GoThroughFiles", icon: path.join(__dirname, "src/assets/logo/gothroughfiles64x64.png"), backgroundColor: "#070b0e", type: "textured" });
+            break;
+        }
+        default:{
+            mainWindow = new BrowserWindow({ width: 900, height: 600, minHeight: 800, minWidth: 900,frame: false, backgroundColor: '#070b0e',show: false, center: true,icon: path.join(__dirname, "src/assets/logo/gothroughfiles.ico"),  fullscreenWindowTitle: true, defaultFontFamily: "fantasy", title: "GoThroughFiles", webPreferences: {
+                webSecurity: false
+            }, node: {
+                __dirname: false,
+                __filename: false
+            } });
+            break;
+        }
+    }
+
+    // Set a waiting time before electron is launched
     setTimeout(mainWindows, 300);
 
+    // Update of the title of the application
+    mainWindow.on('page-title-updated', (evt) => {
+        evt.preventDefault();
+    });
+
+
+    // Load our main files for Electron to launch properly
     function mainWindows() {
-        mainWindow.loadURL(startUrl);
-        //mainWindow.loadURL("http://127.0.0.1:8088/search");
+        mainWindow.loadURL('file://' + __dirname + '/build/index.html');
     }
 
-    // Uncomment to open the DevTools.
-    //mainWindow.webContents.openDevTools();
-
-    // Emitted when the window is closed.
+    // Function that diminishes the window to the task bar
     mainWindow.on("closed", function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
         mainWindow = null;
     });
 
+    // Launch the Electron app
     app.on("activate", function() {
-        // On OS X it's common to re-create a window in the app when the
-        // dock icon is clicked and there are no other windows open.
         if (mainWindow === null) {
             createWindow();
         }
     });
+
+    // Kill the processes on Windows
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit()
+        }
+    });
+
+    // If all ready, launch electron
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show()
+    });
+
+
+
 });
