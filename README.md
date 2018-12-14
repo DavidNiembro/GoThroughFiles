@@ -16,15 +16,7 @@
 
 Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 
-![](.gitbook/assets/electron-packager-13.0.0-green.svg)
-
-![](.gitbook/assets/dependencies-up-to-date-yellow.svg)
-
-![](.gitbook/assets/build-complete-yellow.svg)
-
-![](.gitbook/assets/react-16.5.2-yellowgreen.svg)
-
-![](.gitbook/assets/electron-3.0.2-yellowgreen.svg)
+![](.gitbook/assets/electron-packager-13.0.0-green.svg) ![](.gitbook/assets/dependencies-up-to-date-yellow.svg) ![](.gitbook/assets/build-complete-yellow.svg) ![](.gitbook/assets/react-16.5.2-yellowgreen.svg) ![](.gitbook/assets/electron-3.0.2-yellowgreen.svg)
 
 ## Tables des matières
 
