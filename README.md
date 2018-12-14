@@ -1,8 +1,6 @@
-# GoThroughFiles
-
-![](.gitbook/assets/image%20%283%29.png)
-
-## Documentation
+<p align="center">
+  <img src=".gitbook/assets/image%20%283%29.png" alt="GoThroughFiles" />
+</p>
 
 
 
@@ -12,21 +10,7 @@
 | **Date de fin de projet** | 14 décembre 2018 |
 | **Date de reddition du rapport** | 14 décembre 2018 |
 
-## Documentation
 
-![Recherche par titre](.gitbook/assets/nkncsm5ifl.gif)
-
-![Recherche dans le contenu du fichier](.gitbook/assets/ezgif.com-resize.gif)
-
-### Installation
-
-![GoThroughFiles](https://github.com/DavidNiembro/GoThroughFiles/tree/ea9301ce4ad7415f2189e2ad348b16da684aca5e/.gitbook/assets/image%20%283%29.png)
-
-| **Auteurs** | Dardan Iljazi, David Niembro, Anel Muminovic |
-| :--- | :---: |
-| **Date de début du projet** | 31 août 2018 |
-| **Date de fin de projet** | 14 décembre 2018 |
-| **Date de reddition du rapport** | 14 décembre 2018 |
 
 ## Documentation
 
@@ -35,6 +19,7 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 ![](.gitbook/assets/electron-packager-13.0.0-green.svg) ![](.gitbook/assets/dependencies-up-to-date-yellow.svg) ![](.gitbook/assets/build-complete-yellow.svg) ![](.gitbook/assets/react-16.5.2-yellowgreen.svg) ![](.gitbook/assets/electron-3.0.2-yellowgreen.svg)
 
 ## Tables des matières
+
 
 * [Introduction](untitled.md)
 * [Explications détaillées](developpement.md)
@@ -48,8 +33,9 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 ### Aperçu
 
 ![](.gitbook/assets/nkncsm5ifl.gif)
-
-![](.gitbook/assets/ezgif.com-resize%20%281%29.gif)
+<p align="center">
+<img src=".gitbook/assets/ezgif.com-resize.gif"/>
+</p>
 
 ### Installation
 
@@ -71,4 +57,6 @@ yarn start
 
 * [**MIT license**](http://opensource.org/licenses/mit-license.php)
 * Copyright 2018 © [C](http://fvcproductions.com/)PNV
+
+
 
