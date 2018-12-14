@@ -1,5 +1,3 @@
-# GoThroughFiles
-
 <p align="center">
   <img src=".gitbook/assets/image%20%283%29.png" alt="GoThroughFiles" />
 </p>
