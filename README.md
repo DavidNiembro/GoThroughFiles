@@ -2,8 +2,6 @@
 
 ![](.gitbook/assets/image%20%283%29.png)
 
-![](.gitbook/assets/logo.png)
-
 | **Auteurs** | Dardan Iljazi, David Niembro, Anel Muminovic |
 | :--- | :---: |
 | **Date de début du projet** | 31 août 2018 |
