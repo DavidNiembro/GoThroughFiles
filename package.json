@@ -1,45 +1,98 @@
 {
-  "name": "electron-symfony",
+  "name": "GoThroughFiles",
+  "productName": "GoThroughFiles - File Searcher Project",
   "version": "0.1.0",
-  "main": "main.js",
   "scripts": {
     "start": "BROWSER=none nf start -p 3000",
     "build": "react-scripts build",
+    "windows": "electron-packager . GoThroughFiles --overwrite --asar --platform=win32 --arch=ia32 --icon=src/assets/logo/gothroughfiles.ico --prune=true --out=release-gothroughfiles-windows --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='GoThroughFiles - File Searcher'",
+    "mac": "electron-packager . GoThroughFiles --overwrite --platform=darwin --arch=x64 --icon=src/assets/logo/gothroughfiles.icns --prune=true --out=release-gothroughfiles-mac",
+    "linux": "electron-packager . GoThroughFiles --overwrite --asar --platform=linux --arch=x64 --icon=src/assets/logo/gothroughfiles.png --prune=true --out=release-gothroughfiles-linux",
+    "create-installer-win": "node installers/windows/createinstaller.js",
+    "create-installer-mac": "electron-installer-dmg ./release-gothroughfiles-mac/GoThroughFiles - File Searcher Project-darwin-x64\\ GoThroughFiles\\ app-darwin-x64/Electron\\ GoThroughFiles\\ GoThroughFiles - File Searcher Project.app contents --out=GoThroughFiles-mac",
+    "create-debian-installer": "electron-installer-debian --src release-gothroughfiles-linux --arch amd64 --config debian.json",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
     "electron-start": "node src/electron-wait-react",
     "react-start": "react-scripts start",
     "pack": "build --dir",
-    "dist": "npm run build && build",
-    "postinstall": "install-app-deps"
+    "dist": "npm run build && build"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "codepage": "^1.14.0",
+    "electron-json-storage": "^4.1.4",
+    "electron-store": "^2.0.0",
+    "fast-glob": "^2.2.4",
     "foreman": "^3.0.1",
     "fs": "^0.0.1-security",
-    "node-dir": "^0.1.17",
+    "graceful-fs": "^4.1.15",
+    "mammoth": "^1.4.7",
+    "pdf2json": "^1.1.7",
+    "promise-filter": "^1.1.0",
     "react": "^16.5.2",
+    "react-box-shadow": "^1.0.1",
     "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "react-spinners": "^0.4.7",
+    "react-stack-grid": "^0.7.1",
+    "react-toggle-switch": "^3.0.4",
+    "react-typing-animation": "^1.4.0",
+    "stream": "0.0.2"
   },
-  "build": {
-    "appId": "com.electron.electron-with-create-react-app",
-    "win": {
-      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
-    },
-    "directories": {
-      "buildResources": "public"
-    }
-  },
-  "author": "David Niembro Scaccianoce",
+  "author": "Dardan Iljazi, Anel Muminovic, David Niembro",
   "license": "MIT",
   "devDependencies": {
     "electron": "^3.0.2",
-    "electron-builder": "^20.28.4",
-    "foreman": "^2.0.0",
+    "electron-packager": "^13.0.0",
+    "electron-winstaller": "^2.7.0",
+    "foreman": "^3.0.1",
     "gulp-connect-php": "^1.0.3",
-    "react-scripts": "0.8.5"
+    "react-scripts": "1.1.15"
   },
-  "homepage": "./"
+  "homepage": ".",
+  "main": "main.js",
+  "browserslist": [],
+  "build": {
+    "appId": "com.GoThroughFiles.app",
+    "files": [
+      "node_modules/**/*",
+      "public/**/*",
+      "src/**/*",
+      "main.js",
+      "function.js"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "public"
+    },
+    "mac": {
+      "icon": "src/assets/logo/gotroughfiles.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "src/assets/logo/gotroughfiles.ico"
+    }
+  }
 }
