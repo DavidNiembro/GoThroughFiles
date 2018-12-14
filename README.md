@@ -1,6 +1,10 @@
 # GoThroughFiles
 
-![](.gitbook/assets/image%20%283%29.png)
+<p align="center">
+  ![](.gitbook/assets/image%20%283%29.png)
+</p>
+
+
 
 | **Auteurs** | Dardan Iljazi, David Niembro, Anel Muminovic |
 | :--- | :---: |
