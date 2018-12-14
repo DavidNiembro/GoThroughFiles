@@ -1,7 +1,3 @@
----
-description: Les différents problèmes liés au développement de notre application.
----
-
 # Problèmes rencontrés
 
 ### **Fichier trop gros impossible à uploader sur git** 

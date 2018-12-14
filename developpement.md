@@ -1,7 +1,3 @@
----
-description: Documentation sur l'analyse de notre projet.
----
-
 # Explications détaillées
 
 ## Explications détaillées du projet

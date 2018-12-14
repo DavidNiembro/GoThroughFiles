@@ -1,7 +1,3 @@
----
-description: Explication du projet et des technologies utilisées
----
-
 # Introduction
 
 ## **Introduction**

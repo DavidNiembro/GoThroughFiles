@@ -1,7 +1,3 @@
----
-description: Description précise de chaque cas d'utilisation.
----
-
 # Réalisation des cas d'utilisation
 
 ## **1. Cas d'utilisation “Sélection du chemin racine”**
@@ -68,7 +64,7 @@ description: Description précise de chaque cas d'utilisation.
 
 #### **Diagramme de séquence système** 
 
-![](https://lh5.googleusercontent.com/1P2H_9SIzOX1v81YwVZRRO1jutVLiG98RbpCmC_4lF1coZj5L0QWr0cJ4IajKhLqrxs1PXSgnape4q2Ldk36O3H5L2zOpab-7xAK0wHAYMFLR2kx2k9E8z6XkbSjJ8ElEdrXZorH)
+![](.gitbook/assets/selection_chemin_racine_diagramme_sequence.png)
 
 ### **La phase de tests**
 

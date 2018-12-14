@@ -1,7 +1,3 @@
----
-description: Comment installer notre application en mode développeur et utilisateur.
----
-
 # Installation développement
 
 ## **Installation Build & Packaging développement**

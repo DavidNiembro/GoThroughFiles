@@ -1,7 +1,3 @@
----
-description: Explication de ce qu'il faut faire page par page.
----
-
 # Mode d'emploi utilisateur
 
 ### **Utilisation du produit**
