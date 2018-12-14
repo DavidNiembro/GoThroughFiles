@@ -21,7 +21,6 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 ## Tables des matières
 
 
-* [Page de garde](page-de-garde.md)
 * [Introduction](untitled.md)
 * [Explications détaillées](developpement.md)
 * [Réalisation des cas d'utilisation](cas-dutilisation.md)
