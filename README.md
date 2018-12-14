@@ -1,7 +1,7 @@
 # GoThroughFiles
 
 <p align="center">
-  ![](.gitbook/assets/image%20%283%29.png)
+  <img src=".gitbook/assets/image%20%283%29.png" alt="GoThroughFiles" />
 </p>
 
 
