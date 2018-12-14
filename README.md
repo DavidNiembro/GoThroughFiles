@@ -2,6 +2,16 @@
 
 ![](.gitbook/assets/image%20%283%29.png)
 
+![](.gitbook/assets/logo.png)
+
+| **Auteurs** | Dardan Iljazi, David Niembro, Anel Muminovic |
+| :--- | :---: |
+| **Date de début du projet** | 31 août 2018 |
+| **Date de fin de projet** | 14 décembre 2018 |
+| **Date de reddition du rapport** | 14 décembre 2018 |
+
+
+
 ## Documentation
 
 Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
@@ -18,7 +28,7 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 
 ## Tables des matières
 
-* [GoThroughFiles](README.md)
+
 * [Page de garde](page-de-garde.md)
 * [Introduction](untitled.md)
 * [Explications détaillées](developpement.md)
