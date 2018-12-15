@@ -33,6 +33,9 @@ Lien du Gitbook -&gt; [Gitbook](https://gothroughfiles.gitbook.io)
 ### Aperçu
 
 ![](.gitbook/assets/nkncsm5ifl.gif)
+<p align="center">
+<img src=".gitbook/assets/ezgif.com-resize.gif"/>
+</p>
 
 ### Installation
 

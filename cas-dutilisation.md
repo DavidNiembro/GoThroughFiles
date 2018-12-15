@@ -100,7 +100,6 @@
       <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left"></td>
       <td style="text-align:left"><b>Sélection du chemin racine<br /></b>
       </td>
       <td style="text-align:left"><b>Pris en compte du path dans la recherche</b>
@@ -108,13 +107,15 @@
       <td style="text-align:left"><b>Succès</b>
       </td>
       <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
     </tr>
     <tr>
+      <td style="text-align:left"><b></b>
+      </td>
       <td style="text-align:left"><b>Mise à jour de l’input avec le nouveau nom</b>
       </td>
       <td style="text-align:left"><b>Succès</b>
       </td>
-      <td style="text-align:left"></td>
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
     </tr>
@@ -335,7 +336,6 @@
       </th>
       <th style="text-align:left"><b>Constatation</b>
       </th>
-      <th style="text-align:left"></th>
     </tr>
   </thead>
   <tbody>
@@ -345,27 +345,18 @@
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left"></td>
       <td style="text-align:left"><b>Recherche par contenu dans un dossier contenant peu de fichiers (~10)</b>
       </td>
       <td style="text-align:left"><b>Avoir bien tous les fichiers contenant le mot affichés</b>
       </td>
       <td style="text-align:left"><b>Succès</b>
       </td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left"><b></b>
+      </td>
     </tr>
     <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
       <td style="text-align:left"><b>Recherche par contenu dans un dossier contenant près de 10’000 fichiers (9’823)</b>
       </td>
       <td style="text-align:left"><b>Avoir bien tous les fichiers contenant le mot affichés</b>
@@ -374,13 +365,6 @@
       </td>
       <td style="text-align:left"><b>Prend beaucoup plus de temps</b>
       </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
     </tr>
   </tbody>
 </table>
@@ -447,76 +431,7 @@
 
 ![](https://lh6.googleusercontent.com/X9xn_4BCUT55t7CcdThr4rSI1qmhzXmbbp-vxFVzbZ-JFMWoWJQKGRwcAEJtLgmydIwqU7MO74NlJ-HoskzpDOXTx_h8ilxQNZQcZ7z7SDX2FVMMrO2JaeqgzDxj2uRS8jYjRJqn)
 
-### **La phase de tests**
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left"><b>Test à effectuer</b>
-      </th>
-      <th style="text-align:left">
-        <p><b>Résultat</b>
-        </p>
-        <p><b>escompté</b>
-        </p>
-      </th>
-      <th style="text-align:left">
-        <p><b>Résultat</b>
-        </p>
-        <p><b>obtenu</b>
-        </p>
-      </th>
-      <th style="text-align:left"><b>Constatation</b>
-      </th>
-      <th style="text-align:left"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><b>Généralités</b>
-      </td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"><b>Faire une recherche dans un dossier contenant peu de fichier (~10)</b>
-      </td>
-      <td style="text-align:left"><b>Liste de fichiers correspondant à la recherche s’affichent</b>
-      </td>
-      <td style="text-align:left"><b>Succès</b>
-      </td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"><b>Faire une recherche dans un dossier contenant près de 10’000 fichiers (9’823)</b>
-      </td>
-      <td style="text-align:left"><b>Liste de fichiers correspondant à la recherche s’affichent</b>
-      </td>
-      <td style="text-align:left"><b>Succès</b>
-      </td>
-      <td style="text-align:left"><b>Prend beaucoup plus de temps</b>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
 
 ## **5. Cas d'utilisation “Ouverture du fichier”**
 
@@ -570,9 +485,7 @@
       <td style="text-align:left">Validé</td>
     </tr>
   </tbody>
-</table>### **Maquettes**
-
-### **Analyse du scénario**
+</table>### **Analyse du scénario**
 
 #### **Diagramme de séquence système** 
 
@@ -601,7 +514,6 @@
       </th>
       <th style="text-align:left"><b>Constatation</b>
       </th>
-      <th style="text-align:left"></th>
     </tr>
   </thead>
   <tbody>
@@ -611,23 +523,14 @@
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
       <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
     </tr>
     <tr>
-      <td style="text-align:left"></td>
       <td style="text-align:left"><b>Recherche des fichiers avec extension citées dans “4.1 explication détaillée du projet” les ouvrir.</b>
       </td>
       <td style="text-align:left"><b>Les fichiers s’ouvrent bel et bien</b>
       </td>
       <td style="text-align:left"><b>Succès</b>
       </td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
       <td style="text-align:left"></td>
     </tr>
   </tbody>
