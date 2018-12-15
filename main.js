@@ -9,6 +9,7 @@ const electron = require("electron");
 var path = require("path");
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const isDev = require('electron-is-dev');
 
 
 let mainWindow;
@@ -51,7 +52,11 @@ app.on("ready", function() {
 
     // Load our main files for Electron to launch properly
     function mainWindows() {
-        mainWindow.loadURL('file://' + __dirname + '/build/index.html');
+        mainWindow.loadURL(
+            isDev
+            ? 'http://localhost:3000'
+            :  'file://' + __dirname + '/build/index.html',
+        );
     }
 
     // Function that diminishes the window to the task bar
